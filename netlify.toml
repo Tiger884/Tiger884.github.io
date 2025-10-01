@@ -1,0 +1,254 @@
+﻿# Netlify конфігурація для Retro-PC Store з оптимізацією продуктивності та безпеки
+
+[build]
+  functions = "functions"
+  publish = "."
+
+[build.environment]
+  NODE_VERSION = "18"
+
+# ================================
+# ОПТИМІЗОВАНІ ЗАГОЛОВКИ КЕШУВАННЯ
+# ================================
+
+# Агресивне кешування для версіонованих ресурсів (якщо будуть)
+[[headers]]
+  for = "/assets/css/*.*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/assets/js/*.*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    X-Content-Type-Options = "nosniff"
+
+# Кешування для статичних ресурсів
+[[headers]]
+  for = "/assets/css/style.css"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/assets/js/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
+    X-Content-Type-Options = "nosniff"
+
+# Оптимізоване кешування для зображень
+[[headers]]
+  for = "/assets/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000, stale-while-revalidate=604800"
+    X-Content-Type-Options = "nosniff"
+
+# Кешування для оптимізованих зображень WebP/AVIF
+[[headers]]
+  for = "/assets/img/fallback/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=7776000, stale-while-revalidate=604800"
+    X-Content-Type-Options = "nosniff"
+    Vary = "Accept"
+
+[[headers]]
+  for = "/assets/img/fallback/*.avif"
+  [headers.values]
+    Cache-Control = "public, max-age=7776000, stale-while-revalidate=604800"
+    X-Content-Type-Options = "nosniff"
+    Vary = "Accept"
+
+# Кешування для SEO файлів
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, must-revalidate"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
+    X-Content-Type-Options = "nosniff"
+
+# Кешування для головної сторінки з балансом між свіжістю та продуктивністю
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=300, must-revalidate, stale-while-revalidate=600"
+
+# Кешування для кореневої сторінки
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "public, max-age=300, must-revalidate, stale-while-revalidate=600"
+
+# ================================
+# ПОСИЛЕНІ ЗАГОЛОВКИ БЕЗПЕКИ
+# ================================
+
+# Глобальні заголовки безпеки для всіх ресурсів
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Основні заголовки безпеки
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    
+    # Посилена Content Security Policy
+    Content-Security-Policy = """
+      default-src 'self';
+      script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com;
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+      font-src 'self' https://fonts.gstatic.com;
+      img-src 'self' data: https: https://www.google-analytics.com https://www.googletagmanager.com https://svcs.ebay.com;
+      connect-src 'self' https://svcs.ebay.com https://api.ebay.com https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com;
+      object-src 'none';
+      media-src 'self';
+      frame-src 'none';
+      worker-src 'self';
+      manifest-src 'self';
+      base-uri 'self';
+      form-action 'self';
+      frame-ancestors 'none';
+      upgrade-insecure-requests;
+    """
+    
+    # Permissions Policy (замінник Feature Policy)
+    Permissions-Policy = """
+      geolocation=(),
+      microphone=(),
+      camera=(),
+      fullscreen=(self),
+      payment=(),
+      usb=(),
+      magnetometer=(),
+      gyroscope=(),
+      accelerometer=(),
+      ambient-light-sensor=(),
+      autoplay=(self),
+      encrypted-media=(self),
+      picture-in-picture=(self)
+    """
+    
+    # Додаткові заголовки безпеки
+    X-Permitted-Cross-Domain-Policies = "none"
+    Cross-Origin-Embedder-Policy = "unsafe-none"
+    Cross-Origin-Opener-Policy = "same-origin"
+    Cross-Origin-Resource-Policy = "same-origin"
+
+# ================================
+# ОПТИМІЗАЦІЯ FONTS
+# ================================
+
+[[headers]]
+  for = "/assets/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Cross-Origin-Resource-Policy = "cross-origin"
+
+# ================================
+# API ENDPOINTS SECURITY
+# ================================
+
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Content-Security-Policy = "default-src 'none'"
+
+# ================================
+# REDIRECTS ДЛЯ SEO
+# ================================
+
+# Redirect для www версії
+[[redirects]]
+  from = "https://www.tiger884.github.io/*"
+  to = "https://tiger884.github.io/:splat"
+  status = 301
+  force = true
+
+# Redirect для старих шляхів (якщо були)
+[[redirects]]
+  from = "/style.css"
+  to = "/assets/css/style.css"
+  status = 301
+
+[[redirects]]
+  from = "/main.js"
+  to = "/assets/js/main.js"
+  status = 301
+
+[[redirects]]
+  from = "/fallback-data.js"
+  to = "/assets/js/fallback-data.js"
+  status = 301
+
+[[redirects]]
+  from = "/photos/*"
+  to = "/assets/img/:splat"
+  status = 301
+
+# ================================
+# ERROR PAGES
+# ================================
+
+# Custom 404 page
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# ================================
+# PERFORMANCE OPTIMIZATIONS
+# ================================
+
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = true
+  minify = true
+
+[build.processing.html]
+  pretty_urls = true
+
+[build.processing.images]
+  compress = true
+
+# ================================
+# EDGE FUNCTIONS CONFIGURATION
+# ================================
+
+[[edge_functions]]
+  function = "search-optimization"
+  path = "/search/*"
+
+# ================================
+# ENVIRONMENT VARIABLES
+# ================================
+
+[context.production.environment]
+  NODE_ENV = "production"
+  ENABLE_ANALYTICS = "true"
+
+[context.deploy-preview.environment]
+  NODE_ENV = "development"
+  ENABLE_ANALYTICS = "false"
+
+# ================================
+# SPLIT TESTING (A/B TESTING)
+# ================================
+
+# Можна додати у майбутньому для тестування різних версій
+# [[plugins]]
+#   package = "@netlify/plugin-split-testing"

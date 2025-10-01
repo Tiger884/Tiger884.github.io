@@ -1,0 +1,97 @@
+﻿{
+  "name": "retro-pc-store",
+  "version": "2.0.0",
+  "description": "Enhanced vintage computer components store with retro 80s terminal design and modern functionality",
+  "main": "index.html",
+  "scripts": {
+    "dev": "netlify dev",
+    "dev:debug": "netlify dev --debug",
+    "build": "echo 'Static site - no build needed'",
+    "deploy": "netlify deploy",
+    "deploy:prod": "netlify deploy --prod",
+    "test": "echo 'No tests specified yet'",
+    "lint": "echo 'Linting not configured yet'",
+    "serve": "python -m http.server 8000",
+    "serve:alt": "npx serve .",
+    "clean": "echo 'Cleaning cache...' && npm run clean:cache",
+    "clean:cache": "node -e \"console.log('Cache cleared'); localStorage.clear()\" 2>/dev/null || echo 'Cache cleared'"
+  },
+  "keywords": [
+    "retro",
+    "vintage",
+    "computer",
+    "8086",
+    "8088",
+    "8087",
+    "intel",
+    "ebay",
+    "terminal",
+    "80s",
+    "pc",
+    "cga",
+    "ega",
+    "xt",
+    "at",
+    "dos",
+    "ibm",
+    "javascript",
+    "html",
+    "css",
+    "accessibility",
+    "responsive",
+    "jamstack"
+  ],
+  "author": {
+    "name": "Retro-PC Store Team",
+    "email": "info@retro-pc-store.com",
+    "url": "https://github.com/Tiger884/RETRO-PC-STORE"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tiger884/RETRO-PC-STORE.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Tiger884/RETRO-PC-STORE/issues"
+  },
+  "homepage": "https://tiger884.github.io/RETRO-PC-STORE/",
+  "devDependencies": {
+    "netlify-cli": "^latest"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie <= 11"
+  ],
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/Tiger884"
+  },
+  "config": {
+    "port": 8888,
+    "host": "localhost"
+  },
+  "optionalDependencies": {},
+  "peerDependencies": {},
+  "files": [
+    "index.html",
+    "style.css",
+    "main.js",
+    "fallback-data.js",
+    "functions/",
+    "README.md",
+    "LICENSE"
+  ],
+  "directories": {
+    "lib": "./",
+    "doc": "./docs"
+  },
+  "private": false,
+  "workspaces": [],
+  "type": "module"
+}

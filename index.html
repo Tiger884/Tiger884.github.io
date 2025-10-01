@@ -3,148 +3,373 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retro-PC Store - Магазин ретро комп'ютерів</title>
+    <title>Retro-PC Store - Магазин ретро комп'ютерів епохи 8086</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Винтажний магазин ретро комп'ютерних компонентів епохи 8086. Intel 8086, 8088, 8087 процесори та інші раритетні деталі з автентичним дизайном терміналу 80-х років.">
+    <meta name="keywords" content="Intel 8086, 8088, 8087, ретро комп'ютери, винтажні процесори, IBM PC, XT, раритетні компоненти, vintage computing">
+    <meta name="author" content="Retro-PC Store">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Retro-PC Store - Магазин ретро комп'ютерів">
+    <meta property="og:description" content="Винтажний магазин ретро комп'ютерних компонентів епохи 8086 з автентичним дизайном терміналу 80-х років">
+    <meta property="og:url" content="https://tiger884.github.io/RETRO-PC-STORE/">
+    <meta property="og:site_name" content="Retro-PC Store">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Retro-PC Store - Магазин ретро комп'ютерів">
+    <meta name="twitter:description" content="Винтажний магазин ретро комп'ютерних компонентів епохи 8086">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSIjMEQwRDBEIiBzdHJva2U9IiMzM0ZGMzMiIHN0cm9rZS13aWR0aD0iMiIvPgo8dGV4dCB4PSIxNiIgeT0iMjAiIGZvcnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvcnQtc2l6ZT0iMTAiIGZpbGw9IiNGRkIwMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjg2PC90ZXh0Pgo8L3N2Zz4K">
+    
+    <!-- Google Analytics -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L5M93HJZ91"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-L5M93HJZ91', {
+        anonymize_ip: true,
+        cookie_flags: 'SameSite=None;Secure',
+        custom_map: {
+          'custom_parameter_1': 'retro_store_section'
+        }
+      });
+    </script>
+    
+    <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=VT323:wght@400&family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://svcs.ebay.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=VT323:wght@400&family=Press+Start+2P:wght@400&display=swap" rel="stylesheet">
+    
+    <!-- Styles with new path -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Enhanced Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Store",
+                "@id": "https://tiger884.github.io/RETRO-PC-STORE/#store",
+                "name": "Retro-PC Store",
+                "description": "Винтажний магазин ретро комп'ютерних компонентів епохи 8086. Intel 8086, 8088, 8087 процесори та інші раритетні деталі з автентичним дизайном терміналу 80-х років.",
+                "url": "https://tiger884.github.io/RETRO-PC-STORE/",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://tiger884.github.io/RETRO-PC-STORE/assets/img/logo-retro-pc.png",
+                    "width": 300,
+                    "height": 300
+                },
+                "image": [
+                    "https://tiger884.github.io/RETRO-PC-STORE/assets/img/Intel_8086-2.jpg",
+                    "https://tiger884.github.io/RETRO-PC-STORE/assets/img/Intel_8087.jpg",
+                    "https://tiger884.github.io/RETRO-PC-STORE/assets/img/Intel_8088-2.jpg"
+                ],
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressCountry": "UA",
+                    "addressRegion": "Київська область",
+                    "addressLocality": "Київ"
+                },
+                "contactPoint": {
+                    "@type": "ContactPoint",
+                    "contactType": "customer service",
+                    "availableLanguage": ["Ukrainian", "English"],
+                    "url": "https://github.com/Tiger884/RETRO-PC-STORE"
+                },
+                "openingHoursSpecification": {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": [
+                        "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+                    ],
+                    "opens": "00:00",
+                    "closes": "23:59"
+                },
+                "priceRange": "$50-$500",
+                "specialty": "Vintage Computer Components",
+                "foundingDate": "2024-09-10",
+                "slogan": "Повернення в майбутнє через минуле",
+                "currenciesAccepted": "USD",
+                "paymentAccepted": ["Cash", "Credit Card", "PayPal"],
+                "hasOfferCatalog": {
+                    "@type": "OfferCatalog",
+                    "name": "Retro Computer Components",
+                    "itemListElement": [
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Product",
+                                "name": "Intel 8086 CPU",
+                                "category": "Vintage Processors"
+                            }
+                        },
+                        {
+                            "@type": "Offer", 
+                            "itemOffered": {
+                                "@type": "Product",
+                                "name": "Intel 8087 Math Coprocessor",
+                                "category": "Vintage Coprocessors"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "@type": "WebSite",
+                "@id": "https://tiger884.github.io/RETRO-PC-STORE/#website",
+                "url": "https://tiger884.github.io/RETRO-PC-STORE/",
+                "name": "Retro-PC Store - Магазин ретро комп'ютерів",
+                "description": "Винтажний магазин ретро комп'ютерних компонентів епохи 8086 з автентичним дизайном терміналу 80-х років",
+                "publisher": {
+                    "@type": "Organization",
+                    "@id": "https://tiger884.github.io/RETRO-PC-STORE/#store"
+                },
+                "inLanguage": "uk-UA",
+                "potentialAction": [
+                    {
+                        "@type": "SearchAction",
+                        "target": {
+                            "@type": "EntryPoint",
+                            "urlTemplate": "https://tiger884.github.io/RETRO-PC-STORE/#shop?search={search_term_string}"
+                        },
+                        "query-input": "required name=search_term_string"
+                    }
+                ]
+            },
+            {
+                "@type": "BreadcrumbList",
+                "@id": "https://tiger884.github.io/RETRO-PC-STORE/#breadcrumb",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Головна",
+                        "item": "https://tiger884.github.io/RETRO-PC-STORE/"
+                    },
+                    {
+                        "@type": "ListItem", 
+                        "position": 2,
+                        "name": "Магазин",
+                        "item": "https://tiger884.github.io/RETRO-PC-STORE/#shop"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 3, 
+                        "name": "Wiki",
+                        "item": "https://tiger884.github.io/RETRO-PC-STORE/#wiki"
+                    }
+                ]
+            }
+        ]
+    }
+    </script>
 </head>
 <body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-link">Перейти до основного контенту</a>
+    
     <!-- ASCII Art Header -->
-    <div class="ascii-border">
+    <div class="ascii-border" role="presentation" aria-hidden="true">
         ┌─────────────────────────────────────────────────────────────────────────────────┐
     </div>
     
-    <header class="main-header">
+    <header class="main-header" role="banner">
         <div class="header-content">
             <h1 class="site-title">
                 ░▒▓█ RETRO-PC STORE █▓▒░
             </h1>
-            <div class="header-subtitle">
+            <p class="header-subtitle">
                 &gt; МАГАЗИН РЕТРО КОМП'ЮТЕРІВ 8086 ERA &lt;
-            </div>
-            <nav class="main-nav">
-                <div class="nav-border">
+            </p>
+            <nav class="main-nav" role="navigation" aria-label="Головна навігація">
+                <div class="nav-border" role="presentation" aria-hidden="true">
                     ├─────┬─────────┬─────────┤
                 </div>
-                <a href="#shop" class="nav-link">[МАГАЗИН]</a>
-                <span class="nav-separator">│</span>
-                <a href="#wiki" class="nav-link">[ВІКІ]</a>
+                <a href="#shop" class="nav-link" aria-label="Перейти до секції магазину">[МАГАЗИН]</a>
+                <span class="nav-separator" role="presentation" aria-hidden="true">│</span>
+                <a href="#wiki" class="nav-link" aria-label="Перейти до секції вікі">[ВІКІ]</a>
             </nav>
         </div>
     </header>
 
-    <div class="ascii-border">
+    <div class="ascii-border" role="presentation" aria-hidden="true">
         ├─────────────────────────────────────────────────────────────────────────────────┤
     </div>
 
-    <main class="main-content">
+    <main class="main-content" id="main-content" role="main">
         <!-- Популярні товари -->
-        <section class="popular-products" id="shop">
-            <h2 class="section-title">
+        <section class="popular-products" id="shop" aria-labelledby="products-title">
+            <h2 class="section-title" id="products-title">
                 &gt;&gt;&gt; ПОПУЛЯРНІ ТОВАРИ &lt;&lt;&lt;
             </h2>
-            <div class="ascii-separator">
+            <div class="ascii-separator" role="presentation" aria-hidden="true">
                 ┌───────────────┬───────────────┬───────────────┐
             </div>
             <!-- Динамический контейнер для товарів -->
-            <div class="products-grid" id="products-container">
+            <div class="products-grid" id="products-container" role="region" aria-label="Список товарів" aria-live="polite">
                 <div class="loading-message">
                     <div class="loading-text">Завантаження пропозицій з eBay...</div>
-                    <div class="loading-cursor">C:\RETRO-PC&gt;_</div>
+                    <div class="loading-cursor" aria-hidden="true">C:\RETRO-PC&gt;_</div>
                 </div>
             </div>
         </section>
 
-        <div class="ascii-separator-large">
+        <div class="ascii-separator-large" role="presentation" aria-hidden="true">
             ├─────────────────────────────────────────────────────────────────────────────────┤
         </div>
 
         <!-- Останні статті з Вікі -->
-        <section class="wiki-articles" id="wiki">
-            <h2 class="section-title">
+        <section class="wiki-articles" id="wiki" aria-labelledby="wiki-title">
+            <h2 class="section-title" id="wiki-title">
                 &gt;&gt;&gt; ОСТАННІ СТАТТІ З ВІКІ &lt;&lt;&lt;
             </h2>
-            <div class="ascii-separator">
+            <div class="ascii-separator" role="presentation" aria-hidden="true">
                 ┌─────────────────────────────────────────────┐
             </div>
-            <ul class="wiki-list">
-                <li class="wiki-item">
-                    <span class="wiki-bullet">►</span>
-                    <a href="#" class="wiki-link" data-article-id="intel-8086-history">Історія мікропроцесора Intel 8086</a>
-                    <span class="wiki-date">[1985-03-15]</span>
+            <ul class="wiki-list" role="list">
+                <li class="wiki-item" role="listitem">
+                    <span class="wiki-bullet" aria-hidden="true">►</span>
+                    <a href="#" class="wiki-link" data-article-id="intel-8086-history" 
+                       aria-describedby="wiki-date-1">Історія мікропроцесора Intel 8086</a>
+                    <span class="wiki-date" id="wiki-date-1">[1985-03-15]</span>
                 </li>
-                <li class="wiki-item">
-                    <span class="wiki-bullet">►</span>
-                    <a href="#" class="wiki-link" data-article-id="cga-vs-ega">Порівняння графічних стандартів CGA vs EGA</a>
-                    <span class="wiki-date">[1984-11-20]</span>
+                <li class="wiki-item" role="listitem">
+                    <span class="wiki-bullet" aria-hidden="true">►</span>
+                    <a href="#" class="wiki-link" data-article-id="cga-vs-ega"
+                       aria-describedby="wiki-date-2">Порівняння графічних стандартів CGA vs EGA</a>
+                    <span class="wiki-date" id="wiki-date-2">[1984-11-20]</span>
                 </li>
-                <li class="wiki-item">
-                    <span class="wiki-bullet">►</span>
-                    <a href="#" class="wiki-link" data-article-id="xt-motherboards">Налаштування материнських плат XT класу</a>
-                    <span class="wiki-date">[1986-01-08]</span>
+                <li class="wiki-item" role="listitem">
+                    <span class="wiki-bullet" aria-hidden="true">►</span>
+                    <a href="#" class="wiki-link" data-article-id="xt-motherboards"
+                       aria-describedby="wiki-date-3">Налаштування материнських плат XT класу</a>
+                    <span class="wiki-date" id="wiki-date-3">[1986-01-08]</span>
+                </li>
+                <li class="wiki-item" role="listitem">
+                    <span class="wiki-bullet" aria-hidden="true">►</span>
+                    <a href="#" class="wiki-link" data-article-id="memory-expansion"
+                       aria-describedby="wiki-date-4">Розширення пам'яті в системах XT/AT</a>
+                    <span class="wiki-date" id="wiki-date-4">[1987-05-12]</span>
+                </li>
+                <li class="wiki-item" role="listitem">
+                    <span class="wiki-bullet" aria-hidden="true">►</span>
+                    <a href="#" class="wiki-link" data-article-id="sound-cards-history"
+                       aria-describedby="wiki-date-5">Еволюція звукових карт AdLib і Sound Blaster</a>
+                    <span class="wiki-date" id="wiki-date-5">[1988-11-03]</span>
                 </li>
             </ul>
-            <div class="ascii-separator">
+            <div class="ascii-separator" role="presentation" aria-hidden="true">
                 └─────────────────────────────────────────────┘
             </div>
         </section>
     </main>
 
-    <div class="ascii-border">
+    <div class="ascii-border" role="presentation" aria-hidden="true">
         ├─────────────────────────────────────────────────────────────────────────────────┤
     </div>
 
-    <footer class="main-footer">
+    <footer class="main-footer" role="contentinfo">
         <div class="footer-content">
-            <div class="ascii-art-footer">
+            <div class="ascii-art-footer" aria-hidden="true">
                 ░▒▓█ RETRO-PC STORE █▓▒░
             </div>
             <p class="copyright">
                 &copy; 2024 RETRO-PC STORE │ ПОВЕРНЕННЯ В МАЙБУТНЄ ЧЕРЕЗ МИНУЛЕ
             </p>
-            <div class="footer-terminal">
+            <div class="footer-links">
+                <a href="https://github.com/Tiger884/RETRO-PC-STORE" class="footer-link" target="_blank" rel="noopener noreferrer">
+                    [GITHUB]
+                </a>
+                <span class="nav-separator" role="presentation" aria-hidden="true">│</span>
+                <a href="#" class="footer-link" id="theme-toggle" aria-label="Переключити тему оформлення">
+                    [ЗМІНИТИ ТЕМУ]
+                </a>
+            </div>
+            <div class="footer-terminal" aria-hidden="true">
                 C:\RETRO-PC&gt; DIR *.MEMORIES
             </div>
         </div>
     </footer>
 
-    <div class="ascii-border">
+    <div class="ascii-border" role="presentation" aria-hidden="true">
         └─────────────────────────────────────────────────────────────────────────────────┘
     </div>
 
-    <!-- Модальне вікно для статей Вікі -->
-    <div id="wiki-modal" class="modal-overlay" style="display: none;">
+    <!-- Модальне вікно для статей Вікі з покращеною доступністю -->
+    <div id="wiki-modal" class="modal-overlay" style="display: none;" 
+         role="dialog" 
+         aria-modal="true" 
+         aria-labelledby="modal-title"
+         aria-describedby="modal-content">
         <div class="modal-window">
             <div class="modal-header">
-                <div class="modal-border-top">
+                <div class="modal-border-top" role="presentation" aria-hidden="true">
                     ┌─────────────────────────────────────────────────────────────────────┐
                 </div>
                 <div class="modal-title-bar">
-                    <span class="modal-title" id="modal-title">WIKI ARTICLE</span>
-                    <button class="modal-close" id="modal-close">[X]</button>
+                    <h2 class="modal-title" id="modal-title">WIKI ARTICLE</h2>
+                    <button class="modal-close" id="modal-close" 
+                            aria-label="Закрити модальне вікно (Esc)"
+                            type="button">[X]</button>
                 </div>
-                <div class="modal-border-separator">
+                <div class="modal-border-separator" role="presentation" aria-hidden="true">
                     ├─────────────────────────────────────────────────────────────────────┤
                 </div>
             </div>
-            <div class="modal-content" id="modal-content">
+            <div class="modal-content" id="modal-content" role="document" tabindex="0" aria-live="polite">
                 <!-- Контент статьи будет вставлен сюда -->
             </div>
             <div class="modal-footer">
-                <div class="modal-border-bottom">
+                <div class="modal-border-bottom" role="presentation" aria-hidden="true">
                     └─────────────────────────────────────────────────────────────────────┘
                 </div>
-                <div class="modal-command-line">
+                <div class="modal-command-line" aria-hidden="true">
                     C:\WIKI&gt; PRESS [ESC] OR CLICK [X] TO EXIT_
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Подключение JavaScript для динамической функциональности -->
+    <!-- Back to top button -->
+    <button id="back-to-top" class="back-to-top" aria-label="Повернутися до початку сторінки" style="display: none;">
+        ▲ TOP
+    </button>
+
+    <!-- JavaScript files with new paths -->
     <!-- ВАЖЛИВО: fallback-data.js повинен завантажуватися ПЕРШИМ -->
-    <script src="fallback-data.js"></script>
-    <script src="main.js"></script>
+    <script src="assets/js/fallback-data.js"></script>
+    <script src="assets/js/main.js"></script>
+    
+    <!-- Performance monitoring -->
+    <script>
+        // Simple performance monitoring with Google Analytics
+        window.addEventListener('load', function() {
+            if ('performance' in window) {
+                const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+                console.log('🚀 Page load time:', Math.round(loadTime), 'ms');
+                
+                // Send load time to Google Analytics
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'page_load_time', {
+                        event_category: 'Performance',
+                        event_label: 'Load Time',
+                        value: Math.round(loadTime)
+                    });
+                }
+            }
+        });
+    </script>
 </body>
 </html>

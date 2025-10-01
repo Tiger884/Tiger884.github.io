@@ -1,0 +1,29 @@
+﻿# robots.txt для Retro-PC Store
+# Дозволяємо всім пошуковим роботам індексувати сайт
+
+User-agent: *
+Allow: /
+
+# Заборонено для всіх роботів (чутливі директорії)
+Disallow: /functions/
+Disallow: /.netlify/
+Disallow: /admin/
+Disallow: /private/
+
+# Спеціальні правила для популярних роботів
+User-agent: Googlebot
+Allow: /assets/css/
+Allow: /assets/js/
+Allow: /assets/img/
+
+User-agent: Bingbot
+Allow: /assets/css/
+Allow: /assets/js/
+Allow: /assets/img/
+
+# Sitemap location
+Sitemap: https://tiger884.github.io/RETRO-PC-STORE/sitemap.xml
+
+# Crawl-delay для менш важливих роботів
+User-agent: *
+Crawl-delay: 1
