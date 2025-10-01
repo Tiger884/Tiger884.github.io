@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro-PC Store - Магазин ретро комп'ютерів</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323:wght@400&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ASCII Art Header -->
+    <div class="ascii-border">
+        ┌─────────────────────────────────────────────────────────────────────────────────┐
+    </div>
+    
+    <header class="main-header">
+        <div class="header-content">
+            <h1 class="site-title">
+                ░▒▓█ RETRO-PC STORE █▓▒░
+            </h1>
+            <div class="header-subtitle">
+                &gt; МАГАЗИН РЕТРО КОМП'ЮТЕРІВ 8086 ERA &lt;
+            </div>
+            <nav class="main-nav">
+                <div class="nav-border">
+                    ├─────┬─────────┬─────────┤
+                </div>
+                <a href="#shop" class="nav-link">[МАГАЗИН]</a>
+                <span class="nav-separator">│</span>
+                <a href="#wiki" class="nav-link">[ВІКІ]</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="ascii-border">
+        ├─────────────────────────────────────────────────────────────────────────────────┤
+    </div>
+
+    <main class="main-content">
+        <!-- Популярні товари -->
+        <section class="popular-products" id="shop">
+            <h2 class="section-title">
+                &gt;&gt;&gt; ПОПУЛЯРНІ ТОВАРИ &lt;&lt;&lt;
+            </h2>
+            <div class="ascii-separator">
+                ┌───────────────┬───────────────┬───────────────┐
+            </div>
+            <!-- Динамический контейнер для товарів -->
+            <div class="products-grid" id="products-container">
+                <div class="loading-message">
+                    <div class="loading-text">Завантаження пропозицій з eBay...</div>
+                    <div class="loading-cursor">C:\RETRO-PC&gt;_</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="ascii-separator-large">
+            ├─────────────────────────────────────────────────────────────────────────────────┤
+        </div>
+
+        <!-- Останні статті з Вікі -->
+        <section class="wiki-articles" id="wiki">
+            <h2 class="section-title">
+                &gt;&gt;&gt; ОСТАННІ СТАТТІ З ВІКІ &lt;&lt;&lt;
+            </h2>
+            <div class="ascii-separator">
+                ┌─────────────────────────────────────────────┐
+            </div>
+            <ul class="wiki-list">
+                <li class="wiki-item">
+                    <span class="wiki-bullet">►</span>
+                    <a href="#" class="wiki-link" data-article-id="intel-8086-history">Історія мікропроцесора Intel 8086</a>
+                    <span class="wiki-date">[1985-03-15]</span>
+                </li>
+                <li class="wiki-item">
+                    <span class="wiki-bullet">►</span>
+                    <a href="#" class="wiki-link" data-article-id="cga-vs-ega">Порівняння графічних стандартів CGA vs EGA</a>
+                    <span class="wiki-date">[1984-11-20]</span>
+                </li>
+                <li class="wiki-item">
+                    <span class="wiki-bullet">►</span>
+                    <a href="#" class="wiki-link" data-article-id="xt-motherboards">Налаштування материнських плат XT класу</a>
+                    <span class="wiki-date">[1986-01-08]</span>
+                </li>
+            </ul>
+            <div class="ascii-separator">
+                └─────────────────────────────────────────────┘
+            </div>
+        </section>
+    </main>
+
+    <div class="ascii-border">
+        ├─────────────────────────────────────────────────────────────────────────────────┤
+    </div>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="ascii-art-footer">
+                ░▒▓█ RETRO-PC STORE █▓▒░
+            </div>
+            <p class="copyright">
+                &copy; 2024 RETRO-PC STORE │ ПОВЕРНЕННЯ В МАЙБУТНЄ ЧЕРЕЗ МИНУЛЕ
+            </p>
+            <div class="footer-terminal">
+                C:\RETRO-PC&gt; DIR *.MEMORIES
+            </div>
+        </div>
+    </footer>
+
+    <div class="ascii-border">
+        └─────────────────────────────────────────────────────────────────────────────────┘
+    </div>
+
+    <!-- Модальне вікно для статей Вікі -->
+    <div id="wiki-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-window">
+            <div class="modal-header">
+                <div class="modal-border-top">
+                    ┌─────────────────────────────────────────────────────────────────────┐
+                </div>
+                <div class="modal-title-bar">
+                    <span class="modal-title" id="modal-title">WIKI ARTICLE</span>
+                    <button class="modal-close" id="modal-close">[X]</button>
+                </div>
+                <div class="modal-border-separator">
+                    ├─────────────────────────────────────────────────────────────────────┤
+                </div>
+            </div>
+            <div class="modal-content" id="modal-content">
+                <!-- Контент статьи будет вставлен сюда -->
+            </div>
+            <div class="modal-footer">
+                <div class="modal-border-bottom">
+                    └─────────────────────────────────────────────────────────────────────┘
+                </div>
+                <div class="modal-command-line">
+                    C:\WIKI&gt; PRESS [ESC] OR CLICK [X] TO EXIT_
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подключение JavaScript для динамической функциональности -->
+    <!-- ВАЖЛИВО: fallback-data.js повинен завантажуватися ПЕРШИМ -->
+    <script src="fallback-data.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
