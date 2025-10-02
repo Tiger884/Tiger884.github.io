@@ -17,6 +17,9 @@
 // ================================
 
 const CONFIG = {
+    // Режим розробки (вимкнути для production)
+    DEBUG: location.hostname === 'localhost' || location.hostname === '127.0.0.1',
+    
     // Час життя кешу (24 години)
     CACHE_DURATION: 24 * 60 * 60 * 1000,
     
@@ -52,6 +55,20 @@ const CONFIG = {
 };
 
 // ================================
+// УТИЛІТИ ДЛЯ ЛОГУВАННЯ
+// ================================
+
+/**
+ * Обгорнута функція логування, що працює тільки в DEBUG режимі
+ */
+const logger = {
+    log: (...args) => CONFIG.DEBUG && console.log(...args),
+    warn: (...args) => CONFIG.DEBUG && console.warn(...args),
+    error: (...args) => console.error(...args), // Помилки завжди показуємо
+    info: (...args) => CONFIG.DEBUG && console.info(...args)
+};
+
+// ================================
 // ГЛОБАЛЬНІ ЗМІННІ
 // ================================
 
@@ -64,22 +81,22 @@ let performanceStartTime = performance.now();
 // ================================
 
 document.addEventListener('DOMContentLoaded', async function() {
-    console.log('🖥️ Retro-PC Store Enhanced v2.0 initializing...');
+    logger.log('🖥️ Retro-PC Store Enhanced v2.0 initializing...');
     performanceStartTime = performance.now();
     
     try {
         // Ініціалізуємо всі компоненти
         await initializeApp();
         
-        console.log('✅ Retro-PC Store fully initialized');
+        logger.log('✅ Retro-PC Store fully initialized');
         isInitialized = true;
         
         // Вимірюємо час ініціалізації
         const initTime = performance.now() - performanceStartTime;
-        console.log(`⚡ Initialization completed in ${Math.round(initTime)}ms`);
+        logger.log(`⚡ Initialization completed in ${Math.round(initTime)}ms`);
         
     } catch (error) {
-        console.error('❌ Critical error during initialization:', error);
+        logger.error('❌ Critical error during initialization:', error);
         showCriticalError();
     }
 });
@@ -136,7 +153,7 @@ function initializeThemeSystem() {
         toggleTheme();
     });
     
-    console.log('🎨 Theme system initialized');
+    logger.log('🎨 Theme system initialized');
 }
 
 /**
@@ -361,7 +378,7 @@ const WIKI_ARTICLES = {
  * Ініціалізує розширену Wiki систему
  */
 function initializeWikiModal() {
-    console.log('🔧 Initializing enhanced Wiki modal system...');
+    logger.log('🔧 Initializing enhanced Wiki modal system...');
     
     const wikiLinks = document.querySelectorAll('.wiki-link[data-article-id]');
     const modal = document.getElementById('wiki-modal');
@@ -370,7 +387,7 @@ function initializeWikiModal() {
     const modalClose = document.getElementById('modal-close');
     
     if (!modal || !modalTitle || !modalContent || !modalClose) {
-        console.error('❌ Modal elements not found!');
+        logger.error('❌ Modal elements not found!');
         return;
     }
     
@@ -380,7 +397,7 @@ function initializeWikiModal() {
             e.preventDefault();
             
             const articleId = this.getAttribute('data-article-id');
-            console.log('📖 Opening wiki article:', articleId);
+            logger.log('📖 Opening wiki article:', articleId);
             
             openWikiModal(articleId, modal, modalTitle, modalContent);
             
@@ -404,7 +421,7 @@ function initializeWikiModal() {
         }
     });
     
-    console.log('✅ Wiki modal system initialized with', Object.keys(WIKI_ARTICLES).length, 'articles');
+    logger.log('✅ Wiki modal system initialized with', Object.keys(WIKI_ARTICLES).length, 'articles');
 }
 
 /**
@@ -414,7 +431,7 @@ function openWikiModal(articleId, modal, modalTitle, modalContent) {
     const article = WIKI_ARTICLES[articleId];
     
     if (!article) {
-        console.error('❌ Article not found:', articleId);
+        logger.error('❌ Article not found:', articleId);
         modalTitle.textContent = 'ПОМИЛКА';
         modalContent.innerHTML = `
             <div style="text-align: center; padding: 40px;">
@@ -424,7 +441,7 @@ function openWikiModal(articleId, modal, modalTitle, modalContent) {
             </div>
         `;
     } else {
-        console.log('✅ Loading article:', article.title);
+        logger.log('✅ Loading article:', article.title);
         modalTitle.textContent = article.title;
         modalContent.innerHTML = article.content;
         
@@ -466,7 +483,7 @@ function closeWikiModal(modal) {
         modal.removeAttribute('data-closing');
     }, CONFIG.ANIMATION_DURATION);
     
-    console.log('✅ Modal closed successfully');
+    logger.log('✅ Modal closed successfully');
 }
 
 // ================================
@@ -479,7 +496,7 @@ function closeWikiModal(modal) {
 async function initializeProducts() {
     const productsContainer = document.getElementById('products-container');
     if (!productsContainer) {
-        console.error('❌ Products container not found!');
+        logger.error('❌ Products container not found!');
         return;
     }
 
@@ -489,22 +506,22 @@ async function initializeProducts() {
         // Перевіряємо кеш
         const cachedData = getCachedProducts();
         if (cachedData && cachedData.length > 0) {
-            console.log('✅ Using cached data:', cachedData.length, 'products');
+            logger.log('✅ Using cached data:', cachedData.length, 'products');
             displayProducts(productsContainer, cachedData, 'cache');
             return;
         }
 
         // Завантажуємо з API
-        console.log('🔍 Cache empty, fetching from eBay API...');
+        logger.log('🔍 Cache empty, fetching from eBay API...');
         const apiProducts = await loadProductsFromAPI();
         
         if (apiProducts && apiProducts.length > 0) {
-            console.log('✅ API data loaded:', apiProducts.length, 'products');
+            logger.log('✅ API data loaded:', apiProducts.length, 'products');
             displayProducts(productsContainer, apiProducts, 'api');
             cacheProducts(apiProducts);
         } else {
             // Використовуємо fallback дані
-            console.log('📦 Using fallback data...');
+            logger.log('📦 Using fallback data...');
             if (typeof window.fallbackProducts !== 'undefined') {
                 const fallbackItems = window.getRandomFallbackProducts 
                     ? window.getRandomFallbackProducts(CONFIG.MAX_PRODUCTS)
@@ -515,7 +532,7 @@ async function initializeProducts() {
             }
         }
     } catch (error) {
-        console.error('❌ Error loading products:', error);
+        logger.error('❌ Error loading products:', error);
         // Fallback у випадку помилки
         if (typeof window.fallbackProducts !== 'undefined') {
             displayProducts(productsContainer, window.fallbackProducts, 'fallback');
@@ -556,7 +573,7 @@ function initializeNavigation() {
         });
     });
     
-    console.log('🧭 Navigation system initialized');
+    logger.log('🧭 Navigation system initialized');
 }
 
 /**
@@ -585,7 +602,7 @@ function initializeBackToTop() {
         trackEvent('back_to_top_clicked');
     });
     
-    console.log('⬆️ Back to top button initialized');
+    logger.log('⬆️ Back to top button initialized');
 }
 
 /**
@@ -618,7 +635,7 @@ function initializeKeyboardShortcuts() {
         }
     });
     
-    console.log('⌨️ Keyboard shortcuts initialized (Alt+T, Alt+H, Alt+W, Alt+R)');
+    logger.log('⌨️ Keyboard shortcuts initialized (Alt+T, Alt+H, Alt+W, Alt+R)');
 }
 
 // ================================
@@ -634,10 +651,10 @@ function loadUserSettings() {
         if (settings) {
             const parsed = JSON.parse(settings);
             currentTheme = parsed.theme || 'green';
-            console.log('⚙️ User settings loaded:', parsed);
+            logger.log('⚙️ User settings loaded:', parsed);
         }
     } catch (error) {
-        console.warn('⚠️ Could not load user settings:', error);
+        logger.warn('⚠️ Could not load user settings:', error);
     }
 }
 
@@ -652,7 +669,7 @@ function saveUserSettings() {
         };
         localStorage.setItem(CONFIG.SETTINGS_KEY, JSON.stringify(settings));
     } catch (error) {
-        console.warn('⚠️ Could not save user settings:', error);
+        logger.warn('⚠️ Could not save user settings:', error);
     }
 }
 
@@ -739,7 +756,7 @@ function trackEvent(eventName, properties = {}) {
         });
     }
     
-    console.log('📊 Event tracked:', eventName, properties);
+    logger.log('📊 Event tracked:', eventName, properties);
 }
 
 /**
@@ -749,13 +766,13 @@ function initializePerformanceMonitoring() {
     if ('performance' in window) {
         window.addEventListener('load', function() {
             const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
-            console.log('⚡ Page load time:', Math.round(loadTime), 'ms');
+            logger.log('⚡ Page load time:', Math.round(loadTime), 'ms');
             
             // Відстежуємо метрики
             setTimeout(() => {
                 const paintMetrics = performance.getEntriesByType('paint');
                 paintMetrics.forEach(metric => {
-                    console.log(`🎨 ${metric.name}:`, Math.round(metric.startTime), 'ms');
+                    logger.log(`🎨 ${metric.name}:`, Math.round(metric.startTime), 'ms');
                 });
             }, 0);
         });
@@ -767,7 +784,7 @@ function initializePerformanceMonitoring() {
  */
 function initializeErrorHandling() {
     window.addEventListener('error', function(event) {
-        console.error('🚨 Global error:', event.error);
+        logger.error('🚨 Global error:', event.error);
         trackEvent('javascript_error', {
             message: event.message,
             filename: event.filename,
@@ -776,7 +793,7 @@ function initializeErrorHandling() {
     });
     
     window.addEventListener('unhandledrejection', function(event) {
-        console.error('🚨 Unhandled promise rejection:', event.reason);
+        logger.error('🚨 Unhandled promise rejection:', event.reason);
         trackEvent('promise_rejection', {
             reason: event.reason?.toString()
         });
@@ -846,7 +863,7 @@ function getCachedProducts() {
 
         return JSON.parse(cachedData);
     } catch (error) {
-        console.error('💾 Cache error:', error);
+        logger.error('💾 Cache error:', error);
         clearCache();
         return null;
     }
@@ -856,9 +873,9 @@ function cacheProducts(products) {
     try {
         localStorage.setItem(CONFIG.CACHE_KEY, JSON.stringify(products));
         localStorage.setItem(CONFIG.CACHE_TIMESTAMP_KEY, Date.now().toString());
-        console.log('💾 Products cached:', products.length, 'items');
+        logger.log('💾 Products cached:', products.length, 'items');
     } catch (error) {
-        console.error('💾 Cache save error:', error);
+        logger.error('💾 Cache save error:', error);
     }
 }
 
@@ -866,9 +883,9 @@ function clearCache() {
     try {
         localStorage.removeItem(CONFIG.CACHE_KEY);
         localStorage.removeItem(CONFIG.CACHE_TIMESTAMP_KEY);
-        console.log('🗑️ Cache cleared');
+        logger.log('🗑️ Cache cleared');
     } catch (error) {
-        console.error('🗑️ Cache clear error:', error);
+        logger.error('🗑️ Cache clear error:', error);
     }
 }
 
@@ -877,7 +894,7 @@ async function loadProductsFromAPI() {
     
     for (const query of CONFIG.SEARCH_QUERIES) {
         try {
-            console.log(`🔍 Searching: ${query}`);
+            logger.log(`🔍 Searching: ${query}`);
             const items = await searchEbayItems(query);
             
             if (items && items.length > 0) {
@@ -888,7 +905,7 @@ async function loadProductsFromAPI() {
                 await sleep(CONFIG.API_DELAY);
             }
         } catch (error) {
-            console.warn(`⚠️ Search failed for "${query}":`, error.message);
+            logger.warn(`⚠️ Search failed for "${query}":`, error.message);
         }
     }
     
@@ -944,7 +961,7 @@ function displayProducts(container, items, source = 'unknown') {
     });
     
     animateProductCards(container);
-    console.log(`✅ Displayed ${itemsToDisplay.length} products from ${source}`);
+    logger.log(`✅ Displayed ${itemsToDisplay.length} products from ${source}`);
 }
 
 /**
@@ -1134,6 +1151,6 @@ window.retroPCStore = {
     isInitialized: () => isInitialized
 };
 
-console.log('📝 Retro-PC Store Enhanced v2.0 loaded');
-console.log('🛠️ Debug utilities: window.retroPCStore');
-console.log('⌨️ Shortcuts: Alt+T (theme), Alt+H (shop), Alt+W (wiki), Alt+R (refresh)');
+logger.log('📝 Retro-PC Store Enhanced v2.0 loaded');
+logger.log('🛠️ Debug utilities: window.retroPCStore');
+logger.log('⌨️ Shortcuts: Alt+T (theme), Alt+H (shop), Alt+W (wiki), Alt+R (refresh)');
