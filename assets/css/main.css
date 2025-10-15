@@ -1,0 +1,909 @@
+﻿/* 
+ * RETRO-PC STORE v3.3.0 - Main CSS
+ * Статический CSS для GitHub Pages / локального использования
+ */
+
+/* ================================
+   CSS ПЕРЕМЕННЫЕ (ТЕМЫ)
+   ================================ */
+
+:root[data-theme="green"], :root {
+    --terminal-bg: #0D0D0D;
+    --terminal-primary: #33FF33;
+    --terminal-secondary: #00FF00;
+    --terminal-dim: #00AA00;
+    --terminal-glow: rgba(51, 255, 51, 0.5);
+    --terminal-shadow: rgba(51, 255, 51, 0.3);
+    --font-mono: 'VT323', 'Courier New', monospace;
+    --font-pixel: 'Press Start 2P', 'VT323', monospace;
+}
+
+:root[data-theme="amber"] {
+    --terminal-bg: #0D0D0D;
+    --terminal-primary: #FFB000;
+    --terminal-secondary: #FFA500;
+    --terminal-dim: #CC8800;
+    --terminal-glow: rgba(255, 176, 0, 0.5);
+    --terminal-shadow: rgba(255, 176, 0, 0.3);
+    --font-mono: 'VT323', 'Courier New', monospace;
+    --font-pixel: 'Press Start 2P', 'VT323', monospace;
+}
+
+/* ================================
+   БАЗОВЫЕ СТИЛИ И СБРОС
+   ================================ */
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    line-height: 1.5;
+    text-rendering: optimizeSpeed;
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+body {
+    background: var(--terminal-bg);
+    color: var(--terminal-primary);
+    font-family: var(--font-mono);
+    font-size: clamp(1rem, 2.5vw, 1.125rem);
+    line-height: 1.4;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ================================
+   LAYOUT КОМПОНЕНТЫ
+   ================================ */
+
+.main-header {
+    text-align: center;
+    padding: var(--spacing-lg);
+    border: 2px solid var(--terminal-primary);
+    margin: var(--spacing-md);
+    box-shadow: var(--glow-primary);
+    background: rgba(13, 13, 13, 0.95);
+    min-height: clamp(80px, 15vw, 120px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.site-title {
+    font-family: var(--font-pixel);
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    color: var(--terminal-secondary);
+    margin-bottom: var(--spacing-sm);
+    letter-spacing: 2px;
+    text-shadow: var(--glow-primary);
+}
+
+.header-subtitle {
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    color: var(--terminal-primary);
+    margin-bottom: var(--spacing-md);
+}
+
+.main-nav {
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-link {
+    color: var(--terminal-primary);
+    text-decoration: none;
+    padding: var(--spacing-sm);
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+    background: none;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+    border-color: var(--terminal-primary);
+    box-shadow: var(--glow-primary);
+    background: rgba(51, 255, 51, 0.1);
+}
+
+.nav-separator {
+    color: var(--terminal-secondary);
+    margin: 0 var(--spacing-sm);
+}
+
+.ascii-border {
+    color: var(--terminal-secondary);
+    text-align: center;
+    padding: var(--spacing-sm) 0;
+    font-family: var(--font-mono);
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.main-content {
+    padding: var(--spacing-lg);
+    contain: layout style paint;
+}
+
+.section-title {
+    color: var(--terminal-secondary);
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    text-shadow: var(--glow-primary);
+}
+
+/* ================================
+   МОДАЛЬНЫЕ ОКНА
+   ================================ */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: var(--spacing-md);
+}
+
+.modal-content {
+    background: var(--terminal-bg);
+    border: 2px solid var(--terminal-primary);
+    box-shadow: var(--glow-primary);
+    max-width: 600px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--terminal-primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-close {
+    background: none;
+    border: 1px solid var(--terminal-primary);
+    color: var(--terminal-primary);
+    font-size: 1.5rem;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    background: var(--terminal-primary);
+    color: var(--terminal-bg);
+}
+
+.modal-body {
+    padding: var(--spacing-md);
+}
+
+.wiki-content h3 {
+    color: var(--terminal-secondary);
+    margin: var(--spacing-md) 0 var(--spacing-sm);
+}
+
+.wiki-content ul {
+    margin-left: var(--spacing-md);
+}
+
+.wiki-content li {
+    margin-bottom: var(--spacing-sm);
+}
+
+/* ================================
+   FOOTER
+   ================================ */
+
+.site-footer {
+    margin-top: auto;
+    text-align: center;
+    padding: var(--spacing-lg);
+}
+
+.footer-content {
+    padding: var(--spacing-md) 0;
+}
+
+.footer-links a {
+    color: var(--terminal-primary);
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.footer-info {
+    margin-top: var(--spacing-sm);
+    font-size: 0.9rem;
+    color: var(--terminal-secondary);
+}
+
+/* ================================
+   ACCESSIBILITY
+   ================================ */
+
+.skip-link {
+    position: absolute;
+    top: -44px;
+    left: var(--spacing-sm);
+    background: var(--terminal-primary);
+    color: var(--terminal-bg);
+    padding: var(--spacing-sm);
+    text-decoration: none;
+    z-index: 9999;
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.skip-link:focus {
+    top: var(--spacing-sm);
+}
+
+/* Screen reader only content */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ================================
+   RESPONSIVE DESIGN
+   ================================ */
+
+@media (max-width: 768px) {
+    .main-header {
+        margin: var(--spacing-sm);
+        padding: var(--spacing-md);
+    }
+    
+    .main-nav {
+        gap: var(--spacing-xs);
+    }
+    
+    .nav-link {
+        padding: var(--spacing-xs);
+        font-size: 0.9rem;
+    }
+    
+    .ascii-border {
+        font-size: 0.8rem;
+    }
+    
+    .main-content {
+        padding: var(--spacing-md);
+    }
+    
+    .modal {
+        padding: var(--spacing-sm);
+    }
+}
+
+@media (max-width: 480px) {
+    .main-nav {
+        flex-direction: column;
+        gap: var(--spacing-xs);
+    }
+    
+    .nav-separator {
+        display: none;
+    }
+    
+    .site-title {
+        font-size: 1.5rem;
+    }
+    
+    .ascii-border {
+        font-size: 0.7rem;
+    }
+}
+
+/* ================================
+   PRINT STYLES
+   ================================ */
+
+@media print {
+    .ascii-border,
+    .main-nav,
+    .modal,
+    .loading-message {
+        display: none !important;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .main-header {
+        border: 2px solid black;
+        box-shadow: none;
+    }
+}
+
+/* ================================
+   PERFORMANCE OPTIMIZATIONS
+   ================================ */
+
+.modal,
+.product-card {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+}
+
+/* ================================
+   REDUCED MOTION
+   ================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ================================
+   VERSION INFO (dev only)
+   ================================ */
+
+body::after {
+    content: "CSS v3.3.0";
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    font-size: 0.7rem;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: -1;
+}
+
+body.production::after {
+    display: none;
+}
+
+/* ================================
+   CSS SPACING ПЕРЕМЕННЫЕ
+   ================================ */
+
+:root {
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    --glow-primary: 0 0 10px var(--terminal-glow);
+}
+
+/* ================================
+   ТОВАРЫ (PRODUCTS)
+   ================================ */
+
+#products-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+    padding: var(--spacing-md);
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.product-card {
+    border: 2px solid var(--terminal-primary);
+    background: rgba(13, 13, 13, 0.95);
+    box-shadow: var(--glow-primary);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px var(--terminal-glow);
+}
+
+.product-image {
+    width: 100%;
+    height: 200px;
+    background: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-bottom: 1px solid var(--terminal-primary);
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: var(--spacing-sm);
+}
+
+/* Placeholder для отсутствующих изображений */
+.product-image-placeholder {
+    width: 100%;
+    height: 200px;
+    background: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    border-bottom: 1px solid var(--terminal-primary);
+    position: relative;
+}
+
+.product-image-placeholder::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(51, 255, 51, 0.03) 10px,
+        rgba(51, 255, 51, 0.03) 20px
+    );
+    pointer-events: none;
+}
+
+.placeholder-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    z-index: 1;
+    text-align: center;
+    padding: var(--spacing-md);
+}
+
+.placeholder-icon {
+    font-size: 3rem;
+    opacity: 0.5;
+    filter: grayscale(100%);
+    animation: placeholderPulse 2s ease-in-out infinite;
+}
+
+.placeholder-text {
+    color: var(--terminal-dim);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    opacity: 0.7;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+@keyframes placeholderPulse {
+    0%, 100% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 0.6;
+    }
+}
+
+/* Янтарная тема для placeholder */
+:root[data-theme="amber"] .product-image-placeholder::before {
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(255, 176, 0, 0.03) 10px,
+        rgba(255, 176, 0, 0.03) 20px
+    );
+}
+
+.product-info {
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    flex: 1;
+}
+
+.product-title {
+    color: var(--terminal-secondary);
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-sm);
+    line-height: 1.3;
+    min-height: 2.6rem;
+}
+
+.product-description {
+    color: var(--terminal-dim);
+    font-size: 0.9rem;
+    margin: var(--spacing-sm) 0;
+    line-height: 1.4;
+}
+
+.product-meta {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+    color: var(--terminal-dim);
+}
+
+.product-specs {
+    margin: var(--spacing-sm) 0;
+    padding: var(--spacing-sm);
+    border: 1px solid var(--terminal-dim);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.spec-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-xs);
+    font-size: 0.9rem;
+}
+
+.spec-label {
+    color: var(--terminal-dim);
+    font-weight: bold;
+}
+
+.spec-value {
+    color: var(--terminal-primary);
+}
+
+.product-condition {
+    margin: var(--spacing-sm) 0;
+}
+
+.condition-badge {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: 1px solid var(--terminal-primary);
+    background: rgba(51, 255, 51, 0.1);
+    font-size: 0.85rem;
+}
+
+.product-footer {
+    margin-top: auto;
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--terminal-dim);
+}
+
+.product-price {
+    color: var(--terminal-secondary);
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-shadow: var(--glow-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.product-location {
+    font-size: 0.85rem;
+    color: var(--terminal-dim);
+}
+
+.product-button {
+    width: 100%;
+    padding: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+    background: none;
+    border: 2px solid var(--terminal-primary);
+    color: var(--terminal-primary);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 44px;
+}
+
+.product-button:hover,
+.product-button:focus {
+    background: var(--terminal-primary);
+    color: var(--terminal-bg);
+    box-shadow: var(--glow-primary);
+}
+
+/* ================================
+   LOADING СОСТОЯНИЕ
+   ================================ */
+
+.loading-message {
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--terminal-primary);
+}
+
+.loading-text {
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-md);
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.loading-cursor {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* ================================
+   WIKI СТИЛИ
+   ================================ */
+
+.wiki-note {
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-md);
+    border: 1px solid var(--terminal-secondary);
+    background: rgba(51, 255, 51, 0.05);
+}
+
+.wiki-note strong {
+    color: var(--terminal-secondary);
+}
+
+/* Навигация вкладок Wiki */
+.wiki-nav {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+    border-bottom: 2px solid var(--terminal-dim);
+    padding-bottom: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.wiki-tab {
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: transparent;
+    color: var(--terminal-dim);
+    border: 1px solid var(--terminal-dim);
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.wiki-tab:hover {
+    color: var(--terminal-primary);
+    border-color: var(--terminal-primary);
+    box-shadow: 0 0 10px var(--terminal-glow);
+}
+
+.wiki-tab.active {
+    background: var(--terminal-primary);
+    color: var(--terminal-bg);
+    border-color: var(--terminal-primary);
+    box-shadow: 0 0 15px var(--terminal-glow);
+}
+
+/* Разделы Wiki */
+.wiki-section {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.wiki-section.active {
+    display: block;
+}
+
+/* Карточки Wiki */
+.wiki-card {
+    background: rgba(51, 255, 51, 0.03);
+    border: 1px solid var(--terminal-dim);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    border-radius: 4px;
+}
+
+.wiki-card:hover {
+    border-color: var(--terminal-primary);
+    box-shadow: 0 0 10px var(--terminal-glow);
+}
+
+.wiki-card strong {
+    color: var(--terminal-secondary);
+}
+
+.wiki-highlight {
+    color: var(--terminal-secondary);
+    font-weight: bold;
+    margin-top: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background: rgba(51, 255, 51, 0.1);
+    border-left: 3px solid var(--terminal-primary);
+}
+
+/* Timeline Wiki */
+.wiki-timeline {
+    border-left: 2px solid var(--terminal-primary);
+    padding-left: var(--spacing-md);
+    margin-left: var(--spacing-sm);
+}
+
+.timeline-item {
+    margin-bottom: var(--spacing-md);
+    position: relative;
+}
+
+.timeline-item::before {
+    content: '●';
+    position: absolute;
+    left: calc(-1 * var(--spacing-md) - 6px);
+    color: var(--terminal-primary);
+    font-size: 1.2rem;
+    animation: pulse 2s infinite;
+}
+
+.timeline-item strong {
+    color: var(--terminal-secondary);
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: var(--spacing-xs);
+}
+
+.timeline-item p {
+    color: var(--terminal-primary);
+}
+
+/* Таблица Wiki */
+.wiki-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--spacing-md) 0;
+    font-family: var(--font-mono);
+}
+
+.wiki-table th,
+.wiki-table td {
+    padding: var(--spacing-sm);
+    border: 1px solid var(--terminal-dim);
+    text-align: left;
+}
+
+.wiki-table th {
+    background: rgba(51, 255, 51, 0.1);
+    color: var(--terminal-secondary);
+    font-weight: bold;
+}
+
+.wiki-table tr:hover {
+    background: rgba(51, 255, 51, 0.05);
+}
+
+/* Pulse анимация */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 5px var(--terminal-glow);
+    }
+    50% {
+        opacity: 0.6;
+        text-shadow: 0 0 10px var(--terminal-glow);
+    }
+}
+
+/* Fade In анимация */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ================================
+   МОДАЛЬНЫЕ ОКНА - ДОПОЛНЕНИЕ
+   ================================ */
+
+.modal[aria-hidden="true"] {
+    display: none !important;
+}
+
+.modal[aria-hidden="false"] {
+    display: flex !important;
+}
+
+/* ================================
+   АДАПТИВНОСТЬ ДЛЯ ТОВАРОВ
+   ================================ */
+
+@media (max-width: 1200px) {
+    #products-container {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: var(--spacing-md);
+    }
+}
+
+@media (max-width: 768px) {
+    #products-container {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: var(--spacing-sm);
+        padding: var(--spacing-sm);
+    }
+    
+    .product-title {
+        font-size: 1rem;
+    }
+    
+    .product-price {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #products-container {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+    
+    .product-image {
+        height: 180px;
+    }
+}

@@ -1,1139 +1,463 @@
-﻿/**
- * RETRO-PC STORE - ENHANCED MAIN JAVASCRIPT
- * Модернізований JavaScript з поліпшеннями функціональності
- * 
- * Основні покращення:
- * - Підтримка тем оформлення
- * - Розширена Wiki з новими статтями
- * - Покращена accessibility
- * - Performance моніторинг
- * - Додаткові інтерактивні ефекти
- * - Кнопка "повернутися наверх"
- * - Локальне збереження налаштувань
+/**
+ * RETRO-PC STORE v3.3.1 - Main JavaScript
+ * Статический сайт для GitHub Pages / локального использования
+ * Без серверных зависимостей
  */
 
-// ================================
-// КОНФІГУРАЦІЯ СИСТЕМИ
-// ================================
+(function() {
+    'use strict';
 
-const CONFIG = {
-    // Час життя кешу (24 години)
-    CACHE_DURATION: 24 * 60 * 60 * 1000,
-    
-    // Ключі для зберігання в localStorage
-    CACHE_KEY: 'retropc_products_cache',
-    CACHE_TIMESTAMP_KEY: 'retropc_products_timestamp',
-    SETTINGS_KEY: 'retropc_settings',
-    
-    // Пошукові запити для eBay
-    SEARCH_QUERIES: [
-        'Intel 8086 CPU processor vintage',
-        'Intel 8088 CPU processor retro', 
-        'Intel 8087 math coprocessor FPU',
-        'IBM PC XT motherboard vintage',
-        'Retro computer CGA EGA graphics card'
-    ],
-    
-    // Максимальна кількість товарів для відображення
-    MAX_PRODUCTS: 12,
-    
-    // Затримка між запитами до API (мс)
-    API_DELAY: 600,
-    
-    // Налаштування анімацій
-    ANIMATION_DURATION: 300,
-    SCROLL_THRESHOLD: 200,
-    
-    // Налаштування теми
-    THEMES: {
-        green: 'green',
-        amber: 'amber'
-    }
-};
+    // Debug Mode (установить false для production)
+    const DEBUG = false;
+    const log = DEBUG ? console.log.bind(console) : () => {};
 
-// ================================
-// ГЛОБАЛЬНІ ЗМІННІ
-// ================================
+    log('🎮 RETRO-PC STORE v3.3.1 - Initializing...');
 
-let currentTheme = 'green';
-let isInitialized = false;
-let performanceStartTime = performance.now();
-
-// ================================
-// ГОЛОВНА ФУНКЦІЯ ІНІЦІАЛІЗАЦІЇ
-// ================================
-
-document.addEventListener('DOMContentLoaded', async function() {
-    console.log('🖥️ Retro-PC Store Enhanced v2.0 initializing...');
-    performanceStartTime = performance.now();
-    
-    try {
-        // Ініціалізуємо всі компоненти
-        await initializeApp();
+    // ================================
+    // ГЛОБАЛЬНЫЙ ОБЪЕКТ ПРИЛОЖЕНИЯ
+    // ================================
+    window.retroApp = {
+        version: '3.3.1',
+        debug: DEBUG,
+        mode: 'static',
+        initialized: false,
+        products: [],
         
-        console.log('✅ Retro-PC Store fully initialized');
-        isInitialized = true;
-        
-        // Вимірюємо час ініціалізації
-        const initTime = performance.now() - performanceStartTime;
-        console.log(`⚡ Initialization completed in ${Math.round(initTime)}ms`);
-        
-    } catch (error) {
-        console.error('❌ Critical error during initialization:', error);
-        showCriticalError();
-    }
-});
+        /**
+         * Инициализация приложения
+         */
+        init: function() {
+            log('⚡ Initializing Retro-PC Store...');
+            
+            // Загружаем демо-данные
+            this.loadDemoProducts();
+            
+            // Настраиваем переключатель темы
+            this.setupThemeToggle();
+            
+            // Настраиваем модальное окно wiki
+            this.setupWikiModal();
+            
+            // Обработчики событий
+            this.setupEventListeners();
+            
+            this.initialized = true;
+            log('✅ Retro-PC Store initialized successfully!');
+            log('📦 Products loaded:', this.products.length);
+        },
 
-/**
- * Головна функція ініціалізації додатка
- */
-async function initializeApp() {
-    // 1. Завантажуємо збережені налаштування
-    loadUserSettings();
-    
-    // 2. Ініціалізуємо тему
-    initializeThemeSystem();
-    
-    // 3. Ініціалізуємо товари
-    await initializeProducts();
-    
-    // 4. Ініціалізуємо Wiki модальні вікна
-    initializeWikiModal();
-    
-    // 5. Ініціалізуємо навігацію та UX елементи
-    initializeNavigation();
-    
-    // 6. Ініціалізуємо кнопку "наверх"
-    initializeBackToTop();
-    
-    // 7. Ініціалізуємо клавіатурні скорочення
-    initializeKeyboardShortcuts();
-    
-    // 8. Ініціалізуємо performance моніторинг
-    initializePerformanceMonitoring();
-    
-    // 9. Додаємо обробники помилок
-    initializeErrorHandling();
-}
-
-// ================================
-// СИСТЕМА ТЕМ ОФОРМЛЕННЯ
-// ================================
-
-/**
- * Ініціалізує систему тем
- */
-function initializeThemeSystem() {
-    const themeToggle = document.getElementById('theme-toggle');
-    if (!themeToggle) return;
-    
-    // Встановлюємо поточну тему
-    applyTheme(currentTheme);
-    
-    // Обробник переключення теми
-    themeToggle.addEventListener('click', function(e) {
-        e.preventDefault();
-        toggleTheme();
-    });
-    
-    console.log('🎨 Theme system initialized');
-}
-
-/**
- * Переключає тему оформлення
- */
-function toggleTheme() {
-    currentTheme = currentTheme === 'green' ? 'amber' : 'green';
-    applyTheme(currentTheme);
-    saveUserSettings();
-    
-    // Показуємо сповіщення про зміну теми
-    showNotification(`Тему змінено на ${currentTheme === 'green' ? 'зелену' : 'янтарну'}`, 'success');
-}
-
-/**
- * Застосовує тему до документа
- */
-function applyTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    
-    // Оновлюємо текст кнопки
-    const themeToggle = document.getElementById('theme-toggle');
-    if (themeToggle) {
-        themeToggle.textContent = theme === 'green' ? '[ЯНТАРНА ТЕМА]' : '[ЗЕЛЕНА ТЕМА]';
-    }
-}
-
-// ================================
-// РОЗШИРЕНА WIKI СИСТЕМА
-// ================================
-
-const WIKI_ARTICLES = {
-    'intel-8086-history': {
-        title: 'ІСТОРІЯ МІКРОПРОЦЕСОРА INTEL 8086',
-        content: `
-
-            <h1>Intel 8086: Революція у світі персональних комп'ютерів</h1>
+        /**
+         * Загружаем демонстрационные товары из fallback-data.js
+         */
+        loadDemoProducts: function() {
+            log('📦 Loading demo products...');
             
-            <h2>Передумови створення</h2>
-            <p>У середині 1970-х років компанія Intel активно працювала над створенням 16-бітного мікропроцесора, який мав би стати наступником успішної 8-бітної серії 8080. Проект розпочався у <strong>1976 році</strong> під керівництвом інженера <em>Стівена Морса</em>.</p>
-            
-            <p>Основною метою було створення процесора, який би забезпечив <strong>зворотну сумісність</strong> з існуючим програмним забезпеченням для 8080, але водночас надав би значно більшу продуктивність та можливості роботи з пам'яттю.</p>
-            
-            <h2>Технічні характеристики</h2>
-            <ul>
-                <li><strong>Розрядність:</strong> 16 біт (внутрішня шина даних)</li>
-                <li><strong>Зовнішня шина даних:</strong> 16 біт</li>
-                <li><strong>Адресна шина:</strong> 20 біт (до 1 МБ пам'яті)</li>
-                <li><strong>Частота:</strong> від 5 до 10 МГц</li>
-                <li><strong>Технологічний процес:</strong> 3 мікрони (nMOS)</li>
-                <li><strong>Кількість транзисторів:</strong> приблизно 29,000</li>
-            </ul>
-            
-            <h2>Революційні особливості</h2>
-            <p>Intel 8086 запровадив концепцію <strong>сегментованої пам'яті</strong>, яка дозволяла адресувати до 1 мегабайта оперативної пам'яті - величезний обсяг для того часу. Це було досягнуто за допомогою системи сегментів, де кожна адреса складалася з двох частин: сегменту та зміщення.</p>
-            
-            <p>Архітектура 8086 заклала основи для всієї майбутньої <em>x86 сімейства процесорів</em>, яке домінує на ринку персональних комп'ютерів і сьогодні.</p>
-            
-            <h2>Вплив на індустрію</h2>
-            <p>Хоча спочатку процесор не мав великого комерційного успіху через високу вартість, все змінилося після випуску <strong>IBM PC</strong> у 1981 році з процесором Intel 8088 (8-бітною версією 8086).</p>
-            
-            <p>Саме завдяки IBM PC архітектура x86 стала стандартом де-факто для персональних комп'ютерів, а Intel 8086 увійшов в історію як <em>"батько" сучасних процесорів</em>.</p>
-        `
-    },
-    
-    'cga-vs-ega': {
-        title: 'ПОРІВНЯННЯ ГРАФІЧНИХ СТАНДАРТІВ CGA VS EGA',
-        content: `
-            <h1>CGA vs EGA: Еволюція комп'ютерної графіки</h1>
-            
-            <h2>Color Graphics Adapter (CGA) - 1981</h2>
-            <p><strong>CGA</strong> був першим кольоровим графічним стандартом для IBM PC, випущеним у <em>1981 році</em>. Незважаючи на обмежені можливості, він заклав основи для всієї майбутньої комп'ютерної графіки.</p>
-            
-            <h2>Технічні характеристики CGA</h2>
-            <ul>
-                <li><strong>Роздільна здатність:</strong> 320x200 (4 кольори) або 640x200 (монохром)</li>
-                <li><strong>Палітра:</strong> 16 кольорів, але лише 4 одночасно</li>
-                <li><strong>Відеопам'ять:</strong> 16 КБ</li>
-                <li><strong>Частота оновлення:</strong> 60 Гц</li>
-                <li><strong>Текстовий режим:</strong> 80x25 символів</li>
-            </ul>
-            
-            <h2>Enhanced Graphics Adapter (EGA) - 1984</h2>
-            <p><strong>EGA</strong> з'явився у <em>1984 році</em> як значне покращення CGA. Він пропонував кращу роздільну здатність, більше кольорів та зворотну сумісність з попередніми стандартами.</p>
-            
-            <h2>Технічні характеристики EGA</h2>
-            <ul>
-                <li><strong>Роздільна здатність:</strong> 640x350 (16 кольорів)</li>
-                <li><strong>Палітра:</strong> 64 кольори, 16 одночасно</li>
-                <li><strong>Відеопам'ять:</strong> 256 КБ</li>
-                <li><strong>Частота оновлення:</strong> 60 Гц</li>
-                <li><strong>Текстовий режим:</strong> 80x25 або 80x43 символи</li>
-            </ul>
-            
-            <h2>Ключові відмінності</h2>
-            <p>Основною перевагою EGA була <strong>значно вища роздільна здатність</strong> - 640x350 проти 320x200 у CGA. Це дозволило створювати набагато більш деталізовані зображення та текст.</p>
-            
-            <p><em>Кількість одночасних кольорів</em> також зросла з 4 до 16, що відкрило нові можливості для ігор та графічних додатків.</p>
-            
-            <h2>Спадщина</h2>
-            <p>Хоча EGA був замінений VGA у 1987 році, його вплив на розвиток комп'ютерної графіки важко переоцінити. Багато принципів, закладених в EGA, використовуються і сьогодні.</p>
-        `
-    },
-    
-    'xt-motherboards': {
-        title: 'НАЛАШТУВАННЯ МАТЕРИНСЬКИХ ПЛАТ XT КЛАСУ',
-        content: `
-            <h1>Материнські плати IBM PC/XT: Посібник з налаштування</h1>
-            
-            <h2>Огляд архітектури XT</h2>
-            <p><strong>IBM PC/XT</strong> (eXtended Technology) був випущений у <em>березні 1983 року</em> як покращена версія оригінального IBM PC. Основними відмінностями були наявність жорсткого диска та розширена материнська плата.</p>
-            
-            <h2>Основні компоненти материнської плати</h2>
-            <ul>
-                <li><strong>Процесор:</strong> Intel 8088 на 4.77 МГц</li>
-                <li><strong>Оперативна пам'ять:</strong> 128-640 КБ</li>
-                <li><strong>ROM BIOS:</strong> 8 КБ (пізніше 64 КБ)</li>
-                <li><strong>Слоти розширення:</strong> 8 слотів ISA 8-біт</li>
-                <li><strong>Сопроцесор:</strong> гніздо для Intel 8087</li>
-            </ul>
-            
-            <h2>DIP-перемикачі та джампери</h2>
-            <p>Налаштування материнської плати XT здійснювалося за допомогою <strong>DIP-перемикачів</strong> (подвійних лінійних перемикачів) та джамперів. Це було необхідно для конфігурації обсягу пам'яті, типу відеоадаптера та інших параметрів.</p>
-            
-            <h2>Конфігурація пам'яті</h2>
-            <p>Одним з найскладніших аспектів налаштування була <em>конфігурація пам'яті</em>. Система використовувала складну схему адресації, де перші 640 КБ відводилися під основну пам'ять.</p>
-            
-            <ul>
-                <li><code>128 КБ</code> - мінімальна конфігурація</li>
-                <li><code>256 КБ</code> - стандартна конфігурація</li>
-                <li><code>512 КБ</code> - розширена конфігурація</li>
-                <li><code>640 КБ</code> - максимальна основна пам'ять</li>
-            </ul>
-        `
-    },
-    
-    'memory-expansion': {
-        title: 'РОЗШИРЕННЯ ПАМ\'ЯТІ В СИСТЕМАХ XT/AT',
-        content: `
-            <h1>Розширення пам'яті в комп'ютерах XT/AT</h1>
-            
-            <h2>Обмеження базової пам'яті</h2>
-            <p>Ранні персональні комп'ютери мали суворі обмеження щодо обсягу оперативної пам'яті. IBM PC міг адресувати лише <strong>640 КБ</strong> основної пам'яті, що швидко стало вузьким місцем для складних програм.</p>
-            
-            <h2>Типи розширення пам'яті</h2>
-            <ul>
-                <li><strong>Conventional Memory</strong> - перші 640 КБ</li>
-                <li><strong>Upper Memory Area (UMA)</strong> - 640КБ - 1МБ</li>
-                <li><strong>Extended Memory (XMS)</strong> - понад 1 МБ (тільки 80286+)</li>
-                <li><strong>Expanded Memory (EMS)</strong> - банкова система пам'яті</li>
-            </ul>
-            
-            <h2>EMS (Expanded Memory Specification)</h2>
-            <p>Стандарт EMS, розроблений спільно Lotus, Intel та Microsoft, дозволяв програмам використовувати до <em>32 МБ</em> пам'яті через систему банків по 16 КБ кожен.</p>
-            
-            <h2>Практичні поради з розширення</h2>
-            <ul>
-                <li>Використовуйте <code>MEM.EXE</code> для діагностики пам'яті</li>
-                <li>Правильно налаштуйте <code>CONFIG.SYS</code> та <code>AUTOEXEC.BAT</code></li>
-                <li>Оптимізуйте завантаження драйверів в Upper Memory</li>
-                <li>Використовуйте <code>MEMMAKER</code> для автоматичної оптимізації</li>
-            </ul>
-            
-            <h2>Поширені проблеми</h2>
-            <p>Найчастіші проблеми включали конфлікти адрес, неправильні налаштування DIP-перемикачів та несумісність між різними типами пам'яті. Рішення вимагало ретельного планування карти пам'яті.</p>
-        `
-    },
-    
-    'sound-cards-history': {
-        title: 'ЕВОЛЮЦІЯ ЗВУКОВИХ КАРТ ADLIB І SOUND BLASTER',
-        content: `
-            <h1>Революція звуку: AdLib та Sound Blaster</h1>
-            
-            <h2>До епохи звукових карт</h2>
-            <p>Ранні персональні комп'ютери мали вкрай обмежені звукові можливості. IBM PC міг генерувати лише прості звукові сигнали через вбудований <strong>PC Speaker</strong> - динамік, здатний відтворювати лише одну ноту за раз.</p>
-            
-            <h2>AdLib Music Synthesizer Card (1987)</h2>
-            <p>Компанія Ad Lib Inc. випустила першу популярну звукову карту для PC у <em>1987 році</em>. Карта базувалася на чипі <strong>Yamaha YM3812 (OPL2)</strong> та використовувала FM-синтез для створення музики.</p>
-            
-            <h2>Технічні характеристики AdLib</h2>
-            <ul>
-                <li><strong>Синтез:</strong> FM (частотна модуляція)</li>
-                <li><strong>Поліфонія:</strong> 9 каналів одночасно</li>
-                <li><strong>Чип:</strong> Yamaha YM3812 OPL2</li>
-                <li><strong>Частота дискретизації:</strong> 49.7 кГц</li>
-                <li><strong>Підтримка MIDI:</strong> через FM-синтез</li>
-            </ul>
-            
-            <h2>Sound Blaster (1989) - Переломний момент</h2>
-            <p>Компанія Creative Labs випустила <strong>Sound Blaster</strong> у 1989 році, який не тільки був сумісний з AdLib, але й додавав можливості цифрового звуку.</p>
-            
-            <h2>Нововведення Sound Blaster</h2>
-            <ul>
-                <li><strong>Повна сумісність з AdLib</strong> - всі існуючі ігри працювали</li>
-                <li><strong>Цифровий звук</strong> - 8-біт моно 22 кГц</li>
-                <li><strong>Мікрофонний вхід</strong> для запису звуку</li>
-                <li><strong>MIDI-інтерфейс</strong> для підключення синтезаторів</li>
-                <li><strong>Joystick порт</strong> - два геймпада одночасно</li>
-            </ul>
-            
-            <h2>Sound Blaster Pro (1991)</h2>
-            <p>Покращена версія додала <em>стерео звук</em> та підтримку вищих частот дискретизації до 44.1 кГц. Використовувався подвійний OPL2 чип для стерео FM-синтезу.</p>
-            
-            <h2>Sound Blaster 16 (1992)</h2>
-            <p>Революційна карта з <strong>16-бітним цифровим звуком</strong> та повною підтримкою CD-якості аудіо. Додано:</p>
-            <ul>
-                <li>16-біт стерео запис/відтворення</li>
-                <li>Частоти до 44.1 кГц</li>
-                <li>Вбудований CD-ROM інтерфейс</li>
-                <li>Покращений MIDI з wave-table синтезом</li>
-            </ul>
-            
-            <h2>Вплив на ігрову індустрію</h2>
-            <p>Sound Blaster став стандартом де-факто для PC-ігор. Фрази "Sound Blaster compatible" та "AdLib compatible" стали обов'язковими на коробках ігор 90-х років.</p>
-            
-            <p>Популярні ігри як <em>Doom</em>, <em>Wing Commander</em> та <em>Monkey Island</em> вперше продемонстрували потужність якісного звуку в іграх, назавжди змінивши очікування гравців.</p>
-        `
-    }
-};
-
-/**
- * Ініціалізує розширену Wiki систему
- */
-function initializeWikiModal() {
-    console.log('🔧 Initializing enhanced Wiki modal system...');
-    
-    const wikiLinks = document.querySelectorAll('.wiki-link[data-article-id]');
-    const modal = document.getElementById('wiki-modal');
-    const modalTitle = document.getElementById('modal-title');
-    const modalContent = document.getElementById('modal-content');
-    const modalClose = document.getElementById('modal-close');
-    
-    if (!modal || !modalTitle || !modalContent || !modalClose) {
-        console.error('❌ Modal elements not found!');
-        return;
-    }
-    
-    // Додаємо обробники для всіх Wiki посилань
-    wikiLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const articleId = this.getAttribute('data-article-id');
-            console.log('📖 Opening wiki article:', articleId);
-            
-            openWikiModal(articleId, modal, modalTitle, modalContent);
-            
-            // Аналітика (якщо потрібно)
-            trackEvent('wiki_article_opened', { article: articleId });
-        });
-    });
-    
-    // Обробники закриття модального вікна
-    modalClose.addEventListener('click', () => closeWikiModal(modal));
-    
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            closeWikiModal(modal);
-        }
-    });
-    
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal.classList.contains('show')) {
-            closeWikiModal(modal);
-        }
-    });
-    
-    console.log('✅ Wiki modal system initialized with', Object.keys(WIKI_ARTICLES).length, 'articles');
-}
-
-/**
- * Відкриває модальне вікно Wiki статті
- */
-function openWikiModal(articleId, modal, modalTitle, modalContent) {
-    const article = WIKI_ARTICLES[articleId];
-    
-    if (!article) {
-        console.error('❌ Article not found:', articleId);
-        modalTitle.textContent = 'ПОМИЛКА';
-        modalContent.innerHTML = `
-            <div style="text-align: center; padding: 40px;">
-                <h1 style="color: var(--terminal-error); font-size: 24px;">❌ СТАТТЯ НЕ ЗНАЙДЕНА</h1>
-                <p>Перепрошуємо, але запитана стаття відсутня в базі даних.</p>
-                <p style="color: var(--terminal-gray); font-size: 14px;">Код помилки: WIKI_404_${articleId}</p>
-            </div>
-        `;
-    } else {
-        console.log('✅ Loading article:', article.title);
-        modalTitle.textContent = article.title;
-        modalContent.innerHTML = article.content;
-        
-        // Додаємо плавну анімацію для контенту
-        modalContent.style.opacity = '0';
-        setTimeout(() => {
-            modalContent.style.transition = 'opacity 0.3s ease';
-            modalContent.style.opacity = '1';
-        }, 100);
-    }
-    
-    // Показуємо модальне вікно
-    modal.style.display = 'flex';
-    setTimeout(() => {
-        modal.classList.add('show');
-    }, 10);
-    
-    // Блокуємо прокрутку фону
-    document.body.style.overflow = 'hidden';
-    
-    // Встановлюємо фокус на контент для accessibility
-    setTimeout(() => {
-        modalContent.focus();
-    }, 350);
-}
-
-/**
- * Закриває модальне вікно Wiki
- */
-function closeWikiModal(modal) {
-    modal.setAttribute('data-closing', 'true');
-    modal.classList.remove('show');
-    
-    // Відновлюємо прокрутку
-    document.body.style.overflow = '';
-    
-    setTimeout(() => {
-        modal.style.display = 'none';
-        modal.removeAttribute('data-closing');
-    }, CONFIG.ANIMATION_DURATION);
-    
-    console.log('✅ Modal closed successfully');
-}
-
-// ================================
-// СИСТЕМА ПРОДУКТІВ (ПОКРАЩЕНА)
-// ================================
-
-/**
- * Ініціалізує систему завантаження товарів
- */
-async function initializeProducts() {
-    const productsContainer = document.getElementById('products-container');
-    if (!productsContainer) {
-        console.error('❌ Products container not found!');
-        return;
-    }
-
-    showLoadingMessage(productsContainer);
-
-    try {
-        // Перевіряємо кеш
-        const cachedData = getCachedProducts();
-        if (cachedData && cachedData.length > 0) {
-            console.log('✅ Using cached data:', cachedData.length, 'products');
-            displayProducts(productsContainer, cachedData, 'cache');
-            return;
-        }
-
-        // Завантажуємо з API
-        console.log('🔍 Cache empty, fetching from eBay API...');
-        const apiProducts = await loadProductsFromAPI();
-        
-        if (apiProducts && apiProducts.length > 0) {
-            console.log('✅ API data loaded:', apiProducts.length, 'products');
-            displayProducts(productsContainer, apiProducts, 'api');
-            cacheProducts(apiProducts);
-        } else {
-            // Використовуємо fallback дані
-            console.log('📦 Using fallback data...');
-            if (typeof window.fallbackProducts !== 'undefined') {
-                const fallbackItems = window.getRandomFallbackProducts 
-                    ? window.getRandomFallbackProducts(CONFIG.MAX_PRODUCTS)
-                    : window.fallbackProducts.slice(0, CONFIG.MAX_PRODUCTS);
-                displayProducts(productsContainer, fallbackItems, 'fallback');
+            // Используем fallbackProducts из fallback-data.js
+            if (window.fallbackProducts && window.fallbackProducts.length > 0) {
+                this.products = window.fallbackProducts;
+                log('✅ Loaded', this.products.length, 'products from fallback data');
+                this.renderProducts(this.products);
             } else {
-                showErrorMessage(productsContainer, 'Товари тимчасово недоступні');
+                console.warn('⚠️ No fallback products found, loading inline demo data');
+                this.loadInlineDemoProducts();
             }
-        }
-    } catch (error) {
-        console.error('❌ Error loading products:', error);
-        // Fallback у випадку помилки
-        if (typeof window.fallbackProducts !== 'undefined') {
-            displayProducts(productsContainer, window.fallbackProducts, 'fallback');
-        } else {
-            showErrorMessage(productsContainer, 'Помилка завантаження товарів');
-        }
-    }
-}
+        },
 
-// ================================
-// НАВІГАЦІЯ ТА UX ПОКРАЩЕННЯ
-// ================================
+        /**
+         * Резервные демо-данные на случай если fallback-data.js не загрузился
+         */
+        loadInlineDemoProducts: function() {
+            this.products = [
+                {
+                    id: 'intel-8086',
+                    title: "Intel 8086 CPU - Vintage 16-bit Processor (1978)",
+                    currentPrice: "$89.99",
+                    condition: "Used - Excellent",
+                    location: "Silicon Valley, CA",
+                    brand: "Intel",
+                    yearManufactured: "1978",
+                    images: {
+                        jpg: "assets/img/Intel_8086-2.jpg",
+                        alt: "Микропроцессор Intel 8086 16-бит"
+                    },
+                    specifications: {
+                        architecture: "x86 16-bit",
+                        frequency: "5-10 MHz",
+                        transistors: "29,000"
+                    }
+                },
+                {
+                    id: 'intel-8088',
+                    title: "Intel 8088 CPU - IBM PC Compatible Processor",
+                    currentPrice: "$75.50",
+                    condition: "Used - Good",
+                    location: "Austin, TX",
+                    brand: "Intel",
+                    yearManufactured: "1979",
+                    images: {
+                        jpg: "assets/img/Intel_8088-2.jpg",
+                        alt: "Микропроцессор Intel 8088"
+                    },
+                    specifications: {
+                        architecture: "x86 16-bit",
+                        frequency: "4.77-8 MHz",
+                        dataWidth: "16-bit internal, 8-bit external"
+                    }
+                },
+                {
+                    id: 'intel-8087',
+                    title: "Intel 8087 Math Coprocessor FPU",
+                    currentPrice: "$125.00",
+                    condition: "Used - Very Good",
+                    location: "Portland, OR",
+                    brand: "Intel",
+                    yearManufactured: "1980",
+                    images: {
+                        jpg: "assets/img/Intel_8087.jpg",
+                        alt: "Intel 8087 сопроцессор"
+                    },
+                    specifications: {
+                        architecture: "x87 FPU",
+                        dataTypes: "32, 64, 80-bit floating point",
+                        standards: "IEEE 754"
+                    }
+                }
+            ];
 
-/**
- * Ініціалізує навігацію та UX елементи
- */
-function initializeNavigation() {
-    // Плавна прокрутка для навігаційних посилань
-    const navLinks = document.querySelectorAll('a[href^="#"]');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            const targetElement = document.getElementById(targetId);
-            
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-                
-                // Додаємо фокус для accessibility
-                targetElement.tabIndex = -1;
-                targetElement.focus();
-                
-                trackEvent('navigation_click', { target: targetId });
+            this.products = inlineProducts;
+            log('✅ Loaded', this.products.length, 'inline demo products');
+            this.renderProducts(this.products);
+        },
+
+        /**
+         * Рендерим товары на странице
+         */
+        renderProducts: function(products) {
+            const container = document.getElementById('products-container');
+            if (!container) {
+                console.error('❌ Products container not found!');
+                return;
             }
-        });
-    });
-    
-    console.log('🧭 Navigation system initialized');
-}
 
-/**
- * Ініціалізує кнопку "повернутися наверх"
- */
-function initializeBackToTop() {
-    const backToTopButton = document.getElementById('back-to-top');
-    if (!backToTopButton) return;
-    
-    // Показуємо/приховуємо кнопку при прокрутці
-    window.addEventListener('scroll', throttle(() => {
-        if (window.pageYOffset > CONFIG.SCROLL_THRESHOLD) {
-            backToTopButton.classList.add('visible');
-        } else {
-            backToTopButton.classList.remove('visible');
-        }
-    }, 100));
-    
-    // Обробник кліку
-    backToTopButton.addEventListener('click', function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-        
-        trackEvent('back_to_top_clicked');
-    });
-    
-    console.log('⬆️ Back to top button initialized');
-}
+            // Очищаем контейнер
+            container.innerHTML = '';
 
-/**
- * Ініціалізує клавіатурні скорочення
- */
-function initializeKeyboardShortcuts() {
-    document.addEventListener('keydown', function(e) {
-        // Alt + T - переключення теми
-        if (e.altKey && e.key === 't') {
-            e.preventDefault();
-            toggleTheme();
-        }
-        
-        // Alt + H - перехід до магазину
-        if (e.altKey && e.key === 'h') {
-            e.preventDefault();
-            document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        // Alt + W - перехід до Wiki
-        if (e.altKey && e.key === 'w') {
-            e.preventDefault();
-            document.getElementById('wiki')?.scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        // Alt + R - оновлення товарів
-        if (e.altKey && e.key === 'r') {
-            e.preventDefault();
-            refreshProducts();
-        }
-    });
-    
-    console.log('⌨️ Keyboard shortcuts initialized (Alt+T, Alt+H, Alt+W, Alt+R)');
-}
+            // Создаем карточки товаров
+            const productsHTML = products.map(product => this.createProductCard(product)).join('');
+            container.innerHTML = productsHTML;
 
-// ================================
-// ДОПОМІЖНІ ФУНКЦІЇ
-// ================================
+            log('✅ Rendered', products.length, 'product cards');
+        },
 
-/**
- * Завантажує користувацькі налаштування
- */
-function loadUserSettings() {
-    try {
-        const settings = localStorage.getItem(CONFIG.SETTINGS_KEY);
-        if (settings) {
-            const parsed = JSON.parse(settings);
-            currentTheme = parsed.theme || 'green';
-            console.log('⚙️ User settings loaded:', parsed);
-        }
-    } catch (error) {
-        console.warn('⚠️ Could not load user settings:', error);
-    }
-}
-
-/**
- * Зберігає користувацькі налаштування
- */
-function saveUserSettings() {
-    try {
-        const settings = {
-            theme: currentTheme,
-            lastSaved: Date.now()
-        };
-        localStorage.setItem(CONFIG.SETTINGS_KEY, JSON.stringify(settings));
-    } catch (error) {
-        console.warn('⚠️ Could not save user settings:', error);
-    }
-}
-
-/**
- * Показує сповіщення користувачу
- */
-function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.textContent = message;
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: var(--terminal-primary);
-        color: var(--terminal-bg);
-        padding: 15px 20px;
-        border: 2px solid var(--terminal-primary);
-        font-family: var(--font-mono);
-        z-index: 3000;
-        opacity: 0;
-        transform: translateX(100%);
-        transition: all 0.3s ease;
-        max-width: 300px;
-        word-wrap: break-word;
-    `;
-    
-    document.body.appendChild(notification);
-    
-    // Анімація появи
-    setTimeout(() => {
-        notification.style.opacity = '1';
-        notification.style.transform = 'translateX(0)';
-    }, 10);
-    
-    // Автоматичне зникнення
-    setTimeout(() => {
-        notification.style.opacity = '0';
-        notification.style.transform = 'translateX(100%)';
-        setTimeout(() => {
-            document.body.removeChild(notification);
-        }, 300);
-    }, 3000);
-}
-
-/**
- * Оновлює товари
- */
-async function refreshProducts() {
-    clearCache();
-    showNotification('Оновлення товарів...', 'info');
-    await initializeProducts();
-    showNotification('Товари оновлено!', 'success');
-}
-
-/**
- * Throttle функція для оптимізації подій
- */
-function throttle(func, limit) {
-    let inThrottle;
-    return function() {
-        const args = arguments;
-        const context = this;
-        if (!inThrottle) {
-            func.apply(context, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
-        }
-    }
-}
-
-/**
- * Відстежує події для аналітики
- */
-function trackEvent(eventName, properties = {}) {
-    // Google Analytics 4 event tracking
-    if (typeof gtag !== 'undefined') {
-        gtag('event', eventName, {
-            event_category: properties.category || 'User Interaction',
-            event_label: properties.label || '',
-            value: properties.value || 0,
-            custom_parameter_1: properties.section || 'unknown',
-            ...properties
-        });
-    }
-    
-    console.log('📊 Event tracked:', eventName, properties);
-}
-
-/**
- * Ініціалізує моніторинг продуктивності
- */
-function initializePerformanceMonitoring() {
-    if ('performance' in window) {
-        window.addEventListener('load', function() {
-            const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
-            console.log('⚡ Page load time:', Math.round(loadTime), 'ms');
+        /**
+         * Создаем HTML карточку товара
+         */
+        createProductCard: function(product) {
+            // Поддержка двух форматов данных
+            const imageUrl = product.image || product.images?.jpg || product.images?.webp || product.images?.avif;
+            const title = product.name || product.title;
+            const price = product.price || product.currentPrice;
+            const brand = product.brand || 'Intel';
+            const year = product.year || product.yearManufactured;
+            const imageAlt = product.images?.alt || title;
             
-            // Відстежуємо метрики
-            setTimeout(() => {
-                const paintMetrics = performance.getEntriesByType('paint');
-                paintMetrics.forEach(metric => {
-                    console.log(`🎨 ${metric.name}:`, Math.round(metric.startTime), 'ms');
-                });
-            }, 0);
-        });
-    }
-}
-
-/**
- * Ініціалізує обробку помилок
- */
-function initializeErrorHandling() {
-    window.addEventListener('error', function(event) {
-        console.error('🚨 Global error:', event.error);
-        trackEvent('javascript_error', {
-            message: event.message,
-            filename: event.filename,
-            lineno: event.lineno
-        });
-    });
-    
-    window.addEventListener('unhandledrejection', function(event) {
-        console.error('🚨 Unhandled promise rejection:', event.reason);
-        trackEvent('promise_rejection', {
-            reason: event.reason?.toString()
-        });
-        event.preventDefault();
-    });
-}
-
-/**
- * Показує критичну помилку
- */
-function showCriticalError() {
-    const errorDiv = document.createElement('div');
-    errorDiv.innerHTML = `
-        <div style="
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: var(--terminal-bg);
-            border: 3px solid var(--terminal-error);
-            padding: 30px;
-            text-align: center;
-            z-index: 9999;
-            font-family: var(--font-mono);
-            max-width: 90vw;
-        ">
-            <h2 style="color: var(--terminal-error); margin-bottom: 20px;">💥 КРИТИЧНА ПОМИЛКА</h2>
-            <p style="color: вар(--terminal-text); margin-bottom: 20px;">
-                Виникла критична помилка при завантаженні сайту.
-            </p>
-            <button onclick="location.reload()" style="
-                background: вар(--terminal-error);
-                color: вар(--terminal-bg);
-                border: none;
-                padding: 10px 20px;
-                font-family: вар(--font-mono);
-                cursor: pointer;
-            ">ПЕРЕЗАВАНТАЖИТИ СТОРІНКУ</button>
-        </div>
-    `;
-    document.body.appendChild(errorDiv);
-}
-
-// ================================
-// ІСНУЮЧІ ФУНКЦІЇ (ОНОВЛЕНІ)
-// ================================
-
-// [Тут залишаються всі існуючі функції з попередньої версії, 
-//  але з покращеннями та оптимізаціями]
-
-function getCachedProducts() {
-    try {
-        const cachedData = localStorage.getItem(CONFIG.CACHE_KEY);
-        const cachedTimestamp = localStorage.getItem(CONFIG.CACHE_TIMESTAMP_KEY);
-        
-        if (!cachedData || !cachedTimestamp) {
-            return null;
-        }
-
-        const timestamp = parseInt(cachedTimestamp, 10);
-        const age = Date.now() - timestamp;
-
-        if (age > CONFIG.CACHE_DURATION) {
-            clearCache();
-            return null;
-        }
-
-        return JSON.parse(cachedData);
-    } catch (error) {
-        console.error('💾 Cache error:', error);
-        clearCache();
-        return null;
-    }
-}
-
-function cacheProducts(products) {
-    try {
-        localStorage.setItem(CONFIG.CACHE_KEY, JSON.stringify(products));
-        localStorage.setItem(CONFIG.CACHE_TIMESTAMP_KEY, Date.now().toString());
-        console.log('💾 Products cached:', products.length, 'items');
-    } catch (error) {
-        console.error('💾 Cache save error:', error);
-    }
-}
-
-function clearCache() {
-    try {
-        localStorage.removeItem(CONFIG.CACHE_KEY);
-        localStorage.removeItem(CONFIG.CACHE_TIMESTAMP_KEY);
-        console.log('🗑️ Cache cleared');
-    } catch (error) {
-        console.error('🗑️ Cache clear error:', error);
-    }
-}
-
-async function loadProductsFromAPI() {
-    const allItems = [];
-    
-    for (const query of CONFIG.SEARCH_QUERIES) {
-        try {
-            console.log(`🔍 Searching: ${query}`);
-            const items = await searchEbayItems(query);
-            
-            if (items && items.length > 0) {
-                allItems.push(...items.slice(0, 3));
+            // Генерируем HTML для изображения или placeholder
+            let imageHTML;
+            if (imageUrl) {
+                imageHTML = `
+                    <div class="product-image">
+                        <img src="${imageUrl}" 
+                             alt="${imageAlt}" 
+                             loading="lazy"
+                             onerror="this.parentElement.innerHTML = window.retroApp.createImagePlaceholder('${title}');">
+                    </div>`;
+            } else {
+                imageHTML = this.createImagePlaceholder(title);
             }
-            
-            if (CONFIG.API_DELAY > 0) {
-                await sleep(CONFIG.API_DELAY);
-            }
-        } catch (error) {
-            console.warn(`⚠️ Search failed for "${query}":`, error.message);
-        }
-    }
-    
-    return allItems.slice(0, CONFIG.MAX_PRODUCTS);
-}
 
-async function searchEbayItems(keywords) {
-    const encodedKeywords = encodeURIComponent(keywords);
-    const url = `/.netlify/functions/searchEbay?keywords=${encodedKeywords}`;
-    
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 15000);
-    
-    try {
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: { 'Accept': 'application/json' },
-            signal: controller.signal
-        });
-        
-        clearTimeout(timeoutId);
-        
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        }
-        
-        const data = await response.json();
-        return data.items || [];
-    } catch (error) {
-        clearTimeout(timeoutId);
-        throw error;
-    }
-}
+            return `
+                <article class="product-card" data-product-id="${product.id}">
+                    ${imageHTML}
+                    
+                    <div class="product-info">
+                        <h3 class="product-title">${title}</h3>
+                        
+                        <div class="product-meta">
+                            <span class="product-brand">🏭 ${brand}</span>
+                            <span class="product-year">📅 ${year}</span>
+                        </div>
+                        
+                        <p class="product-description">${product.description || ''}</p>
+                        
+                        <div class="product-condition">
+                            <span class="condition-badge">${product.condition || 'Unknown condition'}</span>
+                        </div>
+                        
+                        <div class="product-footer">
+                            <div class="product-price">${price}</div>
+                        </div>
+                        
+                        <button class="product-button" onclick="window.retroApp.viewProduct('${product.id}')">
+                            [ПРОСМОТР ДЕТАЛЬНО]
+                        </button>
+                    </div>
+                </article>
+            `;
+        },
 
-function displayProducts(container, items, source = 'unknown') {
-    container.innerHTML = '';
-    
-    if (source === 'fallback') {
-        const indicator = document.createElement('div');
-        indicator.className = 'source-indicator';
-        indicator.innerHTML = `
-            <div class="demo-notice">
-                🎭 ДЕМОНСТРАЦІЙНИЙ РЕЖИМ | Показані зразкові товари
-            </div>
-        `;
-        container.appendChild(indicator);
-    }
-    
-    const itemsToDisplay = items.slice(0, CONFIG.MAX_PRODUCTS);
-    itemsToDisplay.forEach((item, index) => {
-        const card = createProductCard(item, index, source);
-        container.appendChild(card);
-    });
-    
-    animateProductCards(container);
-    console.log(`✅ Displayed ${itemsToDisplay.length} products from ${source}`);
-}
+        /**
+         * Форматируем ключи спецификаций
+         */
+        formatSpecKey: function(key) {
+            return key
+                .replace(/([A-Z])/g, ' $1')
+                .replace(/^./, str => str.toUpperCase())
+                .trim();
+        },
 
-/**
- * Створює картку товару з оптимізованими зображеннями
- * @param {Object} item - Об'єкт товару
- * @param {number} index - Індекс товару
- * @param {string} source - Джерело даних ('api', 'cache', 'fallback')
- * @returns {HTMLElement} DOM елемент картки товару
- */
-function createProductCard(item, index, source) {
-    const card = document.createElement('div');
-    card.className = 'product-card';
-    card.style.opacity = '0';
-    
-    const category = determineCategory(item.title);
-    const safePrice = sanitizePrice(item.currentPrice);
-    const shortDescription = createShortDescription(item.title, item.condition);
-    const demoIndicator = source === 'fallback' ? '<div class="demo-badge">DEMO</div>' : '';
-    
-    // Генеруємо оптимізовані зображення з підтримкою AVIF/WebP/JPG
-    const imageHTML = generateOptimizedImageHTML(item);
-    
-    card.innerHTML = `
-        <div class="product-header">
-            ┌─ ${category} ──────┐
-        </div>
-        <div class="product-content">
-            ${demoIndicator}
-            ${imageHTML}
-            <h3>${truncateText(item.title, 50)}</h3>
-            <div class="product-specs">
-                ${shortDescription}
-            </div>
-            <div class="product-price">${safePrice}</div>
-            <div class="product-location">📍 ${item.location || 'Невідомо'}</div>
-            <a href="${item.viewItemURL}" target="_blank" rel="noopener noreferrer" class="product-link"
-               aria-label="Переглянути товар: ${truncateText(item.title, 30)}">
-                ${source === 'fallback' ? '[ДЕМО ТОВАР]' : '[ПЕРЕГЛЯНУТИ НА EBAY]'}
-            </a>
-        </div>
-        <div class="product-footer">
-            └───────────────────┘
-        </div>
-    `;
-    
-    return card;
-}
-
-/**
- * Генерує оптимізований HTML для зображень з підтримкою сучасних форматів
- * @param {Object} item - Об'єкт товару з URL зображень
- * @returns {string} HTML код з тегом <picture>
- */
-function generateOptimizedImageHTML(item) {
-    // Якщо немає зображення, повертаємо placeholder
-    if (!item.galleryURL && !item.galleryURLJPG) {
-        return `
-            <div class="product-image-placeholder" role="img" aria-label="Зображення товару недоступне">
-                <div class="placeholder-content">
-                    <span class="placeholder-icon">🖼️</span>
-                    <span class="placeholder-text">Зображення<br>недоступне</span>
+        /**
+         * Создаем HTML placeholder для отсутствующего изображения
+         */
+        createImagePlaceholder: function(title = 'Товар') {
+            return `
+                <div class="product-image-placeholder" role="img" aria-label="Изображение товара недоступно: ${title}">
+                    <div class="placeholder-content">
+                        <span class="placeholder-icon">🖼️</span>
+                        <span class="placeholder-text">Изображение<br>недоступно</span>
+                    </div>
                 </div>
-            </div>
-        `;
-    }
-    
-    // Визначаємо доступні формати зображень
-    const imageAVIF = item.imageAVIF || (item.galleryURL ? item.galleryURL.replace(/\.(webp|jpg|jpeg)$/i, '.avif') : null);
-    const imageWebP = item.galleryURL || (item.galleryURLJPG ? item.galleryURLJPG.replace(/\.(jpg|jpeg)$/i, '.webp') : null);
-    const imageJPG = item.galleryURLJPG || item.galleryURL || '';
-    
-    // Alt text для accessibility
-    const altText = item.imageAlt || `Зображення товару: ${truncateText(item.title, 40)}`;
-    
-    // Генеруємо <picture> елемент з підтримкою різних форматів
-    return `
-        <picture class="product-image-container">
-            ${imageAVIF ? `<source srcset="${imageAVIF}" type="image/avif">` : ''}
-            ${imageWebP ? `<source srcset="${imageWebP}" type="image/webp">` : ''}
-            <img src="${imageJPG}" 
-                 alt="${altText}"
-                 class="product-image" 
-                 loading="lazy"
-                 decoding="async"
-                 width="300"
-                 height="200"
-                 onerror="this.style.display='none'; this.parentElement.classList.add('image-error');"
-                 onload="this.parentElement.classList.add('image-loaded');">
-        </picture>
-    `;
-}
+            `;
+        },
 
-function animateProductCards(container) {
-    const cards = container.querySelectorAll('.product-card');
-    cards.forEach((card, index) => {
-        setTimeout(() => {
-            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            card.style.transform = 'translateY(30px)';
+        /**
+         * Просмотр детальной информации о товаре
+         */
+        viewProduct: function(productId) {
+            const product = this.products.find(p => p.id === productId);
+            if (!product) {
+                console.warn('⚠️ Product not found:', productId);
+                return;
+            }
+
+            log('👁️ Viewing product:', product.title);
             
-            setTimeout(() => {
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-            }, 50);
-        }, index * 150);
-    });
-}
+            // Формируем детальную информацию
+            let specsHTML = '<div class="modal-specs">';
+            if (product.specifications) {
+                specsHTML += '<h4>📋 Технические характеристики:</h4><ul>';
+                Object.entries(product.specifications).forEach(([key, value]) => {
+                    specsHTML += `<li><strong>${this.formatSpecKey(key)}:</strong> ${value}</li>`;
+                });
+                specsHTML += '</ul>';
+            }
+            specsHTML += '</div>';
 
-// Допоміжні функції залишаються без змін
-function determineCategory(title) {
-    const titleLower = title.toLowerCase();
-    if (titleLower.includes('8086')) return 'ПРОЦЕСОР 8086';
-    if (titleLower.includes('8088')) return 'ПРОЦЕСОР 8088';
-    if (titleLower.includes('8087')) return 'СПІВПРОЦЕСОР';
-    if (titleLower.includes('sound') || titleLower.includes('audio')) return 'ЗВУКОВА КАРТА';
-    if (titleLower.includes('motherboard')) return 'МАТЕРИНСЬКА ПЛАТА';
-    if (titleLower.includes('graphics') || titleLower.includes('cga')) return 'ВІДЕОКАРТА';
-    return 'РЕТРО КОМПОНЕНТ';
-}
+            const message = `
+                <div class="product-detail-modal">
+                    <h3>${product.title}</h3>
+                    <div class="detail-meta">
+                        <p><strong>🏭 Производитель:</strong> ${product.brand}</p>
+                        <p><strong>📅 Год выпуска:</strong> ${product.yearManufactured}</p>
+                        <p><strong>💰 Цена:</strong> ${product.currentPrice}</p>
+                        <p><strong>📦 Состояние:</strong> ${product.condition}</p>
+                        <p><strong>📍 Местоположение:</strong> ${product.location}</p>
+                    </div>
+                    ${specsHTML}
+                    <p class="demo-notice">⚠️ Это демонстрационная версия. Товар недоступен для покупки.</p>
+                </div>
+            `;
+            
+            alert(message.replace(/<[^>]*>/g, '\n').replace(/\n+/g, '\n').trim());
+        },
 
-function createShortDescription(title, condition) {
-    const specs = ['• Винтажний компонент', '• Колекційна цінність'];
-    if (condition && condition !== 'Used') {
-        specs.push(`• Стан: ${condition}`);
+        /**
+         * Настраиваем переключатель темы
+         */
+        setupThemeToggle: function() {
+            const themeToggle = document.getElementById('theme-toggle');
+            if (!themeToggle) return;
+
+            // Загружаем сохраненную тему
+            const savedTheme = localStorage.getItem('retro-theme') || 'green';
+            this.setTheme(savedTheme);
+
+            // Обработчик клика
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'green' ? 'amber' : 'green';
+                this.setTheme(newTheme);
+            });
+
+            log('🎨 Theme toggle initialized');
+        },
+
+        /**
+         * Устанавливаем тему
+         */
+        setTheme: function(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('retro-theme', theme);
+            
+            const themeToggle = document.getElementById('theme-toggle');
+            if (themeToggle) {
+                themeToggle.textContent = theme === 'green' ? '[ЯНТАРНАЯ ТЕМА]' : '[ЗЕЛЕНАЯ ТЕМА]';
+            }
+            
+            log('🎨 Theme set to:', theme);
+        },
+
+        /**
+         * Настраиваем модальное окно Wiki
+         */
+        setupWikiModal: function() {
+            const modal = document.getElementById('wiki-modal');
+            if (!modal) return;
+
+            // Закрытие по клику вне модального окна
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    this.hideWiki();
+                }
+            });
+
+            // Закрытие по ESC
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
+                    this.hideWiki();
+                }
+            });
+
+            log('📖 Wiki modal initialized');
+        },
+
+        /**
+         * Показываем Wiki
+         */
+        showWiki: function() {
+            const modal = document.getElementById('wiki-modal');
+            if (modal) {
+                modal.setAttribute('aria-hidden', 'false');
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                log('📖 Wiki opened');
+            }
+        },
+
+        /**
+         * Скрываем Wiki
+         */
+        hideWiki: function() {
+            const modal = document.getElementById('wiki-modal');
+            if (modal) {
+                modal.setAttribute('aria-hidden', 'true');
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+                log('📖 Wiki closed');
+            }
+        },
+
+        /**
+         * Настраиваем обработчики событий
+         */
+        setupEventListeners: function() {
+            // Обработка ссылок "Skip to content"
+            const skipLink = document.querySelector('.skip-link');
+            if (skipLink) {
+                skipLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = document.getElementById('main-content');
+                    if (target) {
+                        target.focus();
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            }
+
+            log('🎯 Event listeners initialized');
+        },
+
+        /**
+         * Получаем статус приложения
+         */
+        getAppStatus: function() {
+            const status = {
+                version: this.version,
+                mode: this.mode,
+                initialized: this.initialized,
+                productsCount: this.products.length,
+                theme: document.documentElement.getAttribute('data-theme'),
+                timestamp: new Date().toISOString()
+            };
+            
+            console.table(status);
+            return status;
+        }
+    };
+
+    // ================================
+    // ГЛОБАЛЬНЫЕ ФУНКЦИИ
+    // ================================
+
+    /**
+     * Показать Wiki (вызывается из HTML)
+     */
+    window.showWiki = function() {
+        window.retroApp.showWiki();
+    };
+
+    /**
+     * Скрыть Wiki (вызывается из HTML)
+     */
+    window.hideWiki = function() {
+        window.retroApp.hideWiki();
+    };
+
+    /**
+     * Переключение разделов Wiki (вызывается из HTML)
+     */
+    window.showWikiSection = function(sectionId) {
+        // Скрываем все разделы
+        const sections = document.querySelectorAll('.wiki-section');
+        sections.forEach(section => {
+            section.classList.remove('active');
+        });
+
+        // Убираем активность со всех вкладок
+        const tabs = document.querySelectorAll('.wiki-tab');
+        tabs.forEach(tab => {
+            tab.classList.remove('active');
+        });
+
+        // Показываем выбранный раздел
+        const targetSection = document.getElementById(`wiki-${sectionId}`);
+        if (targetSection) {
+            targetSection.classList.add('active');
+        }
+
+        // Активируем соответствующую вкладку
+        const activeTab = Array.from(tabs).find(tab => 
+            tab.getAttribute('onclick')?.includes(sectionId)
+        );
+        if (activeTab) {
+            activeTab.classList.add('active');
+        }
+
+        log(`📖 Wiki section switched to: ${sectionId}`);
+    };
+
+    // ================================
+    // ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ
+    // ================================
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.retroApp.init();
+        });
+    } else {
+        // DOM уже загружен
+        window.retroApp.init();
     }
-    return specs.join('<br>');
-}
 
-function sanitizePrice(price) {
-    if (!price || price === 'N/A') return 'Ціна за запитом';
-    return price.replace(/USD\s*/, '$');
-}
+    log('🎮 Main script loaded, waiting for DOM...');
 
-function truncateText(text, maxLength) {
-    if (!text || text.length <= maxLength) return text || '';
-    return text.substring(0, maxLength - 3) + '...';
-}
-
-function showLoadingMessage(container) {
-    container.innerHTML = `
-        <div class="loading-message">
-            <div class="loading-text">Завантаження товарів...</div>
-            <div class="loading-cursor">C:\\RETRO-PC&gt;_</div>
-        </div>
-    `;
-}
-
-function showErrorMessage(container, message) {
-    container.innerHTML = `
-        <div class="error-message">
-            <div class="error-icon">❌</div>
-            <div class="error-text">${message}</div>
-            <div class="error-suggestion">Спробуйте оновити сторінку або перевірте з'єднання</div>
-            <button onclick="location.reload()" class="retry-button">[СПРОБУВАТИ ЗНОВУ]</button>
-        </div>
-    `;
-}
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-// ================================
-// ГЛОБАЛЬНІ УТИЛІТИ ДЛЯ РОЗРОБКИ
-// ================================
-
-window.retroPCStore = {
-    // Основні функції
-    clearCache,
-    getCachedProducts,
-    refreshProducts,
-    
-    // Тема
-    toggleTheme,
-    getCurrentTheme: () => currentTheme,
-    
-    // Налаштування
-    getSettings: () => JSON.parse(localStorage.getItem(CONFIG.SETTINGS_KEY) || '{}'),
-    clearSettings: () => localStorage.removeItem(CONFIG.SETTINGS_KEY),
-    
-    // Debug функції
-    showNotification,
-    trackEvent,
-    
-    // Інформація
-    version: '2.0.0',
-    config: CONFIG,
-    isInitialized: () => isInitialized
-};
-
-console.log('📝 Retro-PC Store Enhanced v2.0 loaded');
-console.log('🛠️ Debug utilities: window.retroPCStore');
-console.log('⌨️ Shortcuts: Alt+T (theme), Alt+H (shop), Alt+W (wiki), Alt+R (refresh)');
+})();

@@ -1,87 +1,29 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
     
-    <!-- Головна сторінка -->
+    <!-- Главная страница -->
     <url>
         <loc>https://tiger884.github.io/RETRO-PC-STORE/</loc>
-        <lastmod>2024-10-01T16:00:00+00:00</lastmod>
-        <changefreq>daily</changefreq>
+        <lastmod>2025-10-15</lastmod>
+        <changefreq>weekly</changefreq>
         <priority>1.0</priority>
         
-        <!-- Зображення для головної сторінки -->
+        <!-- Изображения товаров -->
         <image:image>
             <image:loc>https://tiger884.github.io/RETRO-PC-STORE/assets/img/Intel_8086-2.jpg</image:loc>
-            <image:title>Intel 8086 Vintage Processor</image:title>
-            <image:caption>Історичний мікропроцесор Intel 8086 - основа персональних комп'ютерів</image:caption>
+            <image:title>Intel 8086 CPU - Винтажный процессор 1978 года</image:title>
+        </image:image>
+        
+        <image:image>
+            <image:loc>https://tiger884.github.io/RETRO-PC-STORE/assets/img/Intel_8088-2.jpg</image:loc>
+            <image:title>Intel 8088 CPU - Процессор IBM PC</image:title>
         </image:image>
         
         <image:image>
             <image:loc>https://tiger884.github.io/RETRO-PC-STORE/assets/img/Intel_8087.jpg</image:loc>
-            <image:title>Intel 8087 Math Coprocessor</image:title>
-            <image:caption>Математичний співпроцесор Intel 8087 для підвищення продуктивності</image:caption>
+            <image:title>Intel 8087 FPU - Математический сопроцессор</image:title>
         </image:image>
-    </url>
-    
-    <!-- Секція магазину -->
-    <url>
-        <loc>https://tiger884.github.io/RETRO-PC-STORE/#shop</loc>
-        <lastmod>2024-10-01T16:00:00+00:00</lastmod>
-        <changefreq>hourly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    
-    <!-- Секція Wiki -->
-    <url>
-        <loc>https://tiger884.github.io/RETRO-PC-STORE/#wiki</loc>
-        <lastmod>2024-10-01T16:00:00+00:00</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    <!-- Wiki статті (як віртуальні сторінки) -->
-    <url>
-        <loc>https://tiger884.github.io/RETRO-PC-STORE/#wiki/intel-8086-history</loc>
-        <lastmod>2024-09-30T12:00:00+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    
-    <url>
-        <loc>https://tiger884.github.io/RETRO-PC-STORE/#wiki/cga-vs-ega</loc>
-        <lastmod>2024-09-30T12:00:00+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    
-    <url>
-        <loc>https://tiger884.github.io/RETRO-PC-STORE/#wiki/xt-motherboards</loc>
-        <lastmod>2024-09-30T12:00:00+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    
-    <url>
-        <loc>https://tiger884.github.io/RETRO-PC-STORE/#wiki/memory-expansion</loc>
-        <lastmod>2024-09-30T12:00:00+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    
-    <url>
-        <loc>https://tiger884.github.io/RETRO-PC-STORE/#wiki/sound-cards-history</loc>
-        <lastmod>2024-09-30T12:00:00+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    
-    <!-- Сторінка GitHub проекту -->
-    <url>
-        <loc>https://github.com/Tiger884/RETRO-PC-STORE</loc>
-        <lastmod>2024-10-01T16:00:00+00:00</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.5</priority>
     </url>
     
 </urlset>

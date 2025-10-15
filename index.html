@@ -1,375 +1,332 @@
-﻿<!DOCTYPE html>
-<html lang="uk">
+<!DOCTYPE html>
+<html lang="ru" data-theme="green">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retro-PC Store - Магазин ретро комп'ютерів епохи 8086</title>
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Винтажний магазин ретро комп'ютерних компонентів епохи 8086. Intel 8086, 8088, 8087 процесори та інші раритетні деталі з автентичним дизайном терміналу 80-х років.">
-    <meta name="keywords" content="Intel 8086, 8088, 8087, ретро комп'ютери, винтажні процесори, IBM PC, XT, раритетні компоненти, vintage computing">
-    <meta name="author" content="Retro-PC Store">
-    <meta name="robots" content="index, follow">
+    <meta name="description" content="Винтажный магазин ретро компьютеров и компонентов эпохи Intel 8086. Процессоры, материнские платы, память для IBM PC. Коллекционные раритеты 1978-1985 годов.">
+    <meta name="keywords" content="ретро компьютеры, Intel 8086, Intel 8088, Intel 8087, IBM PC, винтажная электроника, старые процессоры, компьютерные раритеты, коллекционная техника">
+    <meta name="author" content="Tiger884">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow">
+    <meta name="language" content="Russian">
+    <meta name="revisit-after" content="7 days">
     
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Retro-PC Store - Магазин ретро комп'ютерів">
-    <meta property="og:description" content="Винтажний магазин ретро комп'ютерних компонентів епохи 8086 з автентичним дизайном терміналу 80-х років">
+    <meta property="og:title" content="RETRO-PC STORE - Винтажные компьютеры эпохи Intel 8086">
+    <meta property="og:description" content="Магазин ретро компьютеров и компонентов для коллекционеров. Intel 8086/8088/8087, IBM PC, винтажная электроника 1978-1985.">
     <meta property="og:url" content="https://tiger884.github.io/RETRO-PC-STORE/">
-    <meta property="og:site_name" content="Retro-PC Store">
+    <meta property="og:image" content="https://tiger884.github.io/RETRO-PC-STORE/assets/img/Intel_8086-2.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="RETRO-PC STORE">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Retro-PC Store - Магазин ретро комп'ютерів">
-    <meta name="twitter:description" content="Винтажний магазин ретро комп'ютерних компонентів епохи 8086">
+    <meta name="twitter:title" content="RETRO-PC STORE - Винтажные компьютеры Intel 8086">
+    <meta name="twitter:description" content="Магазин ретро компьютеров и компонентов для коллекционеров">
+    <meta name="twitter:image" content="https://tiger884.github.io/RETRO-PC-STORE/assets/img/Intel_8086-2.jpg">
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSIjMEQwRDBEIiBzdHJva2U9IiMzM0ZGMzMiIHN0cm9rZS13aWR0aD0iMiIvPgo8dGV4dCB4PSIxNiIgeT0iMjAiIGZvcnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvcnQtc2l6ZT0iMTAiIGZpbGw9IiNGRkIwMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjg2PC90ZXh0Pgo8L3N2Zz4K">
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://tiger884.github.io/RETRO-PC-STORE/">
     
-    <!-- Google Analytics -->
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L5M93HJZ91"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-L5M93HJZ91', {
-        anonymize_ip: true,
-        cookie_flags: 'SameSite=None;Secure',
-        custom_map: {
-          'custom_parameter_1': 'retro_store_section'
-        }
-      });
-    </script>
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#33FF33">
+    <meta name="application-name" content="RETRO-PC STORE">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="RETRO-PC STORE">
     
-    <!-- Preconnect for performance -->
+    <!-- Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://svcs.ebay.com">
-    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
     
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=VT323:wght@400&family=Press+Start+2P:wght@400&display=swap" rel="stylesheet">
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     
-    <!-- Styles with new path -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <title>RETRO-PC STORE - Винтажные компьютеры Intel 8086 | Ретро электроника</title>
     
-    <!-- Enhanced Structured Data for SEO -->
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    
+    <!-- Structured Data -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@graph": [
-            {
-                "@type": "Store",
-                "@id": "https://tiger884.github.io/RETRO-PC-STORE/#store",
-                "name": "Retro-PC Store",
-                "description": "Винтажний магазин ретро комп'ютерних компонентів епохи 8086. Intel 8086, 8088, 8087 процесори та інші раритетні деталі з автентичним дизайном терміналу 80-х років.",
-                "url": "https://tiger884.github.io/RETRO-PC-STORE/",
-                "logo": {
-                    "@type": "ImageObject",
-                    "url": "https://tiger884.github.io/RETRO-PC-STORE/assets/img/logo-retro-pc.png",
-                    "width": 300,
-                    "height": 300
-                },
-                "image": [
-                    "https://tiger884.github.io/RETRO-PC-STORE/assets/img/Intel_8086-2.jpg",
-                    "https://tiger884.github.io/RETRO-PC-STORE/assets/img/Intel_8087.jpg",
-                    "https://tiger884.github.io/RETRO-PC-STORE/assets/img/Intel_8088-2.jpg"
-                ],
-                "address": {
-                    "@type": "PostalAddress",
-                    "addressCountry": "UA",
-                    "addressRegion": "Київська область",
-                    "addressLocality": "Київ"
-                },
-                "contactPoint": {
-                    "@type": "ContactPoint",
-                    "contactType": "customer service",
-                    "availableLanguage": ["Ukrainian", "English"],
-                    "url": "https://github.com/Tiger884/RETRO-PC-STORE"
-                },
-                "openingHoursSpecification": {
-                    "@type": "OpeningHoursSpecification",
-                    "dayOfWeek": [
-                        "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
-                    ],
-                    "opens": "00:00",
-                    "closes": "23:59"
-                },
-                "priceRange": "$50-$500",
-                "specialty": "Vintage Computer Components",
-                "foundingDate": "2024-09-10",
-                "slogan": "Повернення в майбутнє через минуле",
-                "currenciesAccepted": "USD",
-                "paymentAccepted": ["Cash", "Credit Card", "PayPal"],
-                "hasOfferCatalog": {
-                    "@type": "OfferCatalog",
-                    "name": "Retro Computer Components",
-                    "itemListElement": [
-                        {
-                            "@type": "Offer",
-                            "itemOffered": {
-                                "@type": "Product",
-                                "name": "Intel 8086 CPU",
-                                "category": "Vintage Processors"
-                            }
-                        },
-                        {
-                            "@type": "Offer", 
-                            "itemOffered": {
-                                "@type": "Product",
-                                "name": "Intel 8087 Math Coprocessor",
-                                "category": "Vintage Coprocessors"
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                "@type": "WebSite",
-                "@id": "https://tiger884.github.io/RETRO-PC-STORE/#website",
-                "url": "https://tiger884.github.io/RETRO-PC-STORE/",
-                "name": "Retro-PC Store - Магазин ретро комп'ютерів",
-                "description": "Винтажний магазин ретро комп'ютерних компонентів епохи 8086 з автентичним дизайном терміналу 80-х років",
-                "publisher": {
-                    "@type": "Organization",
-                    "@id": "https://tiger884.github.io/RETRO-PC-STORE/#store"
-                },
-                "inLanguage": "uk-UA",
-                "potentialAction": [
-                    {
-                        "@type": "SearchAction",
-                        "target": {
-                            "@type": "EntryPoint",
-                            "urlTemplate": "https://tiger884.github.io/RETRO-PC-STORE/#shop?search={search_term_string}"
-                        },
-                        "query-input": "required name=search_term_string"
-                    }
-                ]
-            },
-            {
-                "@type": "BreadcrumbList",
-                "@id": "https://tiger884.github.io/RETRO-PC-STORE/#breadcrumb",
-                "itemListElement": [
-                    {
-                        "@type": "ListItem",
-                        "position": 1,
-                        "name": "Головна",
-                        "item": "https://tiger884.github.io/RETRO-PC-STORE/"
-                    },
-                    {
-                        "@type": "ListItem", 
-                        "position": 2,
-                        "name": "Магазин",
-                        "item": "https://tiger884.github.io/RETRO-PC-STORE/#shop"
-                    },
-                    {
-                        "@type": "ListItem",
-                        "position": 3, 
-                        "name": "Wiki",
-                        "item": "https://tiger884.github.io/RETRO-PC-STORE/#wiki"
-                    }
-                ]
+        "@type": "OnlineStore",
+        "@id": "https://tiger884.github.io/RETRO-PC-STORE/#store",
+        "name": "RETRO-PC STORE",
+        "description": "Винтажный магазин ретро компьютеров эпохи Intel 8086",
+        "url": "https://tiger884.github.io/RETRO-PC-STORE/",
+        "sameAs": ["https://github.com/Tiger884/RETRO-PC-STORE"],
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://tiger884.github.io/RETRO-PC-STORE/?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        },
+        "makesOffer": {
+            "@type": "Offer",
+            "itemOffered": {
+                "@type": "Product",
+                "name": "Винтажные компоненты ПК",
+                "description": "Процессоры Intel 8086, 8088, 8087 и другие раритетные компоненты"
             }
-        ]
+        }
     }
     </script>
 </head>
-<body>
-    <!-- Skip to main content for accessibility -->
-    <a href="#main-content" class="skip-link">Перейти до основного контенту</a>
+
+<body class="production">
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Перейти к основному содержимому</a>
     
     <!-- ASCII Art Header -->
-    <div class="ascii-border" role="presentation" aria-hidden="true">
-        ┌─────────────────────────────────────────────────────────────────────────────────┐
+    <div class="ascii-border" aria-hidden="true">
+        -------------------------------------------------------------------------------
     </div>
     
+    <!-- Main Header -->
     <header class="main-header" role="banner">
         <div class="header-content">
-            <h1 class="site-title">
-                ░▒▓█ RETRO-PC STORE █▓▒░
-            </h1>
-            <p class="header-subtitle">
-                &gt; МАГАЗИН РЕТРО КОМП'ЮТЕРІВ 8086 ERA &lt;
-            </p>
-            <nav class="main-nav" role="navigation" aria-label="Головна навігація">
-                <div class="nav-border" role="presentation" aria-hidden="true">
-                    ├─────┬─────────┬─────────┤
-                </div>
-                <a href="#shop" class="nav-link" aria-label="Перейти до секції магазину">[МАГАЗИН]</a>
-                <span class="nav-separator" role="presentation" aria-hidden="true">│</span>
-                <a href="#wiki" class="nav-link" aria-label="Перейти до секції вікі">[ВІКІ]</a>
+            <h1 class="site-title">RETRO-PC STORE</h1>
+            <p class="header-subtitle">Винтажные компьютеры эпохи Intel 8086</p>
+            
+            <!-- Main Navigation -->
+            <nav class="main-nav" role="navigation" aria-label="Основная навигация">
+                <a href="#products" class="nav-link">[ТОВАРЫ]</a>
+                <span class="nav-separator" aria-hidden="true">|</span>
+                <button type="button" class="nav-link" onclick="showWiki()">[ВИКИ]</button>
+                <span class="nav-separator" aria-hidden="true">|</span>
+                <button id="theme-toggle" class="nav-link" type="button">[СМЕНИТЬ ТЕМУ]</button>
             </nav>
         </div>
     </header>
-
-    <div class="ascii-border" role="presentation" aria-hidden="true">
-        ├─────────────────────────────────────────────────────────────────────────────────┤
+    
+    <!-- ASCII Art Separator -->
+    <div class="ascii-border" aria-hidden="true">
+        -------------------------------------------------------------------------------
     </div>
-
-    <main class="main-content" id="main-content" role="main">
-        <!-- Популярні товари -->
-        <section class="popular-products" id="shop" aria-labelledby="products-title">
-            <h2 class="section-title" id="products-title">
-                &gt;&gt;&gt; ПОПУЛЯРНІ ТОВАРИ &lt;&lt;&lt;
-            </h2>
-            <div class="ascii-separator" role="presentation" aria-hidden="true">
-                ┌───────────────┬───────────────┬───────────────┐
-            </div>
-            <!-- Динамический контейнер для товарів -->
-            <div class="products-grid" id="products-container" role="region" aria-label="Список товарів" aria-live="polite">
-                <div class="loading-message">
-                    <div class="loading-text">Завантаження пропозицій з eBay...</div>
+    
+    <!-- Main Content -->
+    <main id="main-content" class="main-content" role="main">
+        <!-- Products Section -->
+        <section id="products" aria-labelledby="products-title">
+            <h2 id="products-title" class="section-title">Винтажные компоненты</h2>
+            
+            <!-- Products will be loaded here by JavaScript -->
+            <div id="products-container" role="region" aria-live="polite" aria-label="Список винтажных товаров">
+                <div class="loading-message" role="status" aria-live="polite">
+                    <div class="loading-text">Загрузка каталога товаров...</div>
                     <div class="loading-cursor" aria-hidden="true">C:\RETRO-PC&gt;_</div>
                 </div>
             </div>
         </section>
-
-        <div class="ascii-separator-large" role="presentation" aria-hidden="true">
-            ├─────────────────────────────────────────────────────────────────────────────────┤
-        </div>
-
-        <!-- Останні статті з Вікі -->
-        <section class="wiki-articles" id="wiki" aria-labelledby="wiki-title">
-            <h2 class="section-title" id="wiki-title">
-                &gt;&gt;&gt; ОСТАННІ СТАТТІ З ВІКІ &lt;&lt;&lt;
-            </h2>
-            <div class="ascii-separator" role="presentation" aria-hidden="true">
-                ┌─────────────────────────────────────────────┐
-            </div>
-            <ul class="wiki-list" role="list">
-                <li class="wiki-item" role="listitem">
-                    <span class="wiki-bullet" aria-hidden="true">►</span>
-                    <a href="#" class="wiki-link" data-article-id="intel-8086-history" 
-                       aria-describedby="wiki-date-1">Історія мікропроцесора Intel 8086</a>
-                    <span class="wiki-date" id="wiki-date-1">[1985-03-15]</span>
-                </li>
-                <li class="wiki-item" role="listitem">
-                    <span class="wiki-bullet" aria-hidden="true">►</span>
-                    <a href="#" class="wiki-link" data-article-id="cga-vs-ega"
-                       aria-describedby="wiki-date-2">Порівняння графічних стандартів CGA vs EGA</a>
-                    <span class="wiki-date" id="wiki-date-2">[1984-11-20]</span>
-                </li>
-                <li class="wiki-item" role="listitem">
-                    <span class="wiki-bullet" aria-hidden="true">►</span>
-                    <a href="#" class="wiki-link" data-article-id="xt-motherboards"
-                       aria-describedby="wiki-date-3">Налаштування материнських плат XT класу</a>
-                    <span class="wiki-date" id="wiki-date-3">[1986-01-08]</span>
-                </li>
-                <li class="wiki-item" role="listitem">
-                    <span class="wiki-bullet" aria-hidden="true">►</span>
-                    <a href="#" class="wiki-link" data-article-id="memory-expansion"
-                       aria-describedby="wiki-date-4">Розширення пам'яті в системах XT/AT</a>
-                    <span class="wiki-date" id="wiki-date-4">[1987-05-12]</span>
-                </li>
-                <li class="wiki-item" role="listitem">
-                    <span class="wiki-bullet" aria-hidden="true">►</span>
-                    <a href="#" class="wiki-link" data-article-id="sound-cards-history"
-                       aria-describedby="wiki-date-5">Еволюція звукових карт AdLib і Sound Blaster</a>
-                    <span class="wiki-date" id="wiki-date-5">[1988-11-03]</span>
-                </li>
-            </ul>
-            <div class="ascii-separator" role="presentation" aria-hidden="true">
-                └─────────────────────────────────────────────┘
-            </div>
-        </section>
     </main>
-
-    <div class="ascii-border" role="presentation" aria-hidden="true">
-        ├─────────────────────────────────────────────────────────────────────────────────┤
-    </div>
-
-    <footer class="main-footer" role="contentinfo">
+    
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="ascii-border" aria-hidden="true">
+            -------------------------------------------------------------------------------
+        </div>
+        
         <div class="footer-content">
-            <div class="ascii-art-footer" aria-hidden="true">
-                ░▒▓█ RETRO-PC STORE █▓▒░
-            </div>
-            <p class="copyright">
-                &copy; 2024 RETRO-PC STORE │ ПОВЕРНЕННЯ В МАЙБУТНЄ ЧЕРЕЗ МИНУЛЕ
-            </p>
             <div class="footer-links">
-                <a href="https://github.com/Tiger884/RETRO-PC-STORE" class="footer-link" target="_blank" rel="noopener noreferrer">
-                    [GITHUB]
-                </a>
-                <span class="nav-separator" role="presentation" aria-hidden="true">│</span>
-                <a href="#" class="footer-link" id="theme-toggle" aria-label="Переключити тему оформлення">
-                    [ЗМІНИТИ ТЕМУ]
-                </a>
+                <p>© 2024 RETRO-PC STORE | 
+                   <a href="https://github.com/Tiger884/RETRO-PC-STORE" target="_blank" rel="noopener">GitHub</a> | 
+                   <a href="#" onclick="alert('Демонстрационный проект для портфолио')">О проекте</a>
+                </p>
             </div>
-            <div class="footer-terminal" aria-hidden="true">
-                C:\RETRO-PC&gt; DIR *.MEMORIES
+            
+            <div class="footer-info">
+                <p>Винтажные компоненты эпохи 80-х в современном исполнении</p>
+                <p>Версия сайта <span id="app-version">3.3.2</span></p>
             </div>
+        </div>
+        
+        <div class="ascii-border" aria-hidden="true">
+            -------------------------------------------------------------------------------
         </div>
     </footer>
-
-    <div class="ascii-border" role="presentation" aria-hidden="true">
-        └─────────────────────────────────────────────────────────────────────────────────┘
-    </div>
-
-    <!-- Модальне вікно для статей Вікі з покращеною доступністю -->
-    <div id="wiki-modal" class="modal-overlay" style="display: none;" 
-         role="dialog" 
-         aria-modal="true" 
-         aria-labelledby="modal-title"
-         aria-describedby="modal-content">
-        <div class="modal-window">
+    
+    <!-- Wiki Modal -->
+    <div id="wiki-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="wiki-title" aria-hidden="true">
+        <div class="modal-content">
             <div class="modal-header">
-                <div class="modal-border-top" role="presentation" aria-hidden="true">
-                    ┌─────────────────────────────────────────────────────────────────────┐
-                </div>
-                <div class="modal-title-bar">
-                    <h2 class="modal-title" id="modal-title">WIKI ARTICLE</h2>
-                    <button class="modal-close" id="modal-close" 
-                            aria-label="Закрити модальне вікно (Esc)"
-                            type="button">[X]</button>
-                </div>
-                <div class="modal-border-separator" role="presentation" aria-hidden="true">
-                    ├─────────────────────────────────────────────────────────────────────┤
-                </div>
+                <h2 id="wiki-title">РЕТРО-ПК ВИКИ</h2>
+                <button class="modal-close" type="button" aria-label="Закрыть вики" onclick="hideWiki()">×</button>
             </div>
-            <div class="modal-content" id="modal-content" role="document" tabindex="0" aria-live="polite">
-                <!-- Контент статьи будет вставлен сюда -->
-            </div>
-            <div class="modal-footer">
-                <div class="modal-border-bottom" role="presentation" aria-hidden="true">
-                    └─────────────────────────────────────────────────────────────────────┘
-                </div>
-                <div class="modal-command-line" aria-hidden="true">
-                    C:\WIKI&gt; PRESS [ESC] OR CLICK [X] TO EXIT_
+            <div class="modal-body">
+                <div class="wiki-content">
+                    <div class="wiki-nav">
+                        <button class="wiki-tab active" onclick="showWikiSection('processors')">🖥️ Процессоры</button>
+                        <button class="wiki-tab" onclick="showWikiSection('computers')">💾 Компьютеры</button>
+                        <button class="wiki-tab" onclick="showWikiSection('history')">📅 История</button>
+                        <button class="wiki-tab" onclick="showWikiSection('tech')">⚙️ Технологии</button>
+                    </div>
+
+                    <div id="wiki-processors" class="wiki-section active">
+                        <div class="wiki-card">
+                            <h3>INTEL 8086 - РЕВОЛЮЦИЯ 1978 ГОДА</h3>
+                            <p><strong>Год выпуска:</strong> 1978</p>
+                            <p><strong>Разрядность:</strong> 16 бит (данные и адрес)</p>
+                            <p><strong>Частота:</strong> 5-10 МГц</p>
+                            <p><strong>Транзисторов:</strong> 29 000</p>
+                            <p><strong>Технология:</strong> 3 мкм NMOS</p>
+                            <li>Первый 16-битный процессор x86</li>
+                            <li>Положил начало архитектуре, которая используется до сих пор</li>
+                            <li>Сегментная модель памяти (до 1 МБ адресного пространства)</li>
+                            <li>14 регистров общего назначения</li>
+                            <li>Конвейерная архитектура (6-байтная очередь команд)</li>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>INTEL 8088 - ПРОЦЕССОР IBM PC</h3>
+                            <p><strong>Год выпуска:</strong> 1979</p>
+                            <p><strong>Частота:</strong> 4.77-8 МГц</p>
+                            <p><strong>Особенность:</strong> 8-битная внешняя шина данных</p>
+                            <li>Выбран для IBM PC 5150 (1981)</li>
+                            <li>Дешевле 8086 из-за 8-битной шины</li>
+                            <li>Совместим с периферией 8080/8085</li>
+                            <li>Медленнее 8086 на 30-40%</li>
+                            <li>Определил стандарт PC на десятилетия</li>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>INTEL 8087 - МАТЕМАТИЧЕСКИЙ СОПРОЦЕССОР</h3>
+                            <p><strong>Год выпуска:</strong> 1980</p>
+                            <p><strong>Тип:</strong> FPU (Floating Point Unit)</p>
+                            <p><strong>Форматы:</strong> IEEE 754</p>
+                            <li>Ускорение операций с плавающей точкой до 100 раз</li>
+                            <li>Поддержка тригонометрических функций</li>
+                            <li>8 регистров по 80 бит</li>
+                            <li>Работает параллельно с 8086/8088</li>
+                            <li>Критически важен для CAD и научных расчётов</li>
+                        </div>
+                    </div>
+
+                    <div id="wiki-computers" class="wiki-section">
+                        <div class="wiki-card">
+                            <h3>IBM PC 5150 - ЛЕГЕНДА 1981 ГОДА</h3>
+                            <p><strong>Дата выпуска:</strong> 12 августа 1981</p>
+                            <p><strong>Процессор:</strong> Intel 8088 @ 4.77 МГц</p>
+                            <p><strong>Память:</strong> 16-256 КБ RAM</p>
+                            <p><strong>Цена:</strong> $1565 (базовая конфигурация)</p>
+                            <li>Открытая архитектура - революция в индустрии</li>
+                            <li>5 слотов расширения ISA</li>
+                            <li>Кассетный порт + опциональный дисковод</li>
+                            <li>Клавиатура Model F (83 клавиши)</li>
+                            <li>Опциональная графика: MDA или CGA</li>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>IBM PC XT (5160) - РАСШИРЕННАЯ ВЕРСИЯ</h3>
+                            <p><strong>Дата выпуска:</strong> март 1983</p>
+                            <p><strong>Процессор:</strong> Intel 8088 @ 4.77 МГц</p>
+                            <p><strong>Жёсткий диск:</strong> 10 МБ Seagate ST-412</p>
+                            <p><strong>Память:</strong> 128-640 КБ RAM</p>
+                            <li>Первый PC со встроенным HDD</li>
+                            <li>8 слотов расширения ISA</li>
+                            <li>Блок питания 135W (вместо 63.5W)</li>
+                            <li>Serial port в стандартной комплектации</li>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>IBM PC AT (5170) - ADVANCED TECHNOLOGY</h3>
+                            <p><strong>Дата выпуска:</strong> август 1984</p>
+                            <p><strong>Процессор:</strong> Intel 80286 @ 6 МГц</p>
+                            <p><strong>Жёсткий диск:</strong> 20 МБ</p>
+                            <p><strong>Память:</strong> до 16 МБ RAM</p>
+                            <li>Процессор 80286 с защищённым режимом</li>
+                            <li>Шина ISA 16-бит (AT bus)</li>
+                            <li>Батарея для RTC и CMOS памяти</li>
+                            <li>Клавиатура Model M (101 клавиша)</li>
+                            <li>Производительность в 3-6 раз выше XT</li>
+                        </div>
+                    </div>
+
+                    <div id="wiki-history" class="wiki-section">
+                        <div class="wiki-card">
+                            <h3>РОЖДЕНИЕ АРХИТЕКТУРЫ x86</h3>
+                            <p><strong>1978 - Intel 8086</strong></p>
+                            <li>Июнь: презентация первого 16-битного процессора</li>
+                            <li>Стивен Морс проектирует набор команд</li>
+                            <li>Цель: конкурировать с Motorola 68000 и Zilog Z8000</li>
+                            <p><strong>1981, 12 августа - Запуск IBM PC</strong></p>
+                            <li>Презентация IBM PC 5150 в Нью-Йорке</li>
+                            <li>Цена $1565 (базовая) - $3000+ (полная)</li>
+                            <li>Первый год: 35 000 проданных компьютеров</li>
+                            <li>Microsoft DOS 1.0 как операционная система</li>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>ЭПОХА КЛОНОВ (1982-1985)</h3>
+                            <p><strong>1983 - Compaq Portable</strong></p>
+                            <li>Первый легальный 100% совместимый клон</li>
+                            <li>Метод "чистой комнаты": одна команда читает BIOS, другая пишет с нуля</li>
+                            <li>Успех: $111 млн продаж в первый год</li>
+                            <p><strong>1984 - Взрыв рынка</strong></p>
+                            <li>Десятки производителей клонов</li>
+                            <li>Цены падают на 40-50%</li>
+                            <li>IBM теряет контроль над рынком</li>
+                            <li>Стандарт "IBM PC compatible" становится доминирующим</li>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>ДОЛГОСРОЧНОЕ НАСЛЕДИЕ</h3>
+                            <li>Архитектура x86 живёт 47+ лет</li>
+                            <li>Обратная совместимость до сих пор</li>
+                            <li>Intel/AMD продолжают традицию</li>
+                            <li>Современные CPU выполняют код 1978 года!</li>
+                        </div>
+                    </div>
+
+                    <div id="wiki-tech" class="wiki-section">
+                        <div class="wiki-card">
+                            <h3>РЕГИСТРЫ ПРОЦЕССОРА</h3>
+                            <p><strong>Общего назначения (16 бит):</strong></p>
+                            <li>AX (AH/AL) - аккумулятор, арифметика</li>
+                            <li>BX (BH/BL) - база, адресация</li>
+                            <li>CX (CH/CL) - счётчик, циклы</li>
+                            <li>DX (DH/DL) - данные, ввод/вывод</li>
+                            <p><strong>Сегментные регистры:</strong></p>
+                            <li>CS - Code Segment (код)</li>
+                            <li>DS - Data Segment (данные)</li>
+                            <li>SS - Stack Segment (стек)</li>
+                            <li>ES - Extra Segment (дополнительный)</li>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>НАБОР КОМАНД 8086</h3>
+                            <p><strong>Пересылка данных:</strong> MOV, PUSH, POP, XCHG, LEA</p>
+                            <p><strong>Арифметика:</strong> ADD, SUB, MUL, DIV, INC, DEC</p>
+                            <p><strong>Логические:</strong> AND, OR, XOR, NOT, SHL, SHR</p>
+                            <p><strong>Управление:</strong> JMP, CALL, RET, JZ, JNZ, LOOP, INT</p>
+                            <p><strong>Строковые:</strong> MOVSB/MOVSW, CMPSB/CMPSW, REP</p>
+                        </div>
+                        <div class="wiki-card">
+                            <h3>ТЕХНИЧЕСКИЕ СПЕЦИФИКАЦИИ</h3>
+                            <p><strong>Техпроцесс:</strong> 3 мкм NMOS</p>
+                            <p><strong>Транзисторов:</strong> 29 000</p>
+                            <p><strong>Корпус:</strong> DIP-40 (керамика)</p>
+                            <p><strong>Напряжение:</strong> +5V, +12V, -5V</p>
+                            <p><strong>Потребление:</strong> 2.5W</p>
+                            <p><strong>Частота:</strong> 5-10 МГц</p>
+                            <p><strong>Адресная шина:</strong> 20 бит (1 МБ)</p>
+                            <p><strong>Шина данных:</strong> 16 бит</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Back to top button -->
-    <button id="back-to-top" class="back-to-top" aria-label="Повернутися до початку сторінки" style="display: none;">
-        ▲ TOP
-    </button>
-
-    <!-- JavaScript files with new paths -->
-    <!-- ВАЖЛИВО: fallback-data.js повинен завантажуватися ПЕРШИМ -->
-    <script src="assets/js/fallback-data.js"></script>
-    <script src="assets/js/main.js"></script>
     
-    <!-- Performance monitoring -->
+    <!-- Scripts - порядок важен! -->
+    <script src="assets/js/fallback-data.js"></script>
     <script>
-        // Simple performance monitoring with Google Analytics
-        window.addEventListener('load', function() {
-            if ('performance' in window) {
-                const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
-                console.log('🚀 Page load time:', Math.round(loadTime), 'ms');
-                
-                // Send load time to Google Analytics
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'page_load_time', {
-                        event_category: 'Performance',
-                        event_label: 'Load Time',
-                        value: Math.round(loadTime)
-                    });
-                }
-            }
-        });
+        // Проверяем что данные загрузились
+        console.log('🔍 Проверка fallbackProducts:', window.fallbackProducts);
+        if (window.fallbackProducts) {
+            console.log('✅ Загружено товаров:', window.fallbackProducts.length);
+            console.log('📦 Первый товар:', window.fallbackProducts[0]);
+        } else {
+            console.error('❌ fallbackProducts не загрузились!');
+        }
     </script>
+    <script src="assets/js/main.js"></script>
 </body>
 </html>
