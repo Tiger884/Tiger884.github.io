@@ -321,7 +321,7 @@
 
         async function testCSS() {
             try {
-                const response = await fetch('assets/css/main.css');
+                const response = await fetch('assets/css/main.css?nocache=' + Date.now());
                 const css = await response.text();
                 
                 addTest('css-tests', 'CSS файл загружается', response.ok);
@@ -342,7 +342,7 @@
 
         async function testJavaScript() {
             try {
-                const response = await fetch('assets/js/main.js');
+                const response = await fetch('assets/js/main.js?nocache=' + Date.now());
                 const js = await response.text();
                 
                 addTest('js-tests', 'JS файл загружается', response.ok);
