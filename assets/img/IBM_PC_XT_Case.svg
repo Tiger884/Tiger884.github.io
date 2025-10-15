@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="IBM PC XT Case">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#0D0D0D"/>
+  
+  <!-- Case Body -->
+  <rect x="60" y="40" width="280" height="220" fill="#2a2a2a" stroke="#33ff33" stroke-width="3" rx="5"/>
+  
+  <!-- Front Panel -->
+  <rect x="70" y="50" width="260" height="200" fill="#1a1a1a" stroke="#33ff33" stroke-width="2"/>
+  
+  <!-- Drive Bays -->
+  <g fill="#0D0D0D" stroke="#33ff33" stroke-width="2">
+    <rect x="90" y="70" width="240" height="40" rx="2"/>
+    <text x="210" y="95" font-family="monospace" font-size="12" fill="#33ff33" text-anchor="middle">5.25" DRIVE A:</text>
+    
+    <rect x="90" y="120" width="240" height="40" rx="2"/>
+    <text x="210" y="145" font-family="monospace" font-size="12" fill="#33ff33" text-anchor="middle">5.25" DRIVE B:</text>
+  </g>
+  
+  <!-- Power Switch -->
+  <rect x="90" y="180" width="60" height="30" fill="#33ff33" stroke="#33ff33" stroke-width="2" rx="3" opacity="0.7"/>
+  <text x="120" y="200" font-family="monospace" font-size="12" fill="#0D0D0D" text-anchor="middle" font-weight="bold">POWER</text>
+  
+  <!-- Reset Switch -->
+  <rect x="160" y="185" width="40" height="20" fill="#0D0D0D" stroke="#33ff33" stroke-width="2" rx="2"/>
+  <text x="180" y="200" font-family="monospace" font-size="10" fill="#33ff33" text-anchor="middle">RESET</text>
+  
+  <!-- Turbo LED -->
+  <circle cx="220" cy="195" r="5" fill="#33ff33" opacity="0.8"/>
+  <text x="245" y="200" font-family="monospace" font-size="10" fill="#00aa00">TURBO</text>
+  
+  <!-- HDD LED -->
+  <circle cx="280" cy="195" r="5" fill="#33ff33" opacity="0.5"/>
+  <text x="310" y="200" font-family="monospace" font-size="10" fill="#00aa00">HDD</text>
+  
+  <!-- Ventilation Slots -->
+  <g stroke="#33ff33" stroke-width="1" fill="none">
+    <line x1="100" y1="230" x2="300" y2="230"/>
+    <line x1="100" y1="235" x2="300" y2="235"/>
+    <line x1="100" y1="240" x2="300" y2="240"/>
+  </g>
+  
+  <!-- IBM Logo -->
+  <text x="200" y="25" font-family="monospace" font-size="24" fill="#33ff33" text-anchor="middle" font-weight="bold">IBM PC XT</text>
+  <text x="200" y="285" font-family="monospace" font-size="11" fill="#00aa00" text-anchor="middle">STEEL CASE | 135W PSU | 8 ISA SLOTS</text>
+</svg>

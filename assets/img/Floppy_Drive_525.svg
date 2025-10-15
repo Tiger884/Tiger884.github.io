@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="5.25 inch Floppy Drive">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#0D0D0D"/>
+  
+  <!-- Drive Body -->
+  <rect x="50" y="50" width="300" height="200" fill="#2a2a2a" stroke="#33ff33" stroke-width="3" rx="5"/>
+  
+  <!-- Faceplate -->
+  <rect x="60" y="60" width="280" height="100" fill="#1a1a1a" stroke="#33ff33" stroke-width="2" rx="3"/>
+  
+  <!-- Disk Slot -->
+  <rect x="80" y="80" width="240" height="40" fill="#0D0D0D" stroke="#33ff33" stroke-width="2"/>
+  <text x="200" y="105" font-family="monospace" font-size="14" fill="#33ff33" text-anchor="middle">5.25" DISK SLOT</text>
+  
+  <!-- Eject Button -->
+  <rect x="270" y="130" width="40" height="20" fill="#33ff33" stroke="#33ff33" stroke-width="2" rx="2"/>
+  <text x="290" y="145" font-family="monospace" font-size="10" fill="#0D0D0D" text-anchor="middle" font-weight="bold">EJECT</text>
+  
+  <!-- LED -->
+  <circle cx="100" cy="140" r="5" fill="#33ff33" opacity="0.7"/>
+  <text x="120" y="145" font-family="monospace" font-size="10" fill="#00aa00">ACTIVITY</text>
+  
+  <!-- Drive Mechanism -->
+  <g fill="#0D0D0D" stroke="#33ff33" stroke-width="1.5">
+    <circle cx="150" cy="200" r="30"/>
+    <circle cx="250" cy="200" r="30"/>
+    <rect x="130" y="190" width="140" height="20"/>
+  </g>
+  
+  <!-- Spindle Motor -->
+  <circle cx="200" cy="200" r="15" fill="#33ff33" opacity="0.3"/>
+  
+  <!-- Labels -->
+  <text x="200" y="40" font-family="monospace" font-size="22" fill="#33ff33" text-anchor="middle" font-weight="bold">5.25" FLOPPY DRIVE</text>
+  <text x="200" y="275" font-family="monospace" font-size="12" fill="#00aa00" text-anchor="middle">360KB CAPACITY | HALF-HEIGHT</text>
+</svg>

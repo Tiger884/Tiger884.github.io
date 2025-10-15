@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Intel 80286 CPU">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#0D0D0D"/>
+  
+  <!-- CPU Chip Body -->
+  <rect x="80" y="60" width="240" height="180" fill="#1a1a1a" stroke="#33ff33" stroke-width="3" rx="5"/>
+  
+  <!-- Top Pins -->
+  <g fill="#33ff33">
+    <rect x="90" y="45" width="8" height="20"/>
+    <rect x="110" y="45" width="8" height="20"/>
+    <rect x="130" y="45" width="8" height="20"/>
+    <rect x="150" y="45" width="8" height="20"/>
+    <rect x="170" y="45" width="8" height="20"/>
+    <rect x="190" y="45" width="8" height="20"/>
+    <rect x="210" y="45" width="8" height="20"/>
+    <rect x="230" y="45" width="8" height="20"/>
+    <rect x="250" y="45" width="8" height="20"/>
+    <rect x="270" y="45" width="8" height="20"/>
+    <rect x="290" y="45" width="8" height="20"/>
+    <rect x="310" y="45" width="8" height="20"/>
+  </g>
+  
+  <!-- Bottom Pins -->
+  <g fill="#33ff33">
+    <rect x="90" y="235" width="8" height="20"/>
+    <rect x="110" y="235" width="8" height="20"/>
+    <rect x="130" y="235" width="8" height="20"/>
+    <rect x="150" y="235" width="8" height="20"/>
+    <rect x="170" y="235" width="8" height="20"/>
+    <rect x="190" y="235" width="8" height="20"/>
+    <rect x="210" y="235" width="8" height="20"/>
+    <rect x="230" y="235" width="8" height="20"/>
+    <rect x="250" y="235" width="8" height="20"/>
+    <rect x="270" y="235" width="8" height="20"/>
+    <rect x="290" y="235" width="8" height="20"/>
+    <rect x="310" y="235" width="8" height="20"/>
+  </g>
+  
+  <!-- Intel Logo Area -->
+  <rect x="100" y="80" width="200" height="40" fill="#0D0D0D" stroke="#33ff33" stroke-width="1"/>
+  <text x="200" y="105" font-family="monospace" font-size="20" fill="#33ff33" text-anchor="middle" font-weight="bold">intel</text>
+  
+  <!-- Model Number -->
+  <text x="200" y="150" font-family="monospace" font-size="32" fill="#33ff33" text-anchor="middle" font-weight="bold">80286</text>
+  
+  <!-- Details -->
+  <text x="200" y="180" font-family="monospace" font-size="12" fill="#00aa00" text-anchor="middle">16-BIT CPU</text>
+  <text x="200" y="200" font-family="monospace" font-size="12" fill="#00aa00" text-anchor="middle">PROTECTED MODE</text>
+  <text x="200" y="220" font-family="monospace" font-size="10" fill="#00aa00" text-anchor="middle">© 1982</text>
+</svg>
