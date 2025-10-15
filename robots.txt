@@ -22,7 +22,7 @@ Allow: /assets/js/
 Allow: /assets/img/
 
 # Sitemap location
-Sitemap: https://tiger884.github.io/RETRO-PC-STORE/sitemap.xml
+Sitemap: https://tiger884.github.io/sitemap.xml
 
 # Crawl-delay для менш важливих роботів
 User-agent: *
