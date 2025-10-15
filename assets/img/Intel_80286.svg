@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Intel 80286 CPU">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#0D0D0D"/>
+  
+  <!-- CPU Chip Body -->
+  <rect x="80" y="60" width="240" height="180" fill="#1a1a1a" stroke="#33ff33" stroke-width="3" rx="5"/>
+  
+  <!-- Top Pins -->
+  <g fill="#33ff33">
+    <rect x="90" y="45" width="6" height="20"/>
+    <rect x="105" y="45" width="6" height="20"/>
+    <rect x="120" y="45" width="6" height="20"/>
+    <rect x="135" y="45" width="6" height="20"/>
+    <rect x="150" y="45" width="6" height="20"/>
+    <rect x="165" y="45" width="6" height="20"/>
+    <rect x="180" y="45" width="6" height="20"/>
+    <rect x="195" y="45" width="6" height="20"/>
+    <rect x="210" y="45" width="6" height="20"/>
+    <rect x="225" y="45" width="6" height="20"/>
+    <rect x="240" y="45" width="6" height="20"/>
+    <rect x="255" y="45" width="6" height="20"/>
+    <rect x="270" y="45" width="6" height="20"/>
+    <rect x="285" y="45" width="6" height="20"/>
+    <rect x="300" y="45" width="6" height="20"/>
+  </g>
+  
+  <!-- Bottom Pins -->
+  <g fill="#33ff33">
+    <rect x="90" y="235" width="6" height="20"/>
+    <rect x="105" y="235" width="6" height="20"/>
+    <rect x="120" y="235" width="6" height="20"/>
+    <rect x="135" y="235" width="6" height="20"/>
+    <rect x="150" y="235" width="6" height="20"/>
+    <rect x="165" y="235" width="6" height="20"/>
+    <rect x="180" y="235" width="6" height="20"/>
+    <rect x="195" y="235" width="6" height="20"/>
+    <rect x="210" y="235" width="6" height="20"/>
+    <rect x="225" y="235" width="6" height="20"/>
+    <rect x="240" y="235" width="6" height="20"/>
+    <rect x="255" y="235" width="6" height="20"/>
+    <rect x="270" y="235" width="6" height="20"/>
+    <rect x="285" y="235" width="6" height="20"/>
+    <rect x="300" y="235" width="6" height="20"/>
+  </g>
+  
+  <!-- Left Pins -->
+  <g fill="#33ff33">
+    <rect x="55" y="80" width="25" height="5"/>
+    <rect x="55" y="95" width="25" height="5"/>
+    <rect x="55" y="110" width="25" height="5"/>
+    <rect x="55" y="125" width="25" height="5"/>
+    <rect x="55" y="140" width="25" height="5"/>
+    <rect x="55" y="155" width="25" height="5"/>
+    <rect x="55" y="170" width="25" height="5"/>
+    <rect x="55" y="185" width="25" height="5"/>
+    <rect x="55" y="200" width="25" height="5"/>
+    <rect x="55" y="215" width="25" height="5"/>
+  </g>
+  
+  <!-- Right Pins -->
+  <g fill="#33ff33">
+    <rect x="320" y="80" width="25" height="5"/>
+    <rect x="320" y="95" width="25" height="5"/>
+    <rect x="320" y="110" width="25" height="5"/>
+    <rect x="320" y="125" width="25" height="5"/>
+    <rect x="320" y="140" width="25" height="5"/>
+    <rect x="320" y="155" width="25" height="5"/>
+    <rect x="320" y="170" width="25" height="5"/>
+    <rect x="320" y="185" width="25" height="5"/>
+    <rect x="320" y="200" width="25" height="5"/>
+    <rect x="320" y="215" width="25" height="5"/>
+  </g>
+  
+  <!-- Intel Logo Area -->
+  <rect x="100" y="80" width="200" height="45" fill="#0D0D0D" stroke="#33ff33" stroke-width="2" rx="3"/>
+  <text x="200" y="108" font-family="monospace" font-size="22" fill="#33ff33" text-anchor="middle" font-weight="bold">intel®</text>
+  
+  <!-- Model Number -->
+  <text x="200" y="155" font-family="monospace" font-size="38" fill="#33ff33" text-anchor="middle" font-weight="bold">80286</text>
+  
+  <!-- Chip details -->
+  <g font-family="monospace" fill="#00aa00" font-size="10">
+    <text x="200" y="180" text-anchor="middle">16-BIT CPU</text>
+    <text x="200" y="195" text-anchor="middle">PROTECTED MODE</text>
+    <text x="200" y="210" text-anchor="middle">UP TO 16MB RAM</text>
+    <text x="200" y="225" text-anchor="middle" font-size="8">© 1982 INTEL</text>
+  </g>
+  
+  <!-- Corner pins -->
+  <g fill="#33ff33">
+    <circle cx="95" cy="75" r="2"/>
+    <circle cx="305" cy="75" r="2"/>
+    <circle cx="95" cy="225" r="2"/>
+    <circle cx="305" cy="225" r="2"/>
+  </g>
+</svg>
