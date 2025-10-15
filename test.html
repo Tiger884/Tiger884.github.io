@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧪 RETRO-PC STORE - Автоматические тесты</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #33ff33;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #33ff33;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 2rem;
+            text-shadow: 0 0 10px #33ff33;
+        }
+        
+        .test-section {
+            background: #0d0d0d;
+            border: 2px solid #33ff33;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px rgba(51, 255, 51, 0.3);
+        }
+        
+        .test-section h2 {
+            color: #ffb000;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .test-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            background: rgba(51, 255, 51, 0.05);
+            border-left: 3px solid #666;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .test-item.pass {
+            border-left-color: #33ff33;
+        }
+        
+        .test-item.fail {
+            border-left-color: #ff3333;
+        }
+        
+        .test-name {
+            flex: 1;
+        }
+        
+        .test-status {
+            padding: 5px 15px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .test-status.pass {
+            background: #33ff33;
+            color: #0a0a0a;
+        }
+        
+        .test-status.fail {
+            background: #ff3333;
+            color: #ffffff;
+        }
+        
+        .test-status.pending {
+            background: #ffb000;
+            color: #0a0a0a;
+        }
+        
+        .summary {
+            background: #1a1a1a;
+            border: 3px solid #33ff33;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .summary h2 {
+            color: #ffb000;
+            margin-bottom: 15px;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 3rem;
+            font-weight: bold;
+            text-shadow: 0 0 15px currentColor;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+        
+        .run-button {
+            background: #33ff33;
+            color: #0a0a0a;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+            box-shadow: 0 0 20px rgba(51, 255, 51, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .run-button:hover {
+            box-shadow: 0 0 30px rgba(51, 255, 51, 0.8);
+            transform: scale(1.05);
+        }
+        
+        .log {
+            background: #000;
+            border: 1px solid #33ff33;
+            padding: 15px;
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-size: 0.9rem;
+        }
+        
+        .log-entry {
+            margin-bottom: 5px;
+        }
+        
+        .log-success { color: #33ff33; }
+        .log-error { color: #ff3333; }
+        .log-info { color: #ffb000; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 RETRO-PC STORE - АВТОМАТИЧЕСКИЕ ТЕСТЫ</h1>
+        
+        <button class="run-button" onclick="runAllTests()">▶ ЗАПУСТИТЬ ВСЕ ТЕСТЫ</button>
+        
+        <div class="test-section">
+            <h2>📄 HTML Структура</h2>
+            <div id="html-tests"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>🎨 CSS Стили</h2>
+            <div id="css-tests"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>⚙️ JavaScript Функциональность</h2>
+            <div id="js-tests"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>📦 Данные и Контент</h2>
+            <div id="data-tests"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>🔍 SEO и Доступность</h2>
+            <div id="seo-tests"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>🖼️ Изображения и Медиа</h2>
+            <div id="media-tests"></div>
+        </div>
+        
+        <div class="summary">
+            <h2>📊 ИТОГОВАЯ СТАТИСТИКА</h2>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value" style="color: #33ff33;" id="pass-count">0</div>
+                    <div class="stat-label">Пройдено</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" style="color: #ff3333;" id="fail-count">0</div>
+                    <div class="stat-label">Провалено</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" style="color: #ffb000;" id="total-count">0</div>
+                    <div class="stat-label">Всего</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="log" id="test-log"></div>
+    </div>
+
+    <script>
+        let passCount = 0;
+        let failCount = 0;
+        let totalCount = 0;
+
+        function log(message, type = 'info') {
+            const logDiv = document.getElementById('test-log');
+            const entry = document.createElement('div');
+            entry.className = `log-entry log-${type}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logDiv.appendChild(entry);
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        function addTest(category, name, result) {
+            totalCount++;
+            const container = document.getElementById(category);
+            const testItem = document.createElement('div');
+            testItem.className = `test-item ${result ? 'pass' : 'fail'}`;
+            
+            testItem.innerHTML = `
+                <div class="test-name">${name}</div>
+                <div class="test-status ${result ? 'pass' : 'fail'}">${result ? '✓ PASS' : '✗ FAIL'}</div>
+            `;
+            
+            container.appendChild(testItem);
+            
+            if (result) {
+                passCount++;
+                log(`✓ ${name}`, 'success');
+            } else {
+                failCount++;
+                log(`✗ ${name}`, 'error');
+            }
+            
+            updateStats();
+        }
+
+        function updateStats() {
+            document.getElementById('pass-count').textContent = passCount;
+            document.getElementById('fail-count').textContent = failCount;
+            document.getElementById('total-count').textContent = totalCount;
+        }
+
+        async function runAllTests() {
+            // Сброс
+            passCount = 0;
+            failCount = 0;
+            totalCount = 0;
+            document.getElementById('test-log').innerHTML = '';
+            ['html-tests', 'css-tests', 'js-tests', 'data-tests', 'seo-tests', 'media-tests'].forEach(id => {
+                document.getElementById(id).innerHTML = '';
+            });
+            
+            log('🚀 Начало тестирования...', 'info');
+            
+            // HTML ТЕСТЫ
+            await testHTML();
+            
+            // CSS ТЕСТЫ
+            await testCSS();
+            
+            // JS ТЕСТЫ
+            await testJavaScript();
+            
+            // DATA ТЕСТЫ
+            await testData();
+            
+            // SEO ТЕСТЫ
+            await testSEO();
+            
+            // MEDIA ТЕСТЫ
+            await testMedia();
+            
+            log('✅ Тестирование завершено!', 'success');
+            log(`Результат: ${passCount}/${totalCount} тестов пройдено`, 'info');
+        }
+
+        async function testHTML() {
+            try {
+                const response = await fetch('index.html');
+                const html = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                
+                addTest('html-tests', 'HTML файл загружается', response.ok);
+                addTest('html-tests', 'Присутствует <!DOCTYPE html>', html.includes('<!DOCTYPE html>'));
+                addTest('html-tests', 'Язык установлен (lang="ru")', html.includes('lang="ru"'));
+                addTest('html-tests', 'Мета charset UTF-8', html.includes('charset="UTF-8"'));
+                addTest('html-tests', 'Viewport для мобильных', html.includes('name="viewport"'));
+                addTest('html-tests', 'Title страницы', doc.querySelector('title') !== null);
+                addTest('html-tests', 'H1 заголовок присутствует', doc.querySelector('h1') !== null);
+                addTest('html-tests', 'Main контент', doc.querySelector('main') !== null);
+                addTest('html-tests', 'Header секция', doc.querySelector('header') !== null);
+                addTest('html-tests', 'Footer секция', doc.querySelector('footer') !== null);
+                
+            } catch (error) {
+                log(`Ошибка тестирования HTML: ${error.message}`, 'error');
+            }
+        }
+
+        async function testCSS() {
+            try {
+                const response = await fetch('assets/css/main.css');
+                const css = await response.text();
+                
+                addTest('css-tests', 'CSS файл загружается', response.ok);
+                addTest('css-tests', 'Терминальный цвет (#33ff33)', css.includes('#33ff33') || css.includes('33ff33'));
+                addTest('css-tests', 'CSS переменные (:root)', css.includes(':root'));
+                addTest('css-tests', 'Grid layout для товаров', css.includes('grid-template-columns'));
+                addTest('css-tests', 'Flexbox используется', css.includes('display: flex'));
+                addTest('css-tests', 'Media queries для адаптива', css.includes('@media'));
+                addTest('css-tests', 'Кастомный scrollbar', css.includes('scrollbar') || css.includes('::-webkit-scrollbar'));
+                addTest('css-tests', 'Анимации определены', css.includes('@keyframes'));
+                addTest('css-tests', 'Product card стили', css.includes('.product-card'));
+                addTest('css-tests', 'Modal window стили', css.includes('.modal') || css.includes('.product-modal'));
+                
+            } catch (error) {
+                log(`Ошибка тестирования CSS: ${error.message}`, 'error');
+            }
+        }
+
+        async function testJavaScript() {
+            try {
+                const response = await fetch('assets/js/main.js');
+                const js = await response.text();
+                
+                addTest('js-tests', 'JS файл загружается', response.ok);
+                addTest('js-tests', 'Strict mode включён', js.includes("'use strict'"));
+                addTest('js-tests', 'retroApp объект определён', js.includes('window.retroApp'));
+                addTest('js-tests', 'Функция init', js.includes('init:'));
+                addTest('js-tests', 'Функция createProductCard', js.includes('createProductCard'));
+                addTest('js-tests', 'Функция viewProduct', js.includes('viewProduct'));
+                addTest('js-tests', 'Переключатель темы', js.includes('setupThemeToggle') || js.includes('theme'));
+                addTest('js-tests', 'Wiki modal функция', js.includes('setupWikiModal') || js.includes('wiki'));
+                addTest('js-tests', 'Event listeners', js.includes('addEventListener'));
+                addTest('js-tests', 'Error handling', js.includes('try') && js.includes('catch'));
+                
+            } catch (error) {
+                log(`Ошибка тестирования JS: ${error.message}`, 'error');
+            }
+        }
+
+        async function testData() {
+            try {
+                const response = await fetch('assets/js/fallback-data.js');
+                const data = await response.text();
+                
+                addTest('data-tests', 'Данные товаров загружаются', response.ok);
+                addTest('data-tests', 'fallbackProducts массив', data.includes('fallbackProducts'));
+                addTest('data-tests', 'Товары имеют ID', data.includes('"id"') || data.includes('id:'));
+                addTest('data-tests', 'Товары имеют названия', data.includes('"name"') || data.includes('name:'));
+                addTest('data-tests', 'Товары имеют цены', data.includes('"price"') || data.includes('price:'));
+                addTest('data-tests', 'Товары имеют описания', data.includes('"description"') || data.includes('description:'));
+                addTest('data-tests', 'Intel 8086 в данных', data.includes('8086'));
+                addTest('data-tests', 'Intel 8088 в данных', data.includes('8088'));
+                addTest('data-tests', 'Intel 8087 в данных', data.includes('8087'));
+                
+            } catch (error) {
+                log(`Ошибка тестирования данных: ${error.message}`, 'error');
+            }
+        }
+
+        async function testSEO() {
+            try {
+                const htmlResponse = await fetch('index.html');
+                const html = await htmlResponse.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                
+                addTest('seo-tests', 'Meta description', doc.querySelector('meta[name="description"]') !== null);
+                addTest('seo-tests', 'Meta keywords', doc.querySelector('meta[name="keywords"]') !== null);
+                addTest('seo-tests', 'Canonical URL', doc.querySelector('link[rel="canonical"]') !== null);
+                addTest('seo-tests', 'Open Graph title', doc.querySelector('meta[property="og:title"]') !== null);
+                addTest('seo-tests', 'Open Graph image', doc.querySelector('meta[property="og:image"]') !== null);
+                addTest('seo-tests', 'Twitter Card', doc.querySelector('meta[name="twitter:card"]') !== null);
+                
+                // robots.txt
+                try {
+                    const robotsResponse = await fetch('robots.txt');
+                    addTest('seo-tests', 'robots.txt существует', robotsResponse.ok);
+                } catch {
+                    addTest('seo-tests', 'robots.txt существует', false);
+                }
+                
+                // sitemap.xml
+                try {
+                    const sitemapResponse = await fetch('sitemap.xml');
+                    addTest('seo-tests', 'sitemap.xml существует', sitemapResponse.ok);
+                } catch {
+                    addTest('seo-tests', 'sitemap.xml существует', false);
+                }
+                
+                // ads.txt
+                try {
+                    const adsResponse = await fetch('ads.txt');
+                    addTest('seo-tests', 'ads.txt существует (AdSense)', adsResponse.ok);
+                } catch {
+                    addTest('seo-tests', 'ads.txt существует (AdSense)', false);
+                }
+                
+            } catch (error) {
+                log(`Ошибка тестирования SEO: ${error.message}`, 'error');
+            }
+        }
+
+        async function testMedia() {
+            const images = [
+                'assets/img/Intel_8086-2.jpg',
+                'assets/img/Intel_8088-2.jpg',
+                'assets/img/Intel_8087.jpg',
+                'assets/img/fallback/chip-placeholder.svg',
+                'favicon.svg'
+            ];
+            
+            for (const img of images) {
+                try {
+                    const response = await fetch(img);
+                    const name = img.split('/').pop();
+                    addTest('media-tests', `Изображение: ${name}`, response.ok);
+                } catch {
+                    const name = img.split('/').pop();
+                    addTest('media-tests', `Изображение: ${name}`, false);
+                }
+            }
+        }
+
+        // Автозапуск при загрузке страницы
+        window.addEventListener('load', () => {
+            setTimeout(runAllTests, 500);
+        });
+    </script>
+</body>
+</html>
