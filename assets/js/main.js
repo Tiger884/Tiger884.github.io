@@ -1,5 +1,5 @@
 /**
- * RETRO-PC STORE v3.3.1 - Main JavaScript
+ * RETRO-PC STORE v3.4.0 - Main JavaScript
  * Статический сайт для GitHub Pages / локального использования
  * Без серверных зависимостей
  */
@@ -11,13 +11,13 @@
     const DEBUG = false;
     const log = DEBUG ? console.log.bind(console) : () => {};
 
-    log('🎮 RETRO-PC STORE v3.3.1 - Initializing...');
+    log('🎮 RETRO-PC STORE v3.4.0 - Initializing...');
 
     // ================================
     // ГЛОБАЛЬНЫЙ ОБЪЕКТ ПРИЛОЖЕНИЯ
     // ================================
     window.retroApp = {
-        version: '3.3.1',
+        version: '3.4.0',
         debug: DEBUG,
         mode: 'static',
         initialized: false,
@@ -152,6 +152,17 @@
 
                 // Очищаем контейнер
                 container.innerHTML = '';
+
+                // Если товаров нет - показываем сообщение
+                if (!products || products.length === 0) {
+                    container.innerHTML = `
+                        <div class="no-products-message">
+                            Товары не найдены. Попробуйте изменить фильтры или поисковый запрос.
+                        </div>
+                    `;
+                    log('⚠️ No products to display');
+                    return;
+                }
 
                 // Создаем карточки товаров
                 const productsHTML = products.map(product => this.createProductCard(product)).join('');
@@ -429,7 +440,167 @@
                 });
             }
 
+            // Поиск товаров
+            const searchInput = document.getElementById('product-search');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    this.filterProducts();
+                });
+            }
+            
+            // Фильтр по категории
+            const categoryFilter = document.getElementById('category-filter');
+            if (categoryFilter) {
+                categoryFilter.addEventListener('change', () => {
+                    this.filterProducts();
+                });
+            }
+            
+            // Сортировка
+            const sortSelect = document.getElementById('sort-select');
+            if (sortSelect) {
+                sortSelect.addEventListener('change', () => {
+                    this.filterProducts();
+                });
+            }
+            
+            // Кнопка сброса фильтров
+            const resetButton = document.getElementById('reset-filters');
+            if (resetButton) {
+                resetButton.addEventListener('click', () => {
+                    this.resetFilters();
+                });
+            }
+
             log('🎯 Event listeners initialized');
+        },
+
+        /**
+         * Фильтрация и сортировка товаров
+         */
+        filterProducts: function() {
+            try {
+                const searchTerm = document.getElementById('product-search')?.value.toLowerCase() || '';
+                const categoryFilter = document.getElementById('category-filter')?.value || 'all';
+                const sortOption = document.getElementById('sort-select')?.value || 'default';
+                
+                // Фильтруем товары
+                let filteredProducts = this.products.filter(product => {
+                    const title = (product.name || product.title || '').toLowerCase();
+                    const description = (product.description || '').toLowerCase();
+                    const category = product.category || 'other';
+                    
+                    // Проверка поиска
+                    const matchesSearch = searchTerm === '' || 
+                                        title.includes(searchTerm) || 
+                                        description.includes(searchTerm);
+                    
+                    // Проверка категории
+                    const matchesCategory = categoryFilter === 'all' || category === categoryFilter;
+                    
+                    return matchesSearch && matchesCategory;
+                });
+                
+                // Сортируем товары
+                filteredProducts = this.sortProducts(filteredProducts, sortOption);
+                
+                // Отображаем отфильтрованные товары
+                this.renderProducts(filteredProducts);
+                
+                // Обновляем счетчик
+                this.updateProductCount(filteredProducts.length, this.products.length);
+                
+                log(`🔍 Filtered: ${filteredProducts.length} of ${this.products.length} products`);
+            } catch (error) {
+                console.error('❌ Error filtering products:', error);
+            }
+        },
+
+        /**
+         * Сортировка товаров
+         */
+        sortProducts: function(products, sortOption) {
+            const sorted = [...products];
+            
+            switch(sortOption) {
+                case 'price-asc':
+                    sorted.sort((a, b) => this.getNumericPrice(a) - this.getNumericPrice(b));
+                    break;
+                case 'price-desc':
+                    sorted.sort((a, b) => this.getNumericPrice(b) - this.getNumericPrice(a));
+                    break;
+                case 'year-asc':
+                    sorted.sort((a, b) => this.getYear(a) - this.getYear(b));
+                    break;
+                case 'year-desc':
+                    sorted.sort((a, b) => this.getYear(b) - this.getYear(a));
+                    break;
+                case 'name-asc':
+                    sorted.sort((a, b) => {
+                        const nameA = (a.name || a.title || '').toLowerCase();
+                        const nameB = (b.name || b.title || '').toLowerCase();
+                        return nameA.localeCompare(nameB);
+                    });
+                    break;
+                case 'name-desc':
+                    sorted.sort((a, b) => {
+                        const nameA = (a.name || a.title || '').toLowerCase();
+                        const nameB = (b.name || b.title || '').toLowerCase();
+                        return nameB.localeCompare(nameA);
+                    });
+                    break;
+                default:
+                    // По умолчанию - оригинальный порядок
+                    break;
+            }
+            
+            return sorted;
+        },
+
+        /**
+         * Получаем числовую цену из строки
+         */
+        getNumericPrice: function(product) {
+            const priceStr = product.price || product.currentPrice || '0';
+            const match = priceStr.match(/[\d.]+/);
+            return match ? parseFloat(match[0]) : 0;
+        },
+
+        /**
+         * Получаем год выпуска
+         */
+        getYear: function(product) {
+            return parseInt(product.year || product.yearManufactured || '0');
+        },
+
+        /**
+         * Сброс всех фильтров
+         */
+        resetFilters: function() {
+            const searchInput = document.getElementById('product-search');
+            const categoryFilter = document.getElementById('category-filter');
+            const sortSelect = document.getElementById('sort-select');
+            
+            if (searchInput) searchInput.value = '';
+            if (categoryFilter) categoryFilter.value = 'all';
+            if (sortSelect) sortSelect.value = 'default';
+            
+            this.filterProducts();
+            log('🔄 Filters reset');
+        },
+
+        /**
+         * Обновляем счетчик товаров
+         */
+        updateProductCount: function(shown, total) {
+            const countElement = document.getElementById('product-count');
+            if (countElement) {
+                if (shown === total) {
+                    countElement.textContent = `Показано товаров: ${total}`;
+                } else {
+                    countElement.textContent = `Показано ${shown} из ${total} товаров`;
+                }
+            }
         },
 
         /**

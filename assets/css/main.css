@@ -1325,3 +1325,166 @@ body.production::after {
         font-size: 0.85rem;
     }
 }
+
+/* ================================
+   ПАНЕЛЬ УПРАВЛЕНИЯ ТОВАРАМИ
+   ================================ */
+
+.product-controls {
+    background: rgba(0, 170, 0, 0.05);
+    border: 2px solid var(--terminal-dim);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    align-items: flex-end;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1 1 200px;
+    min-width: 180px;
+}
+
+.control-label {
+    font-family: var(--font-pixel);
+    font-size: 0.7rem;
+    color: var(--terminal-primary);
+    letter-spacing: 1px;
+}
+
+.control-input,
+.control-select {
+    background: var(--terminal-bg);
+    color: var(--terminal-primary);
+    border: 2px solid var(--terminal-dim);
+    padding: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.control-input:focus,
+.control-select:focus {
+    border-color: var(--terminal-primary);
+    box-shadow: 0 0 10px var(--terminal-glow);
+}
+
+.control-input::placeholder {
+    color: var(--terminal-dim);
+    opacity: 0.7;
+}
+
+.control-select {
+    cursor: pointer;
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--terminal-primary) 50%),
+                      linear-gradient(135deg, var(--terminal-primary) 50%, transparent 50%);
+    background-position: calc(100% - 15px) center, calc(100% - 10px) center;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+    padding-right: 2.5rem;
+}
+
+.control-select option {
+    background: var(--terminal-bg);
+    color: var(--terminal-primary);
+}
+
+.control-button {
+    background: transparent;
+    color: var(--terminal-primary);
+    border: 2px solid var(--terminal-primary);
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-pixel);
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    height: 47px;
+}
+
+.control-button:hover {
+    background: var(--terminal-primary);
+    color: var(--terminal-bg);
+    box-shadow: 0 0 15px var(--terminal-glow);
+    transform: scale(1.05);
+}
+
+.control-button:active {
+    transform: scale(0.95);
+}
+
+/* Product Count */
+.product-count {
+    text-align: center;
+    font-family: var(--font-pixel);
+    font-size: 0.8rem;
+    color: var(--terminal-dim);
+    margin-bottom: var(--spacing-lg);
+    padding: 0.5rem;
+    border: 1px dashed var(--terminal-dim);
+    background: rgba(0, 170, 0, 0.03);
+}
+
+/* Адаптив для панели управления */
+@media (max-width: 768px) {
+    .product-controls {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+    
+    .control-group {
+        min-width: 100%;
+    }
+    
+    .control-label {
+        font-size: 0.65rem;
+    }
+    
+    .control-input,
+    .control-select,
+    .control-button {
+        font-size: 0.9rem;
+    }
+}
+
+/* Анимация появления товаров */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.product-card {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+/* Состояние "не найдено" */
+.no-products-message {
+    text-align: center;
+    padding: var(--spacing-xxl);
+    color: var(--terminal-dim);
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    border: 2px dashed var(--terminal-dim);
+    background: rgba(0, 170, 0, 0.05);
+    margin: var(--spacing-xl) 0;
+}
+
+.no-products-message::before {
+    content: "⚠️ ";
+    font-size: 2rem;
+    display: block;
+    margin-bottom: var(--spacing-md);
+}
+

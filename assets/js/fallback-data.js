@@ -4,7 +4,7 @@
         name: "Intel 8086 CPU",
         price: "$89.99",
         description: "Легендарный 16-битный процессор 1978 года. Основа IBM PC и начало эры x86.",
-        category: "processors",
+        category: "cpu",
         image: "assets/img/Intel_8086-2.jpg",
         condition: "Used - Excellent",
         year: "1978"
@@ -14,7 +14,7 @@
         name: "Intel 8088 CPU",
         price: "$79.99",
         description: "Процессор IBM PC (1981). 8-битная внешняя шина данных, совместим с 8086.",
-        category: "processors",
+        category: "cpu",
         image: "assets/img/Intel_8088-2.jpg",
         condition: "Used - Good",
         year: "1979"
@@ -24,7 +24,7 @@
         name: "Intel 8087 FPU",
         price: "$129.99",
         description: "Математический сопроцессор для 8086/8088. Ускорение вычислений до 100 раз!",
-        category: "processors",
+        category: "cpu",
         image: "assets/img/Intel_8087.jpg",
         condition: "Used - Excellent",
         year: "1980"
@@ -34,7 +34,7 @@
         name: "Intel 80286 CPU",
         price: "$119.99",
         description: "16-битный процессор IBM PC AT. Защищённый режим, до 16 МБ памяти.",
-        category: "processors",
+        category: "cpu",
         image: "assets/img/Intel_80286.svg",
         condition: "New Old Stock",
         year: "1982"
@@ -44,7 +44,7 @@
         name: "IBM PC 5150 Motherboard",
         price: "$299.99",
         description: "Оригинальная материнская плата IBM PC 5150. Intel 8088 @ 4.77 МГц.",
-        category: "motherboards",
+        category: "motherboard",
         image: "assets/img/IBM_PC_5150_Motherboard.svg",
         condition: "Used - Fair",
         year: "1981"
@@ -64,7 +64,7 @@
         name: "CGA Video Card",
         price: "$89.99",
         description: "IBM Color Graphics Adapter. Режимы 320x200 (4 цвета) или 640x200 монохром.",
-        category: "video",
+        category: "graphics",
         image: "assets/img/CGA_Card.svg",
         condition: "Used - Excellent",
         year: "1981"
@@ -74,7 +74,7 @@
         name: "MDA Video Card",
         price: "$69.99",
         description: "Monochrome Display Adapter. Текстовый режим 80x25, зелёный монохром.",
-        category: "video",
+        category: "graphics",
         image: "assets/img/MDA_Card.svg",
         condition: "Used - Good",
         year: "1981"
@@ -104,7 +104,7 @@
         name: "IBM PC XT Case",
         price: "$199.99",
         description: "Оригинальный корпус IBM PC XT. Металл, блок питания 135W, 8 слотов ISA.",
-        category: "cases",
+        category: "other",
         image: "assets/img/IBM_PC_XT_Case.svg",
         condition: "Used - Fair",
         year: "1983"
@@ -114,7 +114,7 @@
         name: "PC Speaker",
         price: "$19.99",
         description: "Монофонический динамик для IBM PC. 1-битный звук через порт 61h. BEEP!",
-        category: "audio",
+        category: "other",
         image: "assets/img/PC_Speaker.svg",
         condition: "Used - Good",
         year: "1981"

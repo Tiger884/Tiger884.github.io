@@ -143,6 +143,60 @@
         <section id="products" aria-labelledby="products-title">
             <h2 id="products-title" class="section-title">Винтажные компоненты</h2>
             
+            <!-- Product Controls Panel -->
+            <div class="product-controls" role="region" aria-label="Управление товарами">
+                <!-- Search Box -->
+                <div class="control-group">
+                    <label for="product-search" class="control-label">[ПОИСК]:</label>
+                    <input type="text" 
+                           id="product-search" 
+                           class="control-input" 
+                           placeholder="Введите название товара..."
+                           aria-label="Поиск товаров">
+                </div>
+                
+                <!-- Category Filter -->
+                <div class="control-group">
+                    <label for="category-filter" class="control-label">[КАТЕГОРИЯ]:</label>
+                    <select id="category-filter" class="control-select" aria-label="Фильтр по категориям">
+                        <option value="all">ВСЕ ТОВАРЫ</option>
+                        <option value="cpu">ПРОЦЕССОРЫ</option>
+                        <option value="motherboard">МАТЕРИНСКИЕ ПЛАТЫ</option>
+                        <option value="memory">ПАМЯТЬ</option>
+                        <option value="graphics">ВИДЕОКАРТЫ</option>
+                        <option value="peripherals">ПЕРИФЕРИЯ</option>
+                        <option value="storage">НАКОПИТЕЛИ</option>
+                        <option value="other">ПРОЧЕЕ</option>
+                    </select>
+                </div>
+                
+                <!-- Sort Options -->
+                <div class="control-group">
+                    <label for="sort-select" class="control-label">[СОРТИРОВКА]:</label>
+                    <select id="sort-select" class="control-select" aria-label="Сортировка товаров">
+                        <option value="default">ПО УМОЛЧАНИЮ</option>
+                        <option value="price-asc">ЦЕНА: ПО ВОЗРАСТАНИЮ</option>
+                        <option value="price-desc">ЦЕНА: ПО УБЫВАНИЮ</option>
+                        <option value="year-asc">ГОД: СТАРЫЕ → НОВЫЕ</option>
+                        <option value="year-desc">ГОД: НОВЫЕ → СТАРЫЕ</option>
+                        <option value="name-asc">НАЗВАНИЕ: А → Я</option>
+                        <option value="name-desc">НАЗВАНИЕ: Я → А</option>
+                    </select>
+                </div>
+                
+                <!-- Reset Button -->
+                <div class="control-group">
+                    <button id="reset-filters" class="control-button" aria-label="Сбросить все фильтры">
+                        [СБРОС]
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Product Count -->
+            <div id="product-count" class="product-count" role="status" aria-live="polite">
+                Загрузка товаров...
+            </div>
+            
             <!-- AdSense: В контенте (In-feed Ad) -->
             <div class="ad-container ad-infeed" aria-label="Реклама">
                 <ins class="adsbygoogle"
@@ -195,7 +249,7 @@
             
             <div class="footer-info">
                 <p>Винтажные компоненты эпохи 80-х в современном исполнении</p>
-                <p>Версия сайта <span id="app-version">3.3.2</span></p>
+                <p>Версия сайта <span id="app-version">3.4.0</span></p>
             </div>
         </div>
         

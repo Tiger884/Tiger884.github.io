@@ -1,6 +1,6 @@
 {
   "name": "retro-pc-store",
-  "version": "3.3.2",
+  "version": "3.4.0",
   "description": "Демонстрационный магазин винтажных компонентов с динамической Wiki-системой",
   "type": "module",
   "scripts": {
