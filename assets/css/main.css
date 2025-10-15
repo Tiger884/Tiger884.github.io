@@ -9,9 +9,9 @@
 
 :root[data-theme="green"], :root {
     --terminal-bg: #0D0D0D;
-    --terminal-primary: #33FF33;
-    --terminal-secondary: #00FF00;
-    --terminal-dim: #00AA00;
+    --terminal-primary: #33ff33;
+    --terminal-secondary: #00ff00;
+    --terminal-dim: #00aa00;
     --terminal-glow: rgba(51, 255, 51, 0.5);
     --terminal-shadow: rgba(51, 255, 51, 0.3);
     --font-mono: 'VT323', 'Courier New', monospace;

@@ -27,38 +27,48 @@
          * Инициализация приложения
          */
         init: function() {
-            log('⚡ Initializing Retro-PC Store...');
-            
-            // Загружаем демо-данные
-            this.loadDemoProducts();
-            
-            // Настраиваем переключатель темы
-            this.setupThemeToggle();
-            
-            // Настраиваем модальное окно wiki
-            this.setupWikiModal();
-            
-            // Обработчики событий
-            this.setupEventListeners();
-            
-            this.initialized = true;
-            log('✅ Retro-PC Store initialized successfully!');
-            log('📦 Products loaded:', this.products.length);
+            try {
+                log('⚡ Initializing Retro-PC Store...');
+                
+                // Загружаем демо-данные
+                this.loadDemoProducts();
+                
+                // Настраиваем переключатель темы
+                this.setupThemeToggle();
+                
+                // Настраиваем модальное окно wiki
+                this.setupWikiModal();
+                
+                // Обработчики событий
+                this.setupEventListeners();
+                
+                this.initialized = true;
+                log('✅ Retro-PC Store initialized successfully!');
+                log('📦 Products loaded:', this.products.length);
+            } catch (error) {
+                console.error('❌ Initialization error:', error);
+                throw error;
+            }
         },
 
         /**
          * Загружаем демонстрационные товары из fallback-data.js
          */
         loadDemoProducts: function() {
-            log('📦 Loading demo products...');
-            
-            // Используем fallbackProducts из fallback-data.js
-            if (window.fallbackProducts && window.fallbackProducts.length > 0) {
-                this.products = window.fallbackProducts;
-                log('✅ Loaded', this.products.length, 'products from fallback data');
-                this.renderProducts(this.products);
-            } else {
-                console.warn('⚠️ No fallback products found, loading inline demo data');
+            try {
+                log('📦 Loading demo products...');
+                
+                // Используем fallbackProducts из fallback-data.js
+                if (window.fallbackProducts && window.fallbackProducts.length > 0) {
+                    this.products = window.fallbackProducts;
+                    log('✅ Loaded', this.products.length, 'products from fallback data');
+                    this.renderProducts(this.products);
+                } else {
+                    console.warn('⚠️ No fallback products found, loading inline demo data');
+                    this.loadInlineDemoProducts();
+                }
+            } catch (error) {
+                console.error('❌ Error loading products:', error);
                 this.loadInlineDemoProducts();
             }
         },
@@ -133,20 +143,24 @@
          * Рендерим товары на странице
          */
         renderProducts: function(products) {
-            const container = document.getElementById('products-container');
-            if (!container) {
-                console.error('❌ Products container not found!');
-                return;
+            try {
+                const container = document.getElementById('products-container');
+                if (!container) {
+                    console.error('❌ Products container not found!');
+                    return;
+                }
+
+                // Очищаем контейнер
+                container.innerHTML = '';
+
+                // Создаем карточки товаров
+                const productsHTML = products.map(product => this.createProductCard(product)).join('');
+                container.innerHTML = productsHTML;
+
+                log('✅ Rendered', products.length, 'product cards');
+            } catch (error) {
+                console.error('❌ Render error:', error);
             }
-
-            // Очищаем контейнер
-            container.innerHTML = '';
-
-            // Создаем карточки товаров
-            const productsHTML = products.map(product => this.createProductCard(product)).join('');
-            container.innerHTML = productsHTML;
-
-            log('✅ Rendered', products.length, 'product cards');
         },
 
         /**
@@ -233,27 +247,28 @@
          * Просмотр детальной информации о товаре
          */
         viewProduct: function(productId) {
-            const product = this.products.find(p => p.id == productId);
-            if (!product) {
-                console.warn('⚠️ Product not found:', productId);
-                return;
-            }
+            try {
+                const product = this.products.find(p => p.id == productId);
+                if (!product) {
+                    console.warn('⚠️ Product not found:', productId);
+                    return;
+                }
 
-            // Поддержка обоих форматов данных
-            const title = product.name || product.title;
-            const price = product.price || product.currentPrice;
-            const brand = product.brand || 'Intel';
-            const year = product.year || product.yearManufactured;
-            const imageUrl = product.image || product.images?.jpg || product.images?.webp;
+                // Поддержка обоих форматов данных
+                const title = product.name || product.title;
+                const price = product.price || product.currentPrice;
+                const brand = product.brand || 'Intel';
+                const year = product.year || product.yearManufactured;
+                const imageUrl = product.image || product.images?.jpg || product.images?.webp;
 
-            log('👁️ Viewing product:', title);
-            
-            // Создаём модальное окно
-            const modal = document.createElement('div');
-            modal.className = 'product-modal';
-            modal.setAttribute('role', 'dialog');
-            modal.setAttribute('aria-modal', 'true');
-            modal.setAttribute('aria-labelledby', 'product-modal-title');
+                log('👁️ Viewing product:', title);
+                
+                // Создаём модальное окно
+                const modal = document.createElement('div');
+                modal.className = 'product-modal';
+                modal.setAttribute('role', 'dialog');
+                modal.setAttribute('aria-modal', 'true');
+                modal.setAttribute('aria-labelledby', 'product-modal-title');
             
             modal.innerHTML = `
                 <div class="product-modal-overlay" onclick="this.parentElement.remove()"></div>
@@ -306,6 +321,9 @@
                 }
             };
             document.addEventListener('keydown', closeOnEsc);
+            } catch (error) {
+                console.error('❌ Error displaying product:', error);
+            }
         },
 
         /**
