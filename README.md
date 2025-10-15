@@ -143,7 +143,7 @@ npm run preview  # Preview build
 
 ## 🎯 Демо
 
-**Онлайн:** [GitHub Pages](https://tiger884.github.io/RETRO-PC-STORE/)  
+**Онлайн:** [GitHub Pages](https://tiger884.github.io/)  
 **Локально:** Откройте `index.html`  
 **Плейсхолдеры:** `placeholder-demo.html`
 
@@ -154,3 +154,4 @@ npm run preview  # Preview build
 Создано с ❤️ для демонстрации навыков веб-разработки
 
 [Документация](docs/) • [Changelog](CHANGELOG.md) • [License](LICENSE)
+

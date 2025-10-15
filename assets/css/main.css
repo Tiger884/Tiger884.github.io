@@ -1206,3 +1206,113 @@ body.production::after {
         transform: translateY(0);
     }
 }
+
+/* ================================
+   GDPR COOKIE CONSENT BANNER
+   ================================ */
+
+.cookie-consent {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.95);
+    border-top: 2px solid var(--terminal-primary);
+    box-shadow: 0 -5px 30px var(--terminal-glow);
+    padding: var(--spacing-lg);
+    z-index: 10000;
+    animation: slideUp 0.5s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.cookie-consent-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-lg);
+}
+
+.cookie-consent-text {
+    color: var(--terminal-primary);
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+    flex: 1;
+}
+
+.cookie-consent-text a {
+    color: var(--terminal-secondary);
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.cookie-consent-text a:hover {
+    color: var(--terminal-primary);
+    text-shadow: 0 0 10px var(--terminal-glow);
+}
+
+.cookie-consent-buttons {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.cookie-btn {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    cursor: pointer;
+    border: 2px solid var(--terminal-primary);
+    transition: all 0.3s ease;
+    min-width: 120px;
+}
+
+.cookie-accept {
+    background: var(--terminal-primary);
+    color: var(--terminal-bg);
+}
+
+.cookie-accept:hover {
+    box-shadow: 0 0 20px var(--terminal-glow);
+    transform: scale(1.05);
+}
+
+.cookie-decline {
+    background: transparent;
+    color: var(--terminal-primary);
+}
+
+.cookie-decline:hover {
+    background: rgba(51, 255, 51, 0.1);
+}
+
+/* Адаптив для мобильных */
+@media (max-width: 768px) {
+    .cookie-consent-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .cookie-consent-buttons {
+        width: 100%;
+        flex-direction: column;
+    }
+    
+    .cookie-btn {
+        width: 100%;
+    }
+    
+    .cookie-consent-text {
+        font-size: 0.85rem;
+    }
+}

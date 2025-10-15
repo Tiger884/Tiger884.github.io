@@ -4,26 +4,27 @@
     
     <!-- Главная страница -->
     <url>
-        <loc>https://tiger884.github.io/RETRO-PC-STORE/</loc>
+        <loc>https://tiger884.github.io/</loc>
         <lastmod>2025-10-15</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
         
         <!-- Изображения товаров -->
         <image:image>
-            <image:loc>https://tiger884.github.io/RETRO-PC-STORE/assets/img/Intel_8086-2.jpg</image:loc>
+            <image:loc>https://tiger884.github.io/assets/img/Intel_8086-2.jpg</image:loc>
             <image:title>Intel 8086 CPU - Винтажный процессор 1978 года</image:title>
         </image:image>
         
         <image:image>
-            <image:loc>https://tiger884.github.io/RETRO-PC-STORE/assets/img/Intel_8088-2.jpg</image:loc>
+            <image:loc>https://tiger884.github.io/assets/img/Intel_8088-2.jpg</image:loc>
             <image:title>Intel 8088 CPU - Процессор IBM PC</image:title>
         </image:image>
         
         <image:image>
-            <image:loc>https://tiger884.github.io/RETRO-PC-STORE/assets/img/Intel_8087.jpg</image:loc>
+            <image:loc>https://tiger884.github.io/assets/img/Intel_8087.jpg</image:loc>
             <image:title>Intel 8087 FPU - Математический сопроцессор</image:title>
         </image:image>
     </url>
     
 </urlset>
+
