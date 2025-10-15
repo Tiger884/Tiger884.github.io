@@ -233,41 +233,79 @@
          * Просмотр детальной информации о товаре
          */
         viewProduct: function(productId) {
-            const product = this.products.find(p => p.id === productId);
+            const product = this.products.find(p => p.id == productId);
             if (!product) {
                 console.warn('⚠️ Product not found:', productId);
                 return;
             }
 
-            log('👁️ Viewing product:', product.title);
-            
-            // Формируем детальную информацию
-            let specsHTML = '<div class="modal-specs">';
-            if (product.specifications) {
-                specsHTML += '<h4>📋 Технические характеристики:</h4><ul>';
-                Object.entries(product.specifications).forEach(([key, value]) => {
-                    specsHTML += `<li><strong>${this.formatSpecKey(key)}:</strong> ${value}</li>`;
-                });
-                specsHTML += '</ul>';
-            }
-            specsHTML += '</div>';
+            // Поддержка обоих форматов данных
+            const title = product.name || product.title;
+            const price = product.price || product.currentPrice;
+            const brand = product.brand || 'Intel';
+            const year = product.year || product.yearManufactured;
+            const imageUrl = product.image || product.images?.jpg || product.images?.webp;
 
-            const message = `
-                <div class="product-detail-modal">
-                    <h3>${product.title}</h3>
-                    <div class="detail-meta">
-                        <p><strong>🏭 Производитель:</strong> ${product.brand}</p>
-                        <p><strong>📅 Год выпуска:</strong> ${product.yearManufactured}</p>
-                        <p><strong>💰 Цена:</strong> ${product.currentPrice}</p>
-                        <p><strong>📦 Состояние:</strong> ${product.condition}</p>
-                        <p><strong>📍 Местоположение:</strong> ${product.location}</p>
+            log('👁️ Viewing product:', title);
+            
+            // Создаём модальное окно
+            const modal = document.createElement('div');
+            modal.className = 'product-modal';
+            modal.setAttribute('role', 'dialog');
+            modal.setAttribute('aria-modal', 'true');
+            modal.setAttribute('aria-labelledby', 'product-modal-title');
+            
+            modal.innerHTML = `
+                <div class="product-modal-overlay" onclick="this.parentElement.remove()"></div>
+                <div class="product-modal-content">
+                    <button class="product-modal-close" onclick="this.closest('.product-modal').remove()" aria-label="Закрыть">×</button>
+                    
+                    <div class="product-modal-body">
+                        <div class="product-modal-image">
+                            ${imageUrl ? `<img src="${imageUrl}" alt="${title}" loading="lazy">` : this.createImagePlaceholder(title)}
+                        </div>
+                        
+                        <div class="product-modal-info">
+                            <h3 id="product-modal-title">${title}</h3>
+                            
+                            <div class="product-modal-price">${price}</div>
+                            
+                            <div class="product-modal-details">
+                                <p><strong>🏭 Производитель:</strong> ${brand}</p>
+                                <p><strong>📅 Год выпуска:</strong> ${year}</p>
+                                <p><strong>� Состояние:</strong> ${product.condition}</p>
+                                ${product.category ? `<p><strong>� Категория:</strong> ${product.category}</p>` : ''}
+                            </div>
+                            
+                            ${product.description ? `
+                                <div class="product-modal-description">
+                                    <h4>� Описание:</h4>
+                                    <p>${product.description}</p>
+                                </div>
+                            ` : ''}
+                            
+                            <div class="product-modal-notice">
+                                ⚠️ Это демонстрационная версия. Товар недоступен для покупки.
+                            </div>
+                            
+                            <button class="product-modal-button" onclick="this.closest('.product-modal').remove()">
+                                [ЗАКРЫТЬ]
+                            </button>
+                        </div>
                     </div>
-                    ${specsHTML}
-                    <p class="demo-notice">⚠️ Это демонстрационная версия. Товар недоступен для покупки.</p>
                 </div>
             `;
             
-            alert(message.replace(/<[^>]*>/g, '\n').replace(/\n+/g, '\n').trim());
+            document.body.appendChild(modal);
+            
+            // Закрытие по ESC
+            const closeOnEsc = (e) => {
+                if (e.key === 'Escape') {
+                    modal.remove();
+                    document.removeEventListener('keydown', closeOnEsc);
+                }
+            };
+            document.addEventListener('keydown', closeOnEsc);
         },
 
         /**

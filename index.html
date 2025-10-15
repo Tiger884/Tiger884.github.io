@@ -38,6 +38,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="RETRO-PC STORE">
     
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1691296642139028"
+     crossorigin="anonymous"></script>
+    
     <!-- Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -109,11 +113,37 @@
         -------------------------------------------------------------------------------
     </div>
     
+    <!-- AdSense: Верхний баннер (Horizontal Banner) -->
+    <div class="ad-container ad-top" aria-label="Реклама">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-1691296642139028"
+             data-ad-slot="1234567890"
+             data-ad-format="horizontal"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    
     <!-- Main Content -->
     <main id="main-content" class="main-content" role="main">
         <!-- Products Section -->
         <section id="products" aria-labelledby="products-title">
             <h2 id="products-title" class="section-title">Винтажные компоненты</h2>
+            
+            <!-- AdSense: В контенте (In-feed Ad) -->
+            <div class="ad-container ad-infeed" aria-label="Реклама">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-format="fluid"
+                     data-ad-layout-key="-fb+5w+4e-db+86"
+                     data-ad-client="ca-pub-1691296642139028"
+                     data-ad-slot="9876543210"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
             
             <!-- Products will be loaded here by JavaScript -->
             <div id="products-container" role="region" aria-live="polite" aria-label="Список винтажных товаров">
@@ -124,6 +154,19 @@
             </div>
         </section>
     </main>
+    
+    <!-- AdSense: Нижний баннер (Bottom Banner) -->
+    <div class="ad-container ad-bottom" aria-label="Реклама">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-1691296642139028"
+             data-ad-slot="5555555555"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
     
     <!-- Footer -->
     <footer class="site-footer" role="contentinfo">
