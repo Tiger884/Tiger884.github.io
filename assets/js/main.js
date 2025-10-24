@@ -83,17 +83,12 @@
                     title: "Intel 8086 CPU - Vintage 16-bit Processor (1978)",
                     currentPrice: "$89.99",
                     condition: "Used - Excellent",
-                    location: "Silicon Valley, CA",
                     brand: "Intel",
                     yearManufactured: "1978",
+                    category: "cpu",
                     images: {
                         jpg: "assets/img/Intel_8086-2.jpg",
                         alt: "Микропроцессор Intel 8086 16-бит"
-                    },
-                    specifications: {
-                        architecture: "x86 16-bit",
-                        frequency: "5-10 MHz",
-                        transistors: "29,000"
                     }
                 },
                 {
@@ -101,17 +96,12 @@
                     title: "Intel 8088 CPU - IBM PC Compatible Processor",
                     currentPrice: "$75.50",
                     condition: "Used - Good",
-                    location: "Austin, TX",
                     brand: "Intel",
                     yearManufactured: "1979",
+                    category: "cpu",
                     images: {
                         jpg: "assets/img/Intel_8088-2.jpg",
                         alt: "Микропроцессор Intel 8088"
-                    },
-                    specifications: {
-                        architecture: "x86 16-bit",
-                        frequency: "4.77-8 MHz",
-                        dataWidth: "16-bit internal, 8-bit external"
                     }
                 },
                 {
@@ -119,23 +109,17 @@
                     title: "Intel 8087 Math Coprocessor FPU",
                     currentPrice: "$125.00",
                     condition: "Used - Very Good",
-                    location: "Portland, OR",
                     brand: "Intel",
                     yearManufactured: "1980",
+                    category: "cpu",
                     images: {
                         jpg: "assets/img/Intel_8087.jpg",
                         alt: "Intel 8087 сопроцессор"
-                    },
-                    specifications: {
-                        architecture: "x87 FPU",
-                        dataTypes: "32, 64, 80-bit floating point",
-                        standards: "IEEE 754"
                     }
                 }
             ];
 
-            this.products = inlineProducts;
-            log('✅ Loaded', this.products.length, 'inline demo products');
+            log('⚠️ Loaded fallback inline products:', this.products.length);
             this.renderProducts(this.products);
         },
 
@@ -228,16 +212,6 @@
                     </div>
                 </article>
             `;
-        },
-
-        /**
-         * Форматируем ключи спецификаций
-         */
-        formatSpecKey: function(key) {
-            return key
-                .replace(/([A-Z])/g, ' $1')
-                .replace(/^./, str => str.toUpperCase())
-                .trim();
         },
 
         /**

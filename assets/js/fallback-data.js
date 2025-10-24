@@ -1,4 +1,10 @@
-﻿window.fallbackProducts = [
+﻿/**
+ * RETRO-PC STORE v3.4.0 - Product Data
+ * Статические данные товаров для каталога
+ * 12 винтажных компонентов эпохи Intel 8086
+ */
+
+window.fallbackProducts = [
     {
         id: 1,
         name: "Intel 8086 CPU",
