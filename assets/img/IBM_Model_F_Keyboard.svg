@@ -1,9 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="IBM Model F Keyboard">
+  <defs>
+    <filter id="keyGlow">
+      <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <linearGradient id="keyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2a2a2a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1a1a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
   <!-- Background -->
   <rect width="400" height="300" fill="#0D0D0D"/>
   
-  <!-- Keyboard Body -->
-  <rect x="20" y="80" width="360" height="140" fill="#2a2a2a" stroke="#33ff33" stroke-width="3" rx="8"/>
+  <!-- Keyboard Body with shadow -->
+  <rect x="22" y="82" width="360" height="140" fill="#1a1a1a" opacity="0.3"/>
+  <rect x="20" y="80" width="360" height="140" fill="url(#keyGrad)" stroke="#33ff33" stroke-width="3" rx="8" filter="url(#keyGlow)"/>
   
   <!-- Function Keys Row -->
   <g fill="#1a1a1a" stroke="#33ff33" stroke-width="1">
