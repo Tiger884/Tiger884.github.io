@@ -17,9 +17,6 @@
     <meta name="language" content="Russian">
     <meta name="revisit-after" content="7 days">
     
-    <!-- Google AdSense Verification -->
-    <meta name="google-adsense-account" content="ca-pub-1691296642139028">
-    
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="RETRO-PC STORE - Винтажные компьютеры эпохи Intel 8086">
@@ -46,10 +43,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="RETRO-PC STORE">
-    
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1691296642139028"
-     crossorigin="anonymous"></script>
     
     <!-- Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -124,19 +117,6 @@
         -------------------------------------------------------------------------------
     </div>
     
-    <!-- AdSense: Верхний баннер (Horizontal Banner) -->
-    <div class="ad-container ad-top" aria-label="Реклама">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-1691296642139028"
-             data-ad-slot="1234567890"
-             data-ad-format="horizontal"
-             data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
-    
     <!-- Main Content -->
     <main id="main-content" class="main-content" role="main">
         <!-- Products Section -->
@@ -197,19 +177,6 @@
                 Загрузка товаров...
             </div>
             
-            <!-- AdSense: В контенте (In-feed Ad) -->
-            <div class="ad-container ad-infeed" aria-label="Реклама">
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-format="fluid"
-                     data-ad-layout-key="-fb+5w+4e-db+86"
-                     data-ad-client="ca-pub-1691296642139028"
-                     data-ad-slot="9876543210"></ins>
-                <script>
-                     (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-            </div>
-            
             <!-- Products will be loaded here by JavaScript -->
             <div id="products-container" role="region" aria-live="polite" aria-label="Список винтажных товаров">
                 <div class="loading-message" role="status" aria-live="polite">
@@ -219,19 +186,6 @@
             </div>
         </section>
     </main>
-    
-    <!-- AdSense: Нижний баннер (Bottom Banner) -->
-    <div class="ad-container ad-bottom" aria-label="Реклама">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-1691296642139028"
-             data-ad-slot="5555555555"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
     
     <!-- Footer -->
     <footer class="site-footer" role="contentinfo">
@@ -426,57 +380,5 @@
     <!-- Scripts - порядок важен! -->
     <script src="assets/js/fallback-data.js"></script>
     <script src="assets/js/main.js?v=1760530944"></script>
-    
-    <!-- GDPR Cookie Consent Banner -->
-    <div id="cookie-consent" class="cookie-consent" style="display: none;">
-        <div class="cookie-consent-content">
-            <p class="cookie-consent-text">
-                🍪 Этот сайт использует cookies и Google AdSense для персонализации рекламы. 
-                Продолжая использовать сайт, вы соглашаетесь с 
-                <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">политикой обработки данных</a>.
-            </p>
-            <div class="cookie-consent-buttons">
-                <button id="cookie-accept" class="cookie-btn cookie-accept">Принять</button>
-                <button id="cookie-decline" class="cookie-btn cookie-decline">Отклонить</button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Cookie Consent Script -->
-    <script>
-        (function() {
-            const consentBanner = document.getElementById('cookie-consent');
-            const acceptBtn = document.getElementById('cookie-accept');
-            const declineBtn = document.getElementById('cookie-decline');
-            
-            // Проверяем, есть ли уже согласие
-            const consent = localStorage.getItem('cookie-consent');
-            
-            if (!consent) {
-                // Показываем баннер если нет согласия
-                consentBanner.style.display = 'block';
-            }
-            
-            // Обработчик принятия
-            acceptBtn.addEventListener('click', function() {
-                localStorage.setItem('cookie-consent', 'accepted');
-                consentBanner.style.display = 'none';
-                // Загружаем AdSense рекламу
-                if (window.adsbygoogle) {
-                    window.adsbygoogle.push({});
-                }
-            });
-            
-            // Обработчик отклонения
-            declineBtn.addEventListener('click', function() {
-                localStorage.setItem('cookie-consent', 'declined');
-                consentBanner.style.display = 'none';
-                // Скрываем рекламные блоки
-                document.querySelectorAll('.ad-container').forEach(function(ad) {
-                    ad.style.display = 'none';
-                });
-            });
-        })();
-    </script>
 </body>
 </html>

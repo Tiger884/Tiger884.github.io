@@ -411,14 +411,6 @@
                     addTest('seo-tests', 'sitemap.xml существует', false);
                 }
                 
-                // ads.txt
-                try {
-                    const adsResponse = await fetch('ads.txt');
-                    addTest('seo-tests', 'ads.txt существует (AdSense)', adsResponse.ok);
-                } catch {
-                    addTest('seo-tests', 'ads.txt существует (AdSense)', false);
-                }
-                
             } catch (error) {
                 log(`Ошибка тестирования SEO: ${error.message}`, 'error');
             }
