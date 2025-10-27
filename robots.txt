@@ -4,12 +4,6 @@
 User-agent: *
 Allow: /
 
-# Заборонено для всіх роботів (чутливі директорії)
-Disallow: /functions/
-Disallow: /.netlify/
-Disallow: /admin/
-Disallow: /private/
-
 # Спеціальні правила для популярних роботів
 User-agent: Googlebot
 Allow: /assets/css/

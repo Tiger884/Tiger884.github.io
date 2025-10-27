@@ -472,10 +472,7 @@ self.addEventListener('fetch', (event) => {
     // Determine strategy based on resource type
     let strategy;
     
-    if (url.pathname.includes('/api/') || url.hostname.includes('ebay.com')) {
-        // API requests - Stale While Revalidate
-        strategy = () => NetworkStrategies.staleWhileRevalidate(request, API_CACHE);
-    } else if (url.pathname.includes('/assets/im/')) {
+    if (url.pathname.includes('/assets/im/')) {
         // Images - Cache First
         strategy = () => NetworkStrategies.cacheFirst(request, CACHE_NAME);
     } else if (url.pathname.includes('/assets/')) {
